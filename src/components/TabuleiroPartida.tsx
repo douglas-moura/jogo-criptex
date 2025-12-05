@@ -1,45 +1,20 @@
 import { View, Text, StyleSheet } from "react-native"
+import { palavras } from "../../db/dicas_palavras"
 import BoxLetra from "./BoxLetra"
 
 export default function TabuleiroPartida() {
     return (
         <View style={styles.tabuleiro}>
-            <View style={styles.tabuleiroLinha}>
-                <Text style={styles.linhaDica}>Campo da frase da dica</Text>
-                <View style={styles.linhaLetras}>
-                    <BoxLetra />
-                    <BoxLetra />
-                    <BoxLetra />
-                    <BoxLetra />
-                    <BoxLetra />
-                    <BoxLetra />
-                    <BoxLetra />
+            {palavras.map((item, index) => (
+                <View style={styles.tabuleiroLinha} key={index}>
+                    <Text style={styles.linhaDica}>{item.dica}</Text>
+                    <View style={styles.linhaLetras}>
+                        {Array.from({ length: item.qtd_letras }).map((_, i) => (
+                            <BoxLetra key={i} />
+                        ))}
+                    </View>
                 </View>
-            </View>
-            <View style={styles.tabuleiroLinha}>
-                <Text style={styles.linhaDica}>Campo da frase da dica</Text>
-                <View style={styles.linhaLetras}>
-                    <BoxLetra />
-                    <BoxLetra />
-                    <BoxLetra />
-                    <BoxLetra />
-                    <BoxLetra />
-                    <BoxLetra />
-                    <BoxLetra />
-                </View>
-            </View>
-            <View style={styles.tabuleiroLinha}>
-                <Text style={styles.linhaDica}>Campo da frase da dica</Text>
-                <View style={styles.linhaLetras}>
-                    <BoxLetra />
-                    <BoxLetra />
-                    <BoxLetra />
-                    <BoxLetra />
-                    <BoxLetra />
-                    <BoxLetra />
-                    <BoxLetra />
-                </View>
-            </View>
+            ))}
         </View>
     )
 }
@@ -66,6 +41,6 @@ const styles = StyleSheet.create({
     linhaLetras: {
         width: '60%',
         flexDirection: 'row',
-        justifyContent: 'flex-end'
+        justifyContent: 'flex-start'
     }
 })
