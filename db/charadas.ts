@@ -1,12 +1,14 @@
-import { Questao } from "../src/types/interfaces"
+import { Charada } from "../src/types/interfaces"
 
-export const palavras: Questao[] = [
+export const charadas: Charada[] = [
     {
+        id: 1,
         dica: "Capital da França",
         qtd_letras: 5,
-        resposta: "PARIS"
+        resposta: "PARIS",
     },
     {
+        id: 2,
         dica: "Maior planeta do sistema solar",
         qtd_letras: 7,
         resposta: "JUPITER"

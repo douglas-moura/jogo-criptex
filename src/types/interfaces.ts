@@ -1,5 +1,13 @@
-export interface Questao {
+export interface Charada {
+    id: number;
     dica: string;
     qtd_letras: number;
     resposta: string;
+    letras?: LetraCharada[];
+    caract?: number;
+}
+
+export interface LetraCharada {
+    caracter: string;
+    simbolo: number;
 }

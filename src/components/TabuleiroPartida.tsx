@@ -1,16 +1,26 @@
 import { View, Text, StyleSheet } from "react-native"
-import { palavras } from "../../db/dicas_palavras"
+import { dividirPalavra } from "../functions/dividirPalavra"
+import { charadas } from "../../db/charadas"
+import { Partida } from "../types/classes"
 import BoxLetra from "./BoxLetra"
 
 export default function TabuleiroPartida() {
+    const partida = new Partida(1, charadas)
+    const partidaLetras = partida.getLetras()
+    console.log('letras partida', partidaLetras)
+
     return (
         <View style={styles.tabuleiro}>
-            {palavras.map((item, index) => (
+            {partida.getCharadas().map((item, index) => (
                 <View style={styles.tabuleiroLinha} key={index}>
                     <Text style={styles.linhaDica}>{item.dica}</Text>
                     <View style={styles.linhaLetras}>
-                        {Array.from({ length: item.qtd_letras }).map((_, i) => (
-                            <BoxLetra key={i} />
+                        {dividirPalavra(item.resposta).map((letra, index) => (
+                            partidaLetras.map((l, indexL) => {
+                                if (l.caracter === letra) {
+                                    return <BoxLetra key={index} letra={letra} caract={l.simbolo} />
+                                }
+                            })
                         ))}
                     </View>
                 </View>
