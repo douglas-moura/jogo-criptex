@@ -8,6 +8,7 @@ export interface Charada {
 }
 
 export interface LetraCharada {
-    caracter: string;
+    letra: string;
     simbolo: number;
+    acerto: boolean;
 }

@@ -47,10 +47,11 @@ export class Partida {
 
         const letrasArrayUnif = embaralharArray([...new Set(letrasArray)])
 
-        letrasArrayUnif.map((caract, index) => {
+        letrasArrayUnif.map((letra, index) => {
             this.letras.push({
-                caracter: caract,
-                simbolo: index + 1
+                letra: letra,
+                simbolo: index + 1,
+                acerto: false
             })
         })
     }

@@ -2,28 +2,32 @@ import { View, Text, StyleSheet } from "react-native"
 import { dividirPalavra } from "../functions/dividirPalavra"
 import { charadas } from "../../db/charadas"
 import { Partida } from "../types/classes"
+import { useJogo } from '../context/JogoContext'
 import BoxLetra from "./BoxLetra"
+import { useMemo } from "react"
 
 export default function TabuleiroPartida() {
-    const partida = new Partida(1, charadas)
+    const partida = useMemo(() => new Partida(1, charadas), [])
     const partidaLetras = partida.getLetras()
-    console.log('letras partida', partidaLetras)
+    console.log('Renderizou tabuleiro')
 
     return (
         <View style={styles.tabuleiro}>
             {partida.getCharadas().map((item, index) => (
-                <View style={styles.tabuleiroLinha} key={index}>
-                    <Text style={styles.linhaDica}>{item.dica}</Text>
-                    <View style={styles.linhaLetras}>
-                        {dividirPalavra(item.resposta).map((letra, index) => (
-                            partidaLetras.map((l, indexL) => {
-                                if (l.caracter === letra) {
-                                    return <BoxLetra key={index} letra={letra} caract={l.simbolo} />
-                                }
-                            })
-                        ))}
+                dividirPalavra(item.resposta).length == item.qtd_letras && dividirPalavra(item.resposta).length == 7 ?
+                    <View style={styles.tabuleiroLinha} key={index}>
+                        <Text style={styles.linhaDica}>{item.dica}</Text>
+                        <View style={styles.linhaLetras}>
+                            {dividirPalavra(item.resposta).map((letra, index) => (
+                                partidaLetras.map((l, indexL) => {
+                                    if (l.letra === letra) {
+                                        return <BoxLetra key={indexL} letra={l.letra} simb={l.simbolo} />
+                                    }
+                                })
+                            ))}
+                        </View>
                     </View>
-                </View>
+                : null
             ))}
         </View>
     )
@@ -43,10 +47,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderWidth: 1,
         borderColor: '#000',
+        gap: 6,
     },
     linhaDica: {
         width: '40%',
-        fontSize: 12,
+        fontSize: 10,
     },
     linhaLetras: {
         width: '60%',
