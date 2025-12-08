@@ -30,6 +30,10 @@ export function JogoProvider({ children }: JogoProviderProps) {
     const [tempo, setTempo] = useState(0)
     const [acertos, setAcertos] = useState<string[]>([])
 
+    setTimeout(() => {
+        if (start) setTempo(tempo + 1)
+    }, 1000)
+
     return (
         <JogoContext.Provider value={{ start, setStart, pontos, setPontos, tempo, setTempo, acertos, setAcertos }}>
             {children}

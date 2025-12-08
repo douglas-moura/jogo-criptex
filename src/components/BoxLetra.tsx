@@ -43,7 +43,7 @@ export default function BoxLetra({letra, simb}: {letra: string, simb: number}) {
                     width: '100%',
                     padding: 0,
                     textAlign: 'center',
-                    backgroundColor: value == '' ? 'white' : statusLetra ? 'lightgreen' : 'red'
+                    backgroundColor: value == '' ? '#efefef' : statusLetra ? 'lightgreen' : 'red'
                 }} maxLength={1} value={value} onChange={handleChange} editable={!statusLetra} />
             </View>
             <Text style={{

@@ -5,6 +5,7 @@ import { Charada, LetraCharada } from "./interfaces"
 export class Partida {
     private id: number
     private charadas: Charada[]
+    private dificuldade: string = 'facil'
     private letras: LetraCharada[] = []
 
     constructor(id: number, charadas: Charada[]) {
@@ -27,6 +28,14 @@ export class Partida {
 
     public setCharadas(charadasArray: Charada[]): void {
         this.charadas = charadasArray
+    }
+
+    public getDificuldade(): string {
+        return this.dificuldade
+    }
+
+    public setDificuldade(dificuldade: string): void {
+        this.dificuldade = dificuldade
     }
 
     public getLetras(): LetraCharada[] {

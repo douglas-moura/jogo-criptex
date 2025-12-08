@@ -1,15 +1,13 @@
 import { View, Text, StyleSheet } from "react-native"
+import { useMemo } from "react"
 import { dividirPalavra } from "../functions/dividirPalavra"
 import { charadas } from "../../db/charadas"
 import { Partida } from "../types/classes"
-import { useJogo } from '../context/JogoContext'
 import BoxLetra from "./BoxLetra"
-import { useMemo } from "react"
 
 export default function TabuleiroPartida() {
     const partida = useMemo(() => new Partida(1, charadas), [])
     const partidaLetras = partida.getLetras()
-    console.log('Renderizou tabuleiro')
 
     return (
         <View style={styles.tabuleiro}>
@@ -47,7 +45,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderWidth: 1,
         borderColor: '#000',
-        gap: 6,
+        gap: 2,
     },
     linhaDica: {
         width: '40%',
@@ -56,6 +54,6 @@ const styles = StyleSheet.create({
     linhaLetras: {
         width: '60%',
         flexDirection: 'row',
-        justifyContent: 'flex-start'
+        justifyContent: 'flex-end'
     }
 })
