@@ -1,12 +1,13 @@
 import { View, Text, TextInput, NativeSyntheticEvent, TextInputChangeEventData } from "react-native"
 import { useJogo } from "../context/JogoContext"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 
 function checarLetra(letraPalpite: string, letraCerta: string): boolean {
     return letraPalpite.toLocaleUpperCase() == letraCerta.toLocaleUpperCase()
 }
 
 export default function BoxLetra({letra, simb}: {letra: string, simb: number}) {
+    //const inputRef = useRef<TextInput>(null)
     const {acertos, setAcertos} = useJogo()
     const [value, setValue] = useState('')
     const [statusLetra, setStatusLetra] = useState<boolean>(acertos.includes(letra))
@@ -44,7 +45,7 @@ export default function BoxLetra({letra, simb}: {letra: string, simb: number}) {
                     padding: 0,
                     textAlign: 'center',
                     backgroundColor: value == '' ? '#efefef' : statusLetra ? 'lightgreen' : 'red'
-                }} maxLength={1} value={value} onChange={handleChange} editable={!statusLetra} />
+                }} maxLength={1} value={value} onChange={handleChange} editable={!statusLetra}  />
             </View>
             <Text style={{
                 fontSize: 10,

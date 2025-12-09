@@ -1,37 +1,13 @@
-import { View, Text, StyleSheet } from "react-native"
-import { useEffect, useMemo, useState } from "react"
+import { View, Text, StyleSheet, KeyboardAvoidingView, Platform, ScrollView } from "react-native"
+import { useEffect } from "react"
 import { dividirPalavra } from "../functions/dividirPalavra"
 import { charadas } from "../../db/charadas"
 import { Partida } from "../types/classes"
 import { useJogo } from "../context/JogoContext"
 import { contarAcertos } from "../functions/contarAcertos"
 import { useNavigation } from "@react-navigation/native"
+import { filtrarCharadasPorDificuldade } from "../functions/filtrarCharadasPorDificuldade"
 import BoxLetra from "./BoxLetra"
-import { Charada } from "../types/interfaces"
-
-const separarCharadasDificuldade = (arrayCharadas: Charada[], diff: string): Charada[] => {
-    const newArray: Charada[] = []
-    let numeroLetras: number = 0
-
-    switch (diff) {
-        case 'Fácil':
-            numeroLetras = 4
-            break
-
-        case 'Médio':
-            numeroLetras = 6
-            break
-            
-        case 'Difícil':
-            numeroLetras = 8
-            break
-    }
-
-    arrayCharadas.map((charada, index) => {
-        if (charada.qtd_letras == numeroLetras) newArray.push(charada)
-    }) 
-    return newArray
-}
 
 export default function TabuleiroPartida() {
     const { partida, setPartida, acertos, encerrarPartida, dificuldadeSelecionada } = useJogo()
@@ -39,45 +15,54 @@ export default function TabuleiroPartida() {
 
     // Inicializa a partida apenas uma vez no mount
     useEffect(() => {
-        const p = new Partida(new Date().getTime(), separarCharadasDificuldade(charadas, dificuldadeSelecionada), dificuldadeSelecionada)
+        const p = new Partida(new Date().getTime(), filtrarCharadasPorDificuldade(charadas, dificuldadeSelecionada), dificuldadeSelecionada)
         setPartida(p)
-        console.log(p.getDificuldade())
         return () => setPartida(null)
     }, [setPartida])
 
     useEffect(() => {
         if (partida && partida.getLetras().length == contarAcertos(acertos)) {
             encerrarPartida()
-            setPartida(null)
-            setTimeout(() => navigation.navigate("Parabens" as never), 1000)
+            setTimeout(() => {
+                setPartida(null)
+                navigation.navigate("Parabens" as never)
+            }, 300)
         }
     }, [acertos, partida, encerrarPartida, navigation, setPartida])
 
     return (
-        <View style={styles.tabuleiro}>
-            {partida?.getCharadas().map((item, index) => (
-                dividirPalavra(item.resposta).length == item.qtd_letras /*&& dividirPalavra(item.resposta).length == 7*/ ?
-                    <View style={styles.tabuleiroLinha} key={index}>
-                        <Text style={styles.linhaDica}>{item.dica}</Text>
-                        <View style={styles.linhaLetras}>
-                            {dividirPalavra(item.resposta).map((letra, index) => (
-                                partida.getLetras().map((l, indexL) => {
-                                    if (l.letra === letra) {
-                                        return <BoxLetra key={indexL} letra={l.letra} simb={l.simbolo} />
-                                    }
-                                })
-                            ))}
+        <KeyboardAvoidingView 
+            style={{ flex: 1 }} 
+            behavior={Platform.OS === "ios" ? "padding" : undefined}
+        >
+            <ScrollView
+                contentContainerStyle={styles.tabuleiro}
+                keyboardShouldPersistTaps="always"
+            >
+                {partida?.getCharadas().map((item, index) => (
+                    dividirPalavra(item.resposta).length == item.qtd_letras /*&& dividirPalavra(item.resposta).length == 7*/ ?
+                        <View style={styles.tabuleiroLinha} key={index}>
+                            <Text style={styles.linhaDica}>{item.dica}</Text>
+                            <View style={styles.linhaLetras}>
+                                {dividirPalavra(item.resposta).map((letra, index) => (
+                                    partida.getLetras().map((l, indexL) => {
+                                        if (l.letra === letra) {
+                                            return <BoxLetra key={indexL} letra={l.letra} simb={l.simbolo} />
+                                        }
+                                    })
+                                ))}
+                            </View>
                         </View>
-                    </View>
-                : null
-            ))}
-        </View>
+                    : null
+                ))}
+            </ScrollView>
+        </KeyboardAvoidingView>
     )
 }
 
 const styles = StyleSheet.create({
     tabuleiro: {
-        flex: 1,
+        //flex: 1,
         borderWidth: 1,
         borderColor: 'red',
         width: 350
