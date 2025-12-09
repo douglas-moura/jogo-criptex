@@ -1,18 +1,39 @@
 import { View, Text, StyleSheet } from "react-native"
-import { useMemo } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { dividirPalavra } from "../functions/dividirPalavra"
 import { charadas } from "../../db/charadas"
 import { Partida } from "../types/classes"
+import { useJogo } from "../context/JogoContext"
+import { contarAcertos } from "../functions/contarAcertos"
+import { useNavigation } from "@react-navigation/native"
 import BoxLetra from "./BoxLetra"
 
 export default function TabuleiroPartida() {
-    const partida = useMemo(() => new Partida(1, charadas), [])
-    const partidaLetras = partida.getLetras()
+    let partida: Partida | null = useMemo(() => new Partida(new Date().getTime(), charadas), [])
+    const [partidaAtual, setPartidaAtual] = useState<Partida | null>(partida)
+    const partidaLetras = partidaAtual ? partidaAtual.getLetras() : []
+    const partidaCharadas = partidaAtual ? partidaAtual.getCharadas() : []
+    console.log("letras tot:", partidaAtual ? partidaAtual.getId() : null, partidaLetras.length);
+
+    partidaLetras.map((l, index) => {
+        //console.log("letra:",index, l.letra)
+    })
+    
+    const { acertos, encerrarPartida } = useJogo()
+    const navigation = useNavigation<any>()
+
+    useEffect(() => {
+        if (partidaLetras.length == contarAcertos(acertos)) {
+            encerrarPartida()
+            setPartidaAtual(null)
+            setTimeout(navigation.navigate("Parabens" as never), 1000)
+        }
+    }, [acertos])
 
     return (
         <View style={styles.tabuleiro}>
-            {partida.getCharadas().map((item, index) => (
-                dividirPalavra(item.resposta).length == item.qtd_letras && dividirPalavra(item.resposta).length == 7 ?
+            {partidaCharadas.map((item, index) => (
+                dividirPalavra(item.resposta).length == item.qtd_letras /*&& dividirPalavra(item.resposta).length == 7*/ ?
                     <View style={styles.tabuleiroLinha} key={index}>
                         <Text style={styles.linhaDica}>{item.dica}</Text>
                         <View style={styles.linhaLetras}>

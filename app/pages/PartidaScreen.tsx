@@ -7,11 +7,9 @@ import TabuleiroPartida from "../../src/components/TabuleiroPartida"
 import numToTime from "../../src/functions/numToTime"
 
 export default function PartidaScreen() {
-    const { start, setStart, tempo } = useJogo()
-
-    useEffect(() => {
-        setStart(true)
-    }, [start])
+    const { setStart, tempo, resetarJogo } = useJogo()
+    useEffect(() => { setTimeout(() => setStart(true), 500) }, [])
+    const encerrarPartida = () => resetarJogo()
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -20,6 +18,7 @@ export default function PartidaScreen() {
                     icone="arrow-back-outline"
                     texto="Voltar"
                     destino="Voltar"
+                    onClick={encerrarPartida}
                 />
             </View>
             <View style={{ alignItems: 'center' }}>

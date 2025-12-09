@@ -10,7 +10,7 @@ export class Partida {
 
     constructor(id: number, charadas: Charada[]) {
         this.id = id
-        this.charadas = charadas
+        this.charadas = embaralharArray(charadas).slice(0, 2)
         this.gerarCharadasTabuleiro()
     }
 
@@ -63,5 +63,10 @@ export class Partida {
                 acerto: false
             })
         })
+    }
+
+    public limparPartida(): void {
+        this.letras = []
+        this.charadas = []
     }
 }

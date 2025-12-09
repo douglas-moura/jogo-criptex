@@ -1,6 +1,4 @@
-import { createContext, useContext, useState, ReactNode } from 'react'
-import { LetraCharada } from '../types/interfaces'
-import { useEffect } from 'react'
+import { createContext, useContext, useState, ReactNode, useEffect } from 'react'
 
 export type JogoContextType = {
     start: boolean
@@ -14,6 +12,10 @@ export type JogoContextType = {
 
     acertos: string[]
     setAcertos: React.Dispatch<React.SetStateAction<string[]>>
+
+    resetarJogo: () => void
+
+    encerrarPartida: () => void
 }
 
 export type JogoProviderProps = {
@@ -30,12 +32,31 @@ export function JogoProvider({ children }: JogoProviderProps) {
     const [tempo, setTempo] = useState(0)
     const [acertos, setAcertos] = useState<string[]>([])
 
-    setTimeout(() => {
-        if (start) setTempo(tempo + 1)
-    }, 1000)
+    useEffect(() => {
+        setTimeout(() => {
+            start ? setTempo(tempo + 1) : setTempo(0)
+            console.log("acertos: ", acertos.length)
+        }, 1000)
+    }, [start, tempo, acertos])
+
+    const resetarJogo = () => {
+        if (start) {
+            setStart(false)
+            setPontos(0)
+            setTempo(0)
+            setAcertos([])
+        }
+    }
+
+    const encerrarPartida = () => {
+        setStart(false)
+        setPontos(0)
+        setTempo(tempo)
+        setAcertos([])
+    }
 
     return (
-        <JogoContext.Provider value={{ start, setStart, pontos, setPontos, tempo, setTempo, acertos, setAcertos }}>
+        <JogoContext.Provider value={{ start, setStart, pontos, setPontos, tempo, setTempo, acertos, setAcertos, resetarJogo, encerrarPartida }}>
             {children}
         </JogoContext.Provider>
     )

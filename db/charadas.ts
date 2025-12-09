@@ -34,7 +34,7 @@ export const charadas: Charada[] = [
     {
         id: 6,
         dica: "Local onde você pede pizza e come no bairro",
-        qtd_letras: 7,
+        qtd_letras: 8,
         resposta: "PIZZARIA",
     },
     {

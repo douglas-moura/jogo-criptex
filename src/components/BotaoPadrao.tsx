@@ -1,15 +1,19 @@
-import { View, Text, Pressable, StyleSheet } from "react-native"
+import { Text, Pressable, StyleSheet } from "react-native"
 import { useNavigation } from "@react-navigation/native"
 import { Ionicons } from '@expo/vector-icons'
 
 type IconName = keyof typeof Ionicons.glyphMap
+type funcaoExtraBotao = () => void
 
-export default function BotaoPadrao({ texto, destino, icone, type }: { texto: string; destino: string; icone?: IconName, type?: string }): React.ReactElement {
+export default function BotaoPadrao({ texto, destino, icone, type, onClick }: { texto: string; destino?: string; icone?: IconName, type?: string, onClick?: funcaoExtraBotao }): React.ReactElement {
     const navigation = useNavigation<any>()
 
-    if (destino === "Voltar") {
+    if (destino == "Voltar") {
         return (
-            <Pressable onPress={() => navigation.goBack()} style={styles.botao}>
+            <Pressable onPress={() => {
+                if (onClick) onClick()
+                navigation.goBack()
+            }} style={styles.botao}>
                 <Ionicons style={styles.botaoIcone} name={icone ?? 'help-outline'} size={16} />
                 <Text style={styles.botaoTexto}>Voltar</Text>
             </Pressable>
@@ -17,7 +21,10 @@ export default function BotaoPadrao({ texto, destino, icone, type }: { texto: st
     } else {
         return (
             <Pressable
-                onPress={() => navigation.navigate(destino as never)}
+                onPress={() => {
+                    if (onClick) onClick()
+                    setTimeout(() => navigation.navigate(destino as never), 500)
+                }}
                 style={[styles.botao, type == 'primario' ? styles.botaoEstiloPrimario : styles.botaoEstiloSecundario]}
             >
                 <Ionicons style={styles.botaoIcone} name={icone ?? 'help-outline'} />
@@ -31,6 +38,7 @@ const styles = StyleSheet.create({
     botao: {
         flexDirection: 'row',
         padding: 10,
+        marginVertical: 5,
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 100,
