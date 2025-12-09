@@ -5,12 +5,13 @@ import { Charada, LetraCharada } from "./interfaces"
 export class Partida {
     private id: number
     private charadas: Charada[]
-    private dificuldade: string = 'facil'
+    private dificuldade: string = ''
     private letras: LetraCharada[] = []
 
-    constructor(id: number, charadas: Charada[]) {
+    constructor(id: number, charadas: Charada[], dificuldade: string) {
         this.id = id
-        this.charadas = embaralharArray(charadas).slice(0, 2)
+        this.charadas = embaralharArray(charadas).slice(0, 12)
+        this.dificuldade = dificuldade
         this.gerarCharadasTabuleiro()
     }
 

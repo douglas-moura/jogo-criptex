@@ -7,19 +7,43 @@ import { useJogo } from "../context/JogoContext"
 import { contarAcertos } from "../functions/contarAcertos"
 import { useNavigation } from "@react-navigation/native"
 import BoxLetra from "./BoxLetra"
+import { Charada } from "../types/interfaces"
+
+const separarCharadasDificuldade = (arrayCharadas: Charada[], diff: string): Charada[] => {
+    const newArray: Charada[] = []
+    let numeroLetras: number = 0
+
+    switch (diff) {
+        case 'Fácil':
+            numeroLetras = 4
+            break
+
+        case 'Médio':
+            numeroLetras = 6
+            break
+            
+        case 'Difícil':
+            numeroLetras = 8
+            break
+    }
+
+    arrayCharadas.map((charada, index) => {
+        if (charada.qtd_letras == numeroLetras) newArray.push(charada)
+    }) 
+    return newArray
+}
 
 export default function TabuleiroPartida() {
-    const { partida, setPartida, acertos, encerrarPartida } = useJogo()
+    const { partida, setPartida, acertos, encerrarPartida, dificuldadeSelecionada } = useJogo()
     const navigation = useNavigation<any>()
 
     // Inicializa a partida apenas uma vez no mount
     useEffect(() => {
-        const p = new Partida(new Date().getTime(), charadas)
+        const p = new Partida(new Date().getTime(), separarCharadasDificuldade(charadas, dificuldadeSelecionada), dificuldadeSelecionada)
         setPartida(p)
+        console.log(p.getDificuldade())
         return () => setPartida(null)
     }, [setPartida])
-    
-    console.log("letras tot:", partida ? partida.getId() : null, partida?.getLetras().length);
 
     useEffect(() => {
         if (partida && partida.getLetras().length == contarAcertos(acertos)) {
@@ -68,7 +92,7 @@ const styles = StyleSheet.create({
         gap: 2,
     },
     linhaDica: {
-        width: '40%',
+        width: '30%',
         fontSize: 10,
     },
     linhaLetras: {

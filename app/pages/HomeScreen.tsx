@@ -1,14 +1,17 @@
-import { View, Text, Pressable } from "react-native"
+import { View, Text, StyleSheet, Pressable } from "react-native"
 import { SafeAreaView } from 'react-native-safe-area-context'
 import BotaoPadrao from "../../src/components/BotaoPadrao"
 import { useJogo } from "../../src/context/JogoContext"
+import MenuDificuldade from "../../src/components/MenuDificuldade"
+import { useState } from "react"
 
 
 export default function HomeScreen() {
     const { start, resetarJogo } = useJogo()
+    const [ diff, setDiff ] = useState<boolean>(false)
     
     const iniciarNovaPartida = () => {
-        resetarJogo()
+        setDiff(true)
     }
 
     return (
@@ -21,12 +24,28 @@ export default function HomeScreen() {
                     <BotaoPadrao
                         icone="play-outline"
                         texto="Iniciar"
-                        destino="Partida"
+                        destino="Home"
                         type="primario"
                         onClick={iniciarNovaPartida}
                     />
                 </View>
             </View>
+            <Pressable onPress={() => setDiff(false)} style={[styles.menuDificuldadeContainer, { display: diff && !start ? 'flex' : 'none' } ]}>
+                <MenuDificuldade />
+            </Pressable>
         </SafeAreaView>
     )
 }
+
+const styles = StyleSheet.create({
+    menuDificuldadeContainer: {
+        position: 'absolute',
+        padding: 24,
+        width: '100%',
+        height: '120%',
+        flexDirection: 'column',
+        justifyContent: 'flex-end',
+        alignItems: 'flex-end',
+        backgroundColor: '#161616cc'
+    }
+})

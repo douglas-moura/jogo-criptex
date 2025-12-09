@@ -14,7 +14,7 @@ export default function BotaoPadrao({ texto, destino, icone, type, onClick }: { 
                 if (onClick) onClick()
                 navigation.goBack()
             }} style={styles.botao}>
-                <Ionicons style={styles.botaoIcone} name={icone ?? 'help-outline'} size={16} />
+                {icone ? <Ionicons style={styles.botaoIcone} name={icone} size={16} /> : null }
                 <Text style={styles.botaoTexto}>Voltar</Text>
             </Pressable>
         )
@@ -27,7 +27,7 @@ export default function BotaoPadrao({ texto, destino, icone, type, onClick }: { 
                 }}
                 style={[styles.botao, type == 'primario' ? styles.botaoEstiloPrimario : styles.botaoEstiloSecundario]}
             >
-                <Ionicons style={styles.botaoIcone} name={icone ?? 'help-outline'} />
+                {icone ? <Ionicons style={styles.botaoIcone} name={icone} size={16} /> : null }
                 <Text style={styles.botaoTexto}>{texto}</Text>
             </Pressable>
         )
@@ -59,6 +59,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#fca33eff',
     },
     botaoEstiloSecundario: {
-        backgroundColor: '#DDD',
+        backgroundColor: '#f0f0f0ff',
     },
+    botaoEstiloDefault: {
+        backgroundColor: 'none'
+    }
 })

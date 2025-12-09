@@ -5,6 +5,9 @@ export type JogoContextType = {
     partida: Partida | null
     setPartida: (value: Partida | null) => void
 
+    dificuldadeSelecionada: string
+    setDificuldadeSelecionada: (value: string) => void
+
     start: boolean
     setStart: (value: boolean) => void
 
@@ -32,15 +35,15 @@ const JogoContext = createContext<JogoContextType | null>(null)
 // PROVIDER
 export function JogoProvider({ children }: JogoProviderProps) {
     const [partida, setPartida] = useState<Partida | null>(null)
-    const [start, setStart] = useState(false)
-    const [pontos, setPontos] = useState(0)
-    const [tempo, setTempo] = useState(0)
+    const [dificuldadeSelecionada, setDificuldadeSelecionada] = useState<string>('')
+    const [start, setStart] = useState<boolean>(false)
+    const [pontos, setPontos] = useState<number>(0)
+    const [tempo, setTempo] = useState<number>(0)
     const [acertos, setAcertos] = useState<string[]>([])
 
     useEffect(() => {
         setTimeout(() => {
             start ? setTempo(tempo + 1) : setTempo(0)
-            console.log("acertos: ", acertos.length)
         }, 1000)
     }, [start, tempo, acertos])
 
@@ -61,7 +64,7 @@ export function JogoProvider({ children }: JogoProviderProps) {
     }
 
     return (
-        <JogoContext.Provider value={{ partida, setPartida, start, setStart, pontos, setPontos, tempo, setTempo, acertos, setAcertos, resetarJogo, encerrarPartida }}>
+        <JogoContext.Provider value={{ partida, setPartida, dificuldadeSelecionada, setDificuldadeSelecionada, start, setStart, pontos, setPontos, tempo, setTempo, acertos, setAcertos, resetarJogo, encerrarPartida }}>
             {children}
         </JogoContext.Provider>
     )

@@ -7,7 +7,7 @@ function checarLetra(letraPalpite: string, letraCerta: string): boolean {
 }
 
 export default function BoxLetra({letra, simb}: {letra: string, simb: number}) {
-    const { acertos, setAcertos } = useJogo()
+    const {acertos, setAcertos} = useJogo()
     const [value, setValue] = useState('')
     const [statusLetra, setStatusLetra] = useState<boolean>(acertos.includes(letra))
 
