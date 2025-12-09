@@ -1,6 +1,10 @@
 import { createContext, useContext, useState, ReactNode, useEffect } from 'react'
+import { Partida } from '../types/classes'
 
 export type JogoContextType = {
+    partida: Partida | null
+    setPartida: (value: Partida | null) => void
+
     start: boolean
     setStart: (value: boolean) => void
 
@@ -27,6 +31,7 @@ const JogoContext = createContext<JogoContextType | null>(null)
 
 // PROVIDER
 export function JogoProvider({ children }: JogoProviderProps) {
+    const [partida, setPartida] = useState<Partida | null>(null)
     const [start, setStart] = useState(false)
     const [pontos, setPontos] = useState(0)
     const [tempo, setTempo] = useState(0)
@@ -56,7 +61,7 @@ export function JogoProvider({ children }: JogoProviderProps) {
     }
 
     return (
-        <JogoContext.Provider value={{ start, setStart, pontos, setPontos, tempo, setTempo, acertos, setAcertos, resetarJogo, encerrarPartida }}>
+        <JogoContext.Provider value={{ partida, setPartida, start, setStart, pontos, setPontos, tempo, setTempo, acertos, setAcertos, resetarJogo, encerrarPartida }}>
             {children}
         </JogoContext.Provider>
     )

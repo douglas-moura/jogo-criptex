@@ -9,36 +9,35 @@ import { useNavigation } from "@react-navigation/native"
 import BoxLetra from "./BoxLetra"
 
 export default function TabuleiroPartida() {
-    let partida: Partida | null = useMemo(() => new Partida(new Date().getTime(), charadas), [])
-    const [partidaAtual, setPartidaAtual] = useState<Partida | null>(partida)
-    const partidaLetras = partidaAtual ? partidaAtual.getLetras() : []
-    const partidaCharadas = partidaAtual ? partidaAtual.getCharadas() : []
-    console.log("letras tot:", partidaAtual ? partidaAtual.getId() : null, partidaLetras.length);
-
-    partidaLetras.map((l, index) => {
-        //console.log("letra:",index, l.letra)
-    })
-    
-    const { acertos, encerrarPartida } = useJogo()
+    const { partida, setPartida, acertos, encerrarPartida } = useJogo()
     const navigation = useNavigation<any>()
 
+    // Inicializa a partida apenas uma vez no mount
     useEffect(() => {
-        if (partidaLetras.length == contarAcertos(acertos)) {
+        const p = new Partida(new Date().getTime(), charadas)
+        setPartida(p)
+        return () => setPartida(null)
+    }, [setPartida])
+    
+    console.log("letras tot:", partida ? partida.getId() : null, partida?.getLetras().length);
+
+    useEffect(() => {
+        if (partida && partida.getLetras().length == contarAcertos(acertos)) {
             encerrarPartida()
-            setPartidaAtual(null)
-            setTimeout(navigation.navigate("Parabens" as never), 1000)
+            setPartida(null)
+            setTimeout(() => navigation.navigate("Parabens" as never), 1000)
         }
-    }, [acertos])
+    }, [acertos, partida, encerrarPartida, navigation, setPartida])
 
     return (
         <View style={styles.tabuleiro}>
-            {partidaCharadas.map((item, index) => (
+            {partida?.getCharadas().map((item, index) => (
                 dividirPalavra(item.resposta).length == item.qtd_letras /*&& dividirPalavra(item.resposta).length == 7*/ ?
                     <View style={styles.tabuleiroLinha} key={index}>
                         <Text style={styles.linhaDica}>{item.dica}</Text>
                         <View style={styles.linhaLetras}>
                             {dividirPalavra(item.resposta).map((letra, index) => (
-                                partidaLetras.map((l, indexL) => {
+                                partida.getLetras().map((l, indexL) => {
                                     if (l.letra === letra) {
                                         return <BoxLetra key={indexL} letra={l.letra} simb={l.simbolo} />
                                     }
