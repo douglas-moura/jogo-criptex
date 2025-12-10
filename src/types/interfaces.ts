@@ -12,3 +12,9 @@ export interface LetraCharada {
     simbolo: number;
     acerto: boolean;
 }
+
+export interface Estatistica {
+    qtd_partidas: number;
+    tempo: number;
+    pontuacao: number;
+}

@@ -1,10 +1,9 @@
 import { View, Text, StyleSheet, Pressable } from "react-native"
 import { SafeAreaView } from 'react-native-safe-area-context'
-import BotaoPadrao from "../../src/components/BotaoPadrao"
 import { useJogo } from "../../src/context/JogoContext"
-import MenuDificuldade from "../../src/components/MenuDificuldade"
 import { useState } from "react"
-
+import MenuDificuldade from "../../src/components/MenuDificuldade"
+import BotaoPadrao from "../../src/components/BotaoPadrao"
 
 export default function HomeScreen() {
     const { start, resetarJogo } = useJogo()
@@ -24,7 +23,7 @@ export default function HomeScreen() {
                     <BotaoPadrao
                         icone="play-outline"
                         texto="Iniciar"
-                        destino="Home"
+                        destino="Jogar"
                         type="primario"
                         onClick={iniciarNovaPartida}
                     />

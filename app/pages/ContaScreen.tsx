@@ -9,7 +9,7 @@ export default function ContaScreen() {
 
     return (
         <SafeAreaView style={{ flex: 1, paddingHorizontal: 20, paddingTop: 40 }}>
-            <ScrollView style={{ height: '100%' }}>
+            <ScrollView style={{ height: '100%' }} showsVerticalScrollIndicator={false} >
                 <Text style={styles.titulo_1}>Minha Conta</Text>
                 {/*<Text style={styles.titulo_3}>Olá, Nome</Text>*/}
                 <View style={styles.container}>

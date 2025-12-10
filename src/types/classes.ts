@@ -10,7 +10,7 @@ export class Partida {
 
     constructor(id: number, charadas: Charada[], dificuldade: string) {
         this.id = id
-        this.charadas = embaralharArray(charadas).slice(0, 12)
+        this.charadas = embaralharArray(charadas).slice(0, 1)
         this.dificuldade = dificuldade
         this.gerarCharadasTabuleiro()
     }
