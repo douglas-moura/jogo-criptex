@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 
 import HomeScreen from "../../app/pages/HomeScreen"
-import AjustesScreen from "../../app/pages/AjustesScreen"
+import ContaScreen from "../../app/pages/ContaScreen"
 import PartidaScreen from "../../app/pages/PartidaScreen"
 import ParabensScreen from "../../app/pages/ParabensScreen"
 
@@ -12,15 +12,15 @@ const Stack = createNativeStackNavigator()
 function Tabs() {
     return (
         <Tab.Navigator
-            initialRouteName="Home"
+            initialRouteName="Jogar"
             screenOptions={({ route }) => ({
                 headerShown: false,
                 tabBarActiveTintColor: '#e91e63',
                 tabBarInactiveTintColor: '#aaa',
             })}
         >
-            <Tab.Screen name="Home" component={HomeScreen} />
-            <Tab.Screen name="Ajustes" component={AjustesScreen} />
+            <Tab.Screen name="Jogar" component={HomeScreen} />
+            <Tab.Screen name="Minha Conta" component={ContaScreen} />
         </Tab.Navigator>
     )
 }
