@@ -12,7 +12,7 @@ const Stack = createNativeStackNavigator()
 function Tabs() {
     return (
         <Tab.Navigator
-            initialRouteName="Parabens"
+            initialRouteName="Jogar"
             screenOptions={({ route }) => ({
                 headerShown: false,
                 tabBarActiveTintColor: '#e91e63',
@@ -21,7 +21,6 @@ function Tabs() {
         >
             <Tab.Screen name="Jogar" component={HomeScreen} />
             <Tab.Screen name="Minha Conta" component={ContaScreen} />
-            <Tab.Screen name="Parabens" component={ParabensScreen} />
         </Tab.Navigator>
     )
 }
