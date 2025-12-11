@@ -1,0 +1,1 @@
+export const dificuldades = ["Fácil" , "Médio", "Díficil"]

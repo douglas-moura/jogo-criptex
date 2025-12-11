@@ -1,6 +1,6 @@
 import { Charada } from "../types/interfaces"
 
-export const filtrarCharadasPorDificuldade = (arrayCharadas: Charada[], diff: string): Charada[] => {
+export const selecionarCharadas = (arrayCharadas: Charada[], diff: string): Charada[] => {
     const novoArray: Charada[] = []
     let numeroLetras: number = 0
 

@@ -1,22 +1,27 @@
 import { View, Text, StyleSheet } from "react-native"
 import { componente } from "../styles/StylesGlobal"
+import { Estatistica } from "../types/interfaces"
+import numToTime from "../functions/numToTime"
 
-export default function EstatisticaContainer() {
+export default function EstatisticaContainer({titulo, data}: {titulo: string, data: Estatistica | null}) {
+
+    console.log(data)
+    
     return (
         <View style={styles.containerEstatisticas}>
-            <Text style={componente._titulo_3}>Fácil</Text>
+            <Text style={componente._titulo_3}>{titulo}</Text>
             <View style={styles.linhaContainer}>
                 <View>
                     <Text style={componente._texto_2}>Partidas</Text>
-                    <Text style={[componente._texto_1, { fontWeight: 900 }]}>99</Text>
+                    <Text style={[componente._texto_1, { fontWeight: 900 }]}>{data ? data.qtd_partidas : 0}</Text>
                 </View>
                 <View>
                     <Text style={componente._texto_2}>Melhor Tempo</Text>
-                    <Text style={[componente._texto_1, { fontWeight: 900 }]}>00:00</Text>
+                    <Text style={[componente._texto_1, { fontWeight: 900 }]}>{numToTime(data ? data.tempo : 0)}</Text>
                 </View>
                 <View>
                     <Text style={componente._texto_2}>Melhor Pontuação</Text>
-                    <Text style={[componente._texto_1, { fontWeight: 900 }]}>5.432</Text>
+                    <Text style={[componente._texto_1, { fontWeight: 900 }]}>{data ? data.pontuacao : 0}</Text>
                 </View>
             </View>
         </View>

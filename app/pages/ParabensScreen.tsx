@@ -3,7 +3,7 @@ import { SafeAreaView } from "react-native-safe-area-context"
 import { useJogo } from "../../src/context/JogoContext"
 import { useState, useEffect } from "react"
 import { Estatistica } from "../../src/types/interfaces"
-import { salvarDesempenho } from "../../src/functions/desempenhos"
+import { salvarDesempenho } from "../../src/functions/desempenhosFunctions"
 import BotaoPadrao from "../../src/components/BotaoPadrao"
 import numToTime from "../../src/functions/numToTime"
 

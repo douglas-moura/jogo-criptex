@@ -1,11 +1,30 @@
 import { View, Text, StyleSheet, ScrollView } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { Switch } from 'react-native-paper'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { Estatistica } from "../../src/types/interfaces"
+import { buscarDadosDesempenho } from "../../src/functions/desempenhosFunctions"
+import { dificuldades } from "../../db/desempenhos"
 import BotaoPadrao from "../../src/components/BotaoPadrao"
+import EstatisticaContainer from "../../src/components/EstatisticaContainer"
 
 export default function ContaScreen() {
     const [checked, setChecked] = useState(false)
+    const [desempFacil, setDesempFacil] = useState<Estatistica>()
+    const [desempMedio, setDesempMedio] = useState<Estatistica>()
+    const [desempDificil, setDesempDificil] = useState<Estatistica>()
+
+    useEffect(() => {
+        buscarDadosDesempenho('Fácil').then((data) => {
+            setDesempFacil(data)
+        })
+        buscarDadosDesempenho('Médio').then((data) => {
+            setDesempMedio(data)
+        })
+        buscarDadosDesempenho('Difícil').then((data) => {
+            setDesempDificil(data)
+        })
+    }, [])
 
     return (
         <SafeAreaView style={{ flex: 1, paddingHorizontal: 20, paddingTop: 40 }}>
@@ -33,57 +52,9 @@ export default function ContaScreen() {
                 </View>
                 <View style={styles.container}>
                     <Text style={styles.titulo_2}>Estatísticas</Text>
-                    <View style={styles.containerEstatisticas}>
-                        <Text style={styles.titulo_3}>Fácil</Text>
-                        <View style={styles.linhaContainer}>
-                            <View>
-                                <Text style={styles.texto_2}>Partidas</Text>
-                                <Text style={[styles.texto_1, { fontWeight: 900 }]}>99</Text>
-                            </View>
-                            <View>
-                                <Text style={styles.texto_2}>Melhor Tempo</Text>
-                                <Text style={[styles.texto_1, { fontWeight: 900 }]}>00:00</Text>
-                            </View>
-                            <View>
-                                <Text style={styles.texto_2}>Melhor Pontuação</Text>
-                                <Text style={[styles.texto_1, { fontWeight: 900 }]}>5.432</Text>
-                            </View>
-                        </View>
-                    </View>
-                    <View style={styles.containerEstatisticas}>
-                        <Text style={styles.titulo_3}>Médio</Text>
-                        <View style={styles.linhaContainer}>
-                            <View>
-                                <Text style={styles.texto_2}>Partidas</Text>
-                                <Text style={[styles.texto_1, { fontWeight: 900 }]}>99</Text>
-                            </View>
-                            <View>
-                                <Text style={styles.texto_2}>Melhor Tempo</Text>
-                                <Text style={[styles.texto_1, { fontWeight: 900 }]}>00:00</Text>
-                            </View>
-                            <View>
-                                <Text style={styles.texto_2}>Melhor Pontuação</Text>
-                                <Text style={[styles.texto_1, { fontWeight: 900 }]}>5.432</Text>
-                            </View>
-                        </View>
-                    </View>
-                    <View style={styles.containerEstatisticas}>
-                        <Text style={styles.titulo_3}>Difícil</Text>
-                        <View style={styles.linhaContainer}>
-                            <View>
-                                <Text style={styles.texto_2}>Partidas</Text>
-                                <Text style={[styles.texto_1, { fontWeight: 900 }]}>99</Text>
-                            </View>
-                            <View>
-                                <Text style={styles.texto_2}>Melhor Tempo</Text>
-                                <Text style={[styles.texto_1, { fontWeight: 900 }]}>00:00</Text>
-                            </View>
-                            <View>
-                                <Text style={styles.texto_2}>Melhor Pontuação</Text>
-                                <Text style={[styles.texto_1, { fontWeight: 900 }]}>5.432</Text>
-                            </View>
-                        </View>
-                    </View>
+                    <EstatisticaContainer titulo='Fácil' data={desempFacil ?? null} />
+                    <EstatisticaContainer titulo='Médio' data={desempMedio ?? null} />
+                    <EstatisticaContainer titulo='Difícil' data={desempDificil ?? null} />
                 </View>
                 <View style={styles.container}>
                     <BotaoPadrao

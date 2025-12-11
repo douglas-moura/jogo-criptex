@@ -2,8 +2,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 import { Estatistica } from "../types/interfaces"
 
 export const salvarDesempenho = async (chave: string, dados: Estatistica) => {
-    const keys = await AsyncStorage.getAllKeys() // Obtém todas as chaves
-    const items = await AsyncStorage.multiGet(keys) // Obtém todos os pares chave-valor
     //await AsyncStorage.removeItem('@criptex:desempenho-fácil')
     
     chave = chave ?? 'teste'
@@ -22,8 +20,6 @@ export const salvarDesempenho = async (chave: string, dados: Estatistica) => {
         console.log("Nenhum dado encontrado:", e)
         return null
     }
-    
-    console.log("Todos os itens do AsyncStorage:", items)
 }
 
 export const compararDesempenhos = (dadosSalvos: Estatistica, dadosNovos: Estatistica): Estatistica => {
@@ -34,4 +30,17 @@ export const compararDesempenhos = (dadosSalvos: Estatistica, dadosNovos: Estati
     }
     
     return novoArrayDesempenho
+}
+
+export const buscarDadosDesempenho = async (chave: string): Promise<Estatistica | undefined> => {
+    const response = await AsyncStorage.getItem('@criptex:desempenho-' + chave.toLocaleLowerCase())
+    const data: Estatistica = response ? JSON.parse(response) : null
+
+    const desemp: Estatistica = {
+        tempo: data.tempo,
+        pontuacao: data.pontuacao,
+        qtd_partidas: data.qtd_partidas
+    }
+
+    return desemp
 }

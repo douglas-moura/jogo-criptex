@@ -6,7 +6,7 @@ import { Partida } from "../types/classes"
 import { useJogo } from "../context/JogoContext"
 import { contarAcertos } from "../functions/contarAcertos"
 import { useNavigation } from "@react-navigation/native"
-import { filtrarCharadasPorDificuldade } from "../functions/filtrarCharadasPorDificuldade"
+import { selecionarCharadas } from "../functions/selecionarCharadas"
 import BoxLetra from "./BoxLetra"
 
 export default function TabuleiroPartida() {
@@ -15,7 +15,7 @@ export default function TabuleiroPartida() {
 
     // Inicializa a partida apenas uma vez no mount
     useEffect(() => {
-        const p = new Partida(new Date().getTime(), filtrarCharadasPorDificuldade(charadas, dificuldadeSelecionada), dificuldadeSelecionada)
+        const p = new Partida(new Date().getTime(), selecionarCharadas(charadas, dificuldadeSelecionada), dificuldadeSelecionada)
         setPartida(p)
         return () => setPartida(null)
     }, [setPartida])
