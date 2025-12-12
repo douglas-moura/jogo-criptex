@@ -1,6 +1,6 @@
 import { dividirPalavra } from "../functions/dividirPalavra"
 import { embaralharArray } from "../functions/embaralharArray"
-import { Charada, LetraCharada } from "./interfaces"
+import { Charada, LetraCharada, Preferencias } from "./interfaces"
 
 export class Partida {
     private id: number
@@ -10,7 +10,7 @@ export class Partida {
 
     constructor(id: number, charadas: Charada[], dificuldade: string) {
         this.id = id
-        this.charadas = embaralharArray(charadas).slice(0, 1)
+        this.charadas = embaralharArray(charadas).slice(0, 14)
         this.dificuldade = dificuldade
         this.gerarCharadasTabuleiro()
     }
@@ -69,5 +69,35 @@ export class Partida {
     public limparPartida(): void {
         this.letras = []
         this.charadas = []
+    }
+}
+
+export class Usuario {
+    private id: number
+    private prefs: Preferencias = {
+        tema: true,
+        preenchimento: false,
+        limite_erros: true,
+        mostrar_acertos: false,
+    }
+
+    public constructor(id: number) {
+        this.id = id
+    }
+
+    public getId(): number {
+        return this.id
+    }
+
+    public setId(i: number): void {
+        this.id = i
+    }
+
+    public getPrefs(): Preferencias {
+        return this.prefs
+    }
+
+    public setPrefs(p: Preferencias): void {
+        this.prefs = p
     }
 }

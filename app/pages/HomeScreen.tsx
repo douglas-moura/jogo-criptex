@@ -1,17 +1,36 @@
 import { View, Text, StyleSheet, Pressable } from "react-native"
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useJogo } from "../../src/context/JogoContext"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import MenuDificuldade from "../../src/components/MenuDificuldade"
 import BotaoPadrao from "../../src/components/BotaoPadrao"
+import { Usuario } from "../../src/types/classes"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 export default function HomeScreen() {
-    const { start, resetarJogo } = useJogo()
+    const { start } = useJogo()
     const [ diff, setDiff ] = useState<boolean>(false)
+
     
     const iniciarNovaPartida = () => {
         setDiff(true)
     }
+    
+    const salvarUsuario = async (u: Usuario): Promise<void> => {
+        const checkUser = await AsyncStorage.getItem('@criptex:usuario')
+
+        if (!checkUser) {
+            await AsyncStorage.setItem('@criptex:usuario', JSON.stringify(u.getPrefs()))
+            console.log('User Salvo: ', await AsyncStorage.getItem('@criptex:usuario'))
+        }
+
+        console.log('User Já Presente: ', await AsyncStorage.getItem('@criptex:usuario'))
+    }
+
+    useEffect(() => {
+        const p = new Usuario(new Date().getTime())
+        salvarUsuario(p)
+    }, [salvarUsuario])
 
     return (
         <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>

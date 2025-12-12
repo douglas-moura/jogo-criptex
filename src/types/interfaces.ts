@@ -18,3 +18,10 @@ export interface Estatistica {
     tempo: number;
     pontuacao: number;
 }
+
+export interface Preferencias {
+    tema: boolean;
+    preenchimento: boolean;
+    limite_erros: boolean;
+    mostrar_acertos: boolean;
+}

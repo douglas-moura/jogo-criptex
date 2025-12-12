@@ -2,36 +2,62 @@ import { View, Text, StyleSheet, ScrollView } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { Switch } from 'react-native-paper'
 import { useEffect, useState } from 'react'
-import { Estatistica } from "../../src/types/interfaces"
+import { Estatistica, Preferencias } from "../../src/types/interfaces"
 import { buscarDadosDesempenho, excluirDesempenhos } from "../../src/functions/desempenhosFunctions"
 import { dificuldades } from "../../db/desempenhos"
+import { Usuario } from "../../src/types/classes"
+import { buscarUserPrefs, atualizarPrefsUserStorage } from "../../src/functions/userPrefsFunctions"
 import BotaoPadrao from "../../src/components/BotaoPadrao"
 import EstatisticaContainer from "../../src/components/EstatisticaContainer"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
-export default function ContaScreen() {
-    const [checked, setChecked] = useState(false)
+export default function ContaScreen() {    
+    const [checkTema, setCheckedTema] = useState<boolean>(true)
+    const [checkPreenc, setCheckPreenc] = useState<boolean>(true)
+    const [checkLimite, setCheckLimite] = useState<boolean>(true)
+    const [checkAcertos, setCheckAcertos] = useState<boolean>(true)
     const [desempFacil, setDesempFacil] = useState<Estatistica | null>(null)
     const [desempMedio, setDesempMedio] = useState<Estatistica | null>(null)
     const [desempDificil, setDesempDificil] = useState<Estatistica | null>(null)
 
+    const onClickExcluirDesempenhos = () => {        
+        excluirDesempenhos('Fácil')
+        setDesempFacil(null)
+        
+        excluirDesempenhos('Médio')
+        setDesempMedio(null)
+        
+        excluirDesempenhos('Difícil')
+        setDesempDificil(null)
+    }
+    
+    // montar a tela com dados de preferências e desempenhos
     useEffect(() => {
+        buscarUserPrefs('@criptex:usuario').then((data) => {
+            if (data) {
+                setCheckedTema(data.tema)
+                setCheckPreenc(data.preenchimento)
+                setCheckLimite(data.limite_erros)
+                setCheckAcertos(data.mostrar_acertos)
+            }
+        })        
         buscarDadosDesempenho('Fácil').then((data) => setDesempFacil(data))
         buscarDadosDesempenho('Médio').then((data) => setDesempMedio(data))
         buscarDadosDesempenho('Difícil').then((data) => setDesempDificil(data))
     }, [])
 
-    const onClickExcluirDesempenhos = () => {        
-        excluirDesempenhos('Fácil')
-        setDesempFacil(null)
-
-        excluirDesempenhos('Médio')
-        setDesempMedio(null)
-
-        excluirDesempenhos('Difícil')
-        setDesempDificil(null)
-    }
-
-    useEffect(() => {}, [desempFacil, desempMedio, desempDificil])
+    // atuliza o Storage e renderiza o layout sempre que há uma mudança nos valores de desmpenho ou preferências
+    useEffect(() => {        
+        atualizarPrefsUserStorage(checkTema, checkPreenc, checkLimite, checkAcertos)
+    }, [
+        desempFacil,
+        desempMedio,
+        desempDificil,
+        checkTema,
+        checkPreenc,
+        checkLimite,
+        checkAcertos
+    ])
 
     return (
         <SafeAreaView style={{ flex: 1, paddingHorizontal: 20, paddingTop: 40 }}>
@@ -42,19 +68,19 @@ export default function ContaScreen() {
                     <Text style={styles.titulo_2}>Preferências</Text>
                     <View style={styles.linhaContainer}>
                         <Text style={styles.texto_1}>Modo Escuro</Text>
-                        <Switch value={checked} onValueChange={() => setChecked(!checked)} />
+                        <Switch value={checkTema} onValueChange={() => setCheckedTema(!checkTema)} />
                     </View>
                     <View style={styles.linhaContainer}>
                         <Text style={styles.texto_1}>Auto Preechimento</Text>
-                        <Switch value={checked} onValueChange={() => setChecked(!checked)} />
+                        <Switch value={checkPreenc} onValueChange={() => setCheckPreenc(!checkPreenc)} />
                     </View>
                     <View style={styles.linhaContainer}>
                         <Text style={styles.texto_1}>Limite de Erros</Text>
-                        <Switch value={checked} onValueChange={() => setChecked(!checked)} />
+                        <Switch value={checkLimite} onValueChange={() => setCheckLimite(!checkLimite)} />
                     </View>
                     <View style={styles.linhaContainer}>
                         <Text style={styles.texto_1}>Mostrar de Acertos/Erros</Text>
-                        <Switch value={checked} onValueChange={() => setChecked(!checked)} />
+                        <Switch value={checkAcertos} onValueChange={() => setCheckAcertos(!checkAcertos)} />
                     </View>
                 </View>
                 <View style={styles.container}>
