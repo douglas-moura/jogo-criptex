@@ -3,10 +3,7 @@ import { componente } from "../styles/StylesGlobal"
 import { Estatistica } from "../types/interfaces"
 import numToTime from "../functions/numToTime"
 
-export default function EstatisticaContainer({titulo, data}: {titulo: string, data: Estatistica | null}) {
-
-    console.log(data)
-    
+export default function EstatisticaContainer({titulo, data}: {titulo: string, data: Estatistica | null}) {    
     return (
         <View style={styles.containerEstatisticas}>
             <Text style={componente._titulo_3}>{titulo}</Text>
@@ -20,7 +17,7 @@ export default function EstatisticaContainer({titulo, data}: {titulo: string, da
                     <Text style={[componente._texto_1, { fontWeight: 900 }]}>{numToTime(data ? data.tempo : 0)}</Text>
                 </View>
                 <View>
-                    <Text style={componente._texto_2}>Melhor Pontuação</Text>
+                    <Text style={componente._texto_2}>Maior Pontuação</Text>
                     <Text style={[componente._texto_1, { fontWeight: 900 }]}>{data ? data.pontuacao : 0}</Text>
                 </View>
             </View>

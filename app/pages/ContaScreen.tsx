@@ -3,32 +3,39 @@ import { SafeAreaView } from "react-native-safe-area-context"
 import { Switch } from 'react-native-paper'
 import { useEffect, useState } from 'react'
 import { Estatistica } from "../../src/types/interfaces"
-import { buscarDadosDesempenho } from "../../src/functions/desempenhosFunctions"
+import { buscarDadosDesempenho, excluirDesempenhos } from "../../src/functions/desempenhosFunctions"
 import { dificuldades } from "../../db/desempenhos"
 import BotaoPadrao from "../../src/components/BotaoPadrao"
 import EstatisticaContainer from "../../src/components/EstatisticaContainer"
 
 export default function ContaScreen() {
     const [checked, setChecked] = useState(false)
-    const [desempFacil, setDesempFacil] = useState<Estatistica>()
-    const [desempMedio, setDesempMedio] = useState<Estatistica>()
-    const [desempDificil, setDesempDificil] = useState<Estatistica>()
+    const [desempFacil, setDesempFacil] = useState<Estatistica | null>(null)
+    const [desempMedio, setDesempMedio] = useState<Estatistica | null>(null)
+    const [desempDificil, setDesempDificil] = useState<Estatistica | null>(null)
 
     useEffect(() => {
-        buscarDadosDesempenho('Fácil').then((data) => {
-            setDesempFacil(data)
-        })
-        buscarDadosDesempenho('Médio').then((data) => {
-            setDesempMedio(data)
-        })
-        buscarDadosDesempenho('Difícil').then((data) => {
-            setDesempDificil(data)
-        })
+        buscarDadosDesempenho('Fácil').then((data) => setDesempFacil(data))
+        buscarDadosDesempenho('Médio').then((data) => setDesempMedio(data))
+        buscarDadosDesempenho('Difícil').then((data) => setDesempDificil(data))
     }, [])
+
+    const onClickExcluirDesempenhos = () => {        
+        excluirDesempenhos('Fácil')
+        setDesempFacil(null)
+
+        excluirDesempenhos('Médio')
+        setDesempMedio(null)
+
+        excluirDesempenhos('Difícil')
+        setDesempDificil(null)
+    }
+
+    useEffect(() => {}, [desempFacil, desempMedio, desempDificil])
 
     return (
         <SafeAreaView style={{ flex: 1, paddingHorizontal: 20, paddingTop: 40 }}>
-            <ScrollView style={{ height: '100%' }} showsVerticalScrollIndicator={false} >
+            <ScrollView style={{ height: '120%' }} showsVerticalScrollIndicator={false} >
                 <Text style={styles.titulo_1}>Minha Conta</Text>
                 {/*<Text style={styles.titulo_3}>Olá, Nome</Text>*/}
                 <View style={styles.container}>
@@ -59,10 +66,12 @@ export default function ContaScreen() {
                 <View style={styles.container}>
                     <BotaoPadrao
                         texto="Excluir Dados"
+                        destino="Minha Conta"
+                        onClick={onClickExcluirDesempenhos}
                     />
                 </View>
                 <View style={{marginVertical: 20, alignItems: 'center'}}>
-                    <Text style={[styles.texto_3, {color: '#bbb'}]}>Versão 1.0.00</Text>
+                    <Text style={[styles.texto_3, {color: '#bbb'}]}>Versão 1.0.0</Text>
                 </View>
             </ScrollView>
         </SafeAreaView>

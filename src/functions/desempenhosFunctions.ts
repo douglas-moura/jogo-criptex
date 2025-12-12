@@ -3,6 +3,7 @@ import { Estatistica } from "../types/interfaces"
 
 export const salvarDesempenho = async (chave: string, dados: Estatistica) => {
     //await AsyncStorage.removeItem('@criptex:desempenho-fácil')
+    console.log(chave)
     
     chave = chave ?? 'teste'
     
@@ -32,7 +33,7 @@ export const compararDesempenhos = (dadosSalvos: Estatistica, dadosNovos: Estati
     return novoArrayDesempenho
 }
 
-export const buscarDadosDesempenho = async (chave: string): Promise<Estatistica | undefined> => {
+export const buscarDadosDesempenho = async (chave: string): Promise<Estatistica | null> => {
     const response = await AsyncStorage.getItem('@criptex:desempenho-' + chave.toLocaleLowerCase())
     const data: Estatistica = response ? JSON.parse(response) : null
 
@@ -43,4 +44,8 @@ export const buscarDadosDesempenho = async (chave: string): Promise<Estatistica 
     }
 
     return desemp
+}
+
+export const excluirDesempenhos = async (chave: string): Promise<void> => {
+    await AsyncStorage.removeItem('@criptex:desempenho-' + chave.toLocaleLowerCase())
 }
