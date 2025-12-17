@@ -1,6 +1,8 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-
+import { useEffect, useState } from "react"
+import { temas } from "../styles/StylesGlobal"
+import { useJogo } from "../context/JogoContext"
 import HomeScreen from "../../app/pages/HomeScreen"
 import ContaScreen from "../../app/pages/ContaScreen"
 import PartidaScreen from "../../app/pages/PartidaScreen"
@@ -10,6 +12,13 @@ const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
 
 function Tabs() {
+    const { prefTema } = useJogo()
+    const [ temaAtivo, setTemaAtivo ] = useState(temas.light)
+
+    useEffect(() => {
+        setTemaAtivo(prefTema ? temas.dark : temas.light)
+    }, [prefTema])
+
     return (
         <Tab.Navigator
             initialRouteName="Jogar"
@@ -17,6 +26,11 @@ function Tabs() {
                 headerShown: false,
                 tabBarActiveTintColor: '#e91e63',
                 tabBarInactiveTintColor: '#aaa',
+                tabBarStyle: {
+                    backgroundColor: temaAtivo.backgroundColor
+                },
+                //tabBarActiveBackgroundColor: temaAtivo.backgroundColor,
+                //tabBarInactiveBackgroundColor: temaAtivo.backgroundColor,
             })}
         >
             <Tab.Screen name="Jogar" component={HomeScreen} />

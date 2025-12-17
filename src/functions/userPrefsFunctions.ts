@@ -13,8 +13,6 @@ export const buscarUserPrefs = async (chave: string): Promise<Preferencias | nul
     }
 }
 
-
-    
 export const atualizarPrefsUserStorage = async (t: boolean, p: boolean, l: boolean, a: boolean): Promise<void> => {
     const novasPrefs: Preferencias = {
         tema: t,
@@ -24,5 +22,5 @@ export const atualizarPrefsUserStorage = async (t: boolean, p: boolean, l: boole
     }
     
     await AsyncStorage.setItem('@criptex:usuario', JSON.stringify(novasPrefs))
-    console.log('User atualizado: ', await AsyncStorage.getItem('@criptex:usuario'))
+    //console.log('User atualizado: ', await AsyncStorage.getItem('@criptex:usuario'))
 }

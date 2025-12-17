@@ -10,8 +10,23 @@ import { selecionarCharadas } from "../functions/selecionarCharadas"
 import BoxLetra from "./BoxLetra"
 
 export default function TabuleiroPartida() {
-    const { partida, setPartida, acertos, encerrarPartida, dificuldadeSelecionada } = useJogo()
+    const { partida, setPartida, acertos, encerrarPartida, dificuldadeSelecionada, prefAutoPreen } = useJogo()
     const navigation = useNavigation<any>()
+
+    switch (dificuldadeSelecionada) {
+        case 'Fácil':
+            var numLetraPalavras = 4
+            break;
+        case 'Médio':
+            var numLetraPalavras = 6
+            break;
+        case 'Difícil':
+            var numLetraPalavras = 8
+            break;
+        default:
+            var numLetraPalavras = 3
+            break;
+    }
 
     // Inicializa a partida apenas uma vez no mount
     useEffect(() => {
@@ -21,12 +36,22 @@ export default function TabuleiroPartida() {
     }, [setPartida])
 
     useEffect(() => {
-        if (partida && partida.getLetras().length == contarAcertos(acertos)) {
-            encerrarPartida()
-            setTimeout(() => {
-                setPartida(null)
-                navigation.navigate("Parabens" as never)
-            }, 300)
+        if (prefAutoPreen) {
+            if (partida && partida.getLetras().length == contarAcertos(acertos)) {
+                encerrarPartida()
+                setTimeout(() => {
+                    setPartida(null)
+                    navigation.navigate("Parabens" as never)
+                }, 300)
+            }
+        } else {
+            if (partida && (partida.getQtsCharadas() * numLetraPalavras) == contarAcertos(acertos)) {
+                encerrarPartida()
+                setTimeout(() => {
+                    setPartida(null)
+                    navigation.navigate("Parabens" as never)
+                }, 300)
+            }
         }
     }, [acertos, partida, encerrarPartida, navigation, setPartida])
 

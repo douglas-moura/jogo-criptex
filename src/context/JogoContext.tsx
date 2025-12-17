@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, ReactNode, useEffect } from 'react'
+import { buscarUserPrefs } from '../functions/userPrefsFunctions'
 import { Partida } from '../types/classes'
 
 export type JogoContextType = {
@@ -23,6 +24,18 @@ export type JogoContextType = {
     resetarJogo: () => void
 
     encerrarPartida: () => void
+
+    prefTema: boolean
+    setPrefTema: (value: boolean) => void
+
+    prefAutoPreen: boolean
+    setPrefAutoPreen: (value: boolean) => void
+
+    prefLimiteErros: boolean
+    setPrefLimiteErros: (value: boolean) => void
+
+    prefExibirAcertos: boolean
+    setPrefExibirAcertos: (value: boolean) => void
 }
 
 export type JogoProviderProps = {
@@ -40,12 +53,29 @@ export function JogoProvider({ children }: JogoProviderProps) {
     const [pontos, setPontos] = useState<number>(0)
     const [tempo, setTempo] = useState<number>(0)
     const [acertos, setAcertos] = useState<string[]>([])
+    const [prefTema, setPrefTema] = useState<boolean>(false)
+    const [prefAutoPreen, setPrefAutoPreen] = useState<boolean>(true)
+    const [prefLimiteErros, setPrefLimiteErros] = useState<boolean>(true)
+    const [prefExibirAcertos, setPrefExibirAcertos] = useState<boolean>(true)
 
     useEffect(() => {
         setTimeout(() => {
             start ? setTempo(tempo + 1) : setTempo(0)
         }, 1000)
+        console.log(acertos.length);
+        
     }, [start, tempo, acertos])
+
+    useEffect(() => {
+        buscarUserPrefs('@criptex:usuario').then((data) => {
+            if (data) {
+                setPrefTema(data.tema)
+                setPrefAutoPreen(data.preenchimento)
+                setPrefLimiteErros(data.limite_erros)
+                setPrefExibirAcertos(data.mostrar_acertos)
+            }
+        })
+    }, [])
 
     const resetarJogo = () => {
         if (start) {
@@ -64,7 +94,20 @@ export function JogoProvider({ children }: JogoProviderProps) {
     }
 
     return (
-        <JogoContext.Provider value={{ partida, setPartida, dificuldadeSelecionada, setDificuldadeSelecionada, start, setStart, pontos, setPontos, tempo, setTempo, acertos, setAcertos, resetarJogo, encerrarPartida }}>
+        <JogoContext.Provider value={{
+            partida, setPartida,
+            dificuldadeSelecionada,
+            setDificuldadeSelecionada,
+            start, setStart,
+            pontos, setPontos,
+            tempo, setTempo,
+            acertos, setAcertos,
+            resetarJogo, encerrarPartida,
+            prefTema, setPrefTema,
+            prefAutoPreen, setPrefAutoPreen,
+            prefLimiteErros, setPrefLimiteErros,
+            prefExibirAcertos, setPrefExibirAcertos
+        }}>
             {children}
         </JogoContext.Provider>
     )

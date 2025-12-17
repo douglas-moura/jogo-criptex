@@ -2,15 +2,20 @@ import { View, Text, StyleSheet, Pressable } from "react-native"
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useJogo } from "../../src/context/JogoContext"
 import { useEffect, useState } from "react"
+import { Usuario } from "../../src/types/classes"
+import { temas } from "../../src/styles/StylesGlobal"
 import MenuDificuldade from "../../src/components/MenuDificuldade"
 import BotaoPadrao from "../../src/components/BotaoPadrao"
-import { Usuario } from "../../src/types/classes"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
 export default function HomeScreen() {
-    const { start } = useJogo()
+    const { start, prefTema } = useJogo()
     const [ diff, setDiff ] = useState<boolean>(false)
+    const [ temaAtivo, setTemaAtivo ] = useState(temas.light)
 
+    useEffect(() => {
+        setTemaAtivo(prefTema ? temas.dark : temas.light)
+    }, [prefTema])
     
     const iniciarNovaPartida = () => {
         setDiff(true)
@@ -24,7 +29,7 @@ export default function HomeScreen() {
             console.log('User Salvo: ', await AsyncStorage.getItem('@criptex:usuario'))
         }
 
-        console.log('User Já Presente: ', await AsyncStorage.getItem('@criptex:usuario'))
+        //console.log('User Já Presente: ', await AsyncStorage.getItem('@criptex:usuario'))
     }
 
     useEffect(() => {
@@ -33,7 +38,7 @@ export default function HomeScreen() {
     }, [salvarUsuario])
 
     return (
-        <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: temaAtivo.backgroundColor }}>
             <View>
                 <View style={{ alignItems: 'center', marginBottom: 20 }}>
                     <Text style={{ fontSize: 72, fontWeight: '800' }}>CRIPTEX</Text>

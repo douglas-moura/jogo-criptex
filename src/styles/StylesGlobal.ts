@@ -26,3 +26,16 @@ export const componente = StyleSheet.create({
         fontSize: 10
     }
 })
+
+export const temaClaro = {
+    backgroundColor: '#ccc',
+}
+
+export const temaEscuro = {
+    backgroundColor: '#252525',
+}
+
+export const temas = {
+    light: temaClaro,
+    dark: temaEscuro
+}
