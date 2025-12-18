@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, ReactNode, useEffect } from 'react'
 import { buscarUserPrefs } from '../functions/userPrefsFunctions'
 import { Partida } from '../types/classes'
-import { AcertosPartida } from '../types/interfaces'
+import { AcertosPartida, TentativaPartida } from '../types/interfaces'
 
 export type JogoContextType = {
     partida: Partida | null
@@ -21,6 +21,9 @@ export type JogoContextType = {
 
     acertos: AcertosPartida
     setAcertos: React.Dispatch<React.SetStateAction<AcertosPartida>>
+
+    tentativas: TentativaPartida[]
+    setTentativas: React.Dispatch<React.SetStateAction<TentativaPartida[]>>
 
     resetarJogo: () => void
 
@@ -54,6 +57,7 @@ export function JogoProvider({ children }: JogoProviderProps) {
     const [pontos, setPontos] = useState<number>(0)
     const [tempo, setTempo] = useState<number>(0)
     const [acertos, setAcertos] = useState<AcertosPartida>({ qtd_acertos: 0, letrasAcertadas: [] })
+    const [tentativas, setTentativas] = useState<TentativaPartida[]>([])
     const [prefTema, setPrefTema] = useState<boolean>(false)
     const [prefAutoPreen, setPrefAutoPreen] = useState<boolean>(true)
     const [prefLimiteErros, setPrefLimiteErros] = useState<boolean>(true)
@@ -63,7 +67,8 @@ export function JogoProvider({ children }: JogoProviderProps) {
         setTimeout(() => {
             start ? setTempo(tempo + 1) : setTempo(0)
         }, 1000)
-        console.log(acertos, acertos.qtd_acertos);
+        console.log("acerto: ", acertos);
+        //console.log("erro: ", tentativas);
         
     }, [start, tempo, acertos])
 
@@ -101,6 +106,7 @@ export function JogoProvider({ children }: JogoProviderProps) {
             pontos, setPontos,
             tempo, setTempo,
             acertos, setAcertos,
+            tentativas, setTentativas,
             prefTema, setPrefTema,
             prefAutoPreen, setPrefAutoPreen,
             prefLimiteErros, setPrefLimiteErros,

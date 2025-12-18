@@ -8,7 +8,7 @@ function checarLetra(letraPalpite: string, letraCerta: string): boolean {
 
 export default function BoxLetra({letra, simb}: {letra: string, simb: number}) {
     //const inputRef = useRef<TextInput>(null)
-    const { acertos, setAcertos, prefAutoPreen, prefExibirAcertos } = useJogo()
+    const { acertos, setAcertos, tentativas, setTentativas, prefAutoPreen, prefExibirAcertos } = useJogo()
     const [ value, setValue ] = useState('')
     const [ statusLetra, setStatusLetra ] = useState<boolean>(acertos.letrasAcertadas.includes(letra))
     const [ historicoLetras, setHistoricoLetras ] = useState<string[]>([])
@@ -47,7 +47,15 @@ export default function BoxLetra({letra, simb}: {letra: string, simb: number}) {
                 })
             }
         } else {
-            // se a letra estava certa e o usuário errou agora, remove dos acertos
+            setTentativas(prev => [
+                ...prev,
+                {
+                    letraErrada: palpite,
+                    simbolo: simb,
+                }
+            ])
+
+            // se a letra estava certa e o usuário errou agora, remove dos acertos e do histórico
             if (historicoLetras.includes(letra)) {
                 setAcertos(prev => {
                     return {
@@ -62,12 +70,21 @@ export default function BoxLetra({letra, simb}: {letra: string, simb: number}) {
     }
     
     // AUTOPREENCHIMENTO DAS LETRAS
-    if (prefAutoPreen && prefExibirAcertos) {
-        useEffect(() => {
+    useEffect(() => {
+        if (prefAutoPreen) {
             setStatusLetra(acertos.letrasAcertadas.includes(letra))
             acertos.letrasAcertadas.includes(letra) ? setValue(letra) : null
-        }, [acertos])
-    }
+
+            if (tentativas.length > 0 && !acertos.letrasAcertadas.includes(letra)) {
+                tentativas.forEach(t => {
+                    if (t.simbolo == simb) {
+                        setValue(t.letraErrada)
+                        setStatusLetra(false)
+                    }
+                })
+            }
+        }
+    }, [acertos, tentativas])
 
     //console.log('hist: ', historicoLetras.pop());
 

@@ -42,7 +42,7 @@ export default function ContaScreen() {
 
     // atuliza o Storage e renderiza o layout sempre que há uma mudança nos valores de desempenho ou preferências
     useEffect(() => {
-        if (!prefExibirAcertos) setPrefAutoPreen(false)    
+        //if (!prefExibirAcertos) setPrefAutoPreen(false)    
         atualizarPrefsUserStorage(prefTema, prefAutoPreen, prefLimiteErros, prefExibirAcertos)
     }, [
         desempFacil,

@@ -30,3 +30,8 @@ export interface AcertosPartida {
     qtd_acertos: number,
     letrasAcertadas: string[];
 }
+
+export interface TentativaPartida {
+    letraErrada: string;
+    simbolo: number;
+}

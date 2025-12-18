@@ -36,6 +36,7 @@ export default function TabuleiroPartida() {
     }, [setPartida])
 
     useEffect(() => {
+        // Estes são os 2 modos de encerrar a partida de acordo com a preferência de autopreenchimento
         if (prefAutoPreen) {
             if (partida && partida.getLetras().length == acertos.qtd_acertos) {
                 encerrarPartida()
