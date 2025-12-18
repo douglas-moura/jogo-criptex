@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, KeyboardAvoidingView, Platform, ScrollView } from "react-native"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { dividirPalavra } from "../functions/dividirPalavra"
 import { charadas } from "../../db/charadas"
 import { Partida } from "../types/classes"
@@ -10,8 +10,9 @@ import { selecionarCharadas } from "../functions/selecionarCharadas"
 import BoxLetra from "./BoxLetra"
 
 export default function TabuleiroPartida() {
-    const { partida, setPartida, acertos, encerrarPartida, dificuldadeSelecionada, prefAutoPreen } = useJogo()
+    const { partida, setPartida, acertos, tentativas, setTentativas, encerrarPartida, dificuldadeSelecionada, prefAutoPreen, prefLimiteErros } = useJogo()
     const navigation = useNavigation<any>()
+    const [finalizada, setFinalizada] = useState(false)
 
     switch (dificuldadeSelecionada) {
         case 'Fácil':
@@ -31,30 +32,30 @@ export default function TabuleiroPartida() {
     // Inicializa a partida apenas uma vez no mount
     useEffect(() => {
         const p = new Partida(new Date().getTime(), selecionarCharadas(charadas, dificuldadeSelecionada), dificuldadeSelecionada)
+        setTentativas([])
         setPartida(p)
         return () => setPartida(null)
     }, [setPartida])
 
     useEffect(() => {
-        // Estes são os 2 modos de encerrar a partida de acordo com a preferência de autopreenchimento
-        if (prefAutoPreen) {
-            if (partida && partida.getLetras().length == acertos.qtd_acertos) {
-                encerrarPartida()
-                setTimeout(() => {
-                    setPartida(null)
-                    navigation.navigate("Parabens" as never)
-                }, 300)
-            }
-        } else {
-            if (partida && (partida.getCharadas().length * numLetraPalavras) == acertos.qtd_acertos) {
-                encerrarPartida()
-                setTimeout(() => {
-                    setPartida(null)
-                    navigation.navigate("Parabens" as never)
-                }, 300)
-            }
+        if (!partida || finalizada) return
+
+        const venceuAuto = prefAutoPreen && partida.getLetras().length === acertos.qtd_acertos
+
+        const venceuManual = !prefAutoPreen && (partida.getCharadas().length * numLetraPalavras) === acertos.qtd_acertos
+
+        const perdeu = tentativas.length >= 3 && prefLimiteErros
+
+        if (venceuAuto || venceuManual || perdeu) {
+            setFinalizada(true)
+            encerrarPartida()
+
+            setTimeout(() => {
+                setPartida(null)
+                navigation.navigate("Parabens")
+            }, 300)
         }
-    }, [acertos, partida, encerrarPartida, navigation, setPartida])
+    }, [acertos, tentativas, partida, prefAutoPreen, prefLimiteErros])
 
     return (
         <KeyboardAvoidingView 

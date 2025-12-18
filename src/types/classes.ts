@@ -7,22 +7,14 @@ export class Partida {
     private charadas: Charada[]
     private dificuldade: string = ''
     private letras: LetraCharada[] = []
-    private qts_charadas: number = 7
+    private qts_charadas: number = 3
+    private vitoria: boolean = false
 
     constructor(id: number, charadas: Charada[], dificuldade: string) {
         this.id = id
         this.charadas = embaralharArray(charadas).slice(0, this.qts_charadas)
         this.dificuldade = dificuldade
         this.gerarCharadasTabuleiro()
-        
-    }
-
-    public getQtsCharadas(): number {
-        return this.qts_charadas
-    }
-
-    public setQtsCharadas(qtd: number): void {
-        this.qts_charadas = qtd
     }
 
     public getId(): number {
@@ -37,8 +29,8 @@ export class Partida {
         return this.charadas
     }
 
-    public setCharadas(charadasArray: Charada[]): void {
-        this.charadas = charadasArray
+    public setQtsCharadas(qtd: number): void {
+        this.qts_charadas = qtd
     }
 
     public getDificuldade(): string {
@@ -55,6 +47,22 @@ export class Partida {
 
     public setLetras(letrasArray: LetraCharada[]): void {
         this.letras = letrasArray
+    }
+
+    public getQtsCharadas(): number {
+        return this.qts_charadas
+    }
+
+    public setCharadas(charadasArray: Charada[]): void {
+        this.charadas = charadasArray
+    }
+
+    public getVitoria(): boolean {
+        return this.vitoria
+    }
+
+    public setVitoria(vit: boolean): void {
+        this.vitoria = vit
     }
 
     public gerarCharadasTabuleiro(): void {

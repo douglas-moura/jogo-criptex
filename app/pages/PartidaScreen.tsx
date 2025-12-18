@@ -8,7 +8,7 @@ import TabuleiroPartida from "../../src/components/TabuleiroPartida"
 import numToTime from "../../src/functions/numToTime"
 
 export default function PartidaScreen() {
-    const { setStart, tempo, resetarJogo, prefTema } = useJogo()
+    const { setStart, tempo, tentativas, resetarJogo, prefTema, prefLimiteErros } = useJogo()
     const [ temaAtivo, setTemaAtivo ] = useState(temas.light)
 
     useEffect(() => { setTimeout(() => setStart(true), 500) }, [])
@@ -29,8 +29,9 @@ export default function PartidaScreen() {
                     onClick={encerrarPartida}
                 />
             </View>
-            <View style={{ alignItems: 'center' }}>
+            <View style={{ alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 20 }}>
                 <Text>Tempo: {numToTime(tempo)}</Text>
+                { prefLimiteErros ? <Text>Erros: {3 - tentativas.length}</Text> : null }
             </View>
             <View style={{ flex: 1, paddingVertical: 20, alignItems: 'center' }}>
                 <TabuleiroPartida />

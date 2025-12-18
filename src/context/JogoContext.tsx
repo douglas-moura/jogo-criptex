@@ -25,10 +25,6 @@ export type JogoContextType = {
     tentativas: TentativaPartida[]
     setTentativas: React.Dispatch<React.SetStateAction<TentativaPartida[]>>
 
-    resetarJogo: () => void
-
-    encerrarPartida: () => void
-
     prefTema: boolean
     setPrefTema: (value: boolean) => void
 
@@ -40,6 +36,10 @@ export type JogoContextType = {
 
     prefExibirAcertos: boolean
     setPrefExibirAcertos: (value: boolean) => void
+
+    resetarJogo: () => void
+
+    encerrarPartida: () => void
 }
 
 export type JogoProviderProps = {
@@ -67,8 +67,8 @@ export function JogoProvider({ children }: JogoProviderProps) {
         setTimeout(() => {
             start ? setTempo(tempo + 1) : setTempo(0)
         }, 1000)
-        console.log("acerto: ", acertos);
-        //console.log("erro: ", tentativas);
+        //console.log("acerto: ", acertos);
+        console.log("erro: ", tentativas, tentativas.length);
         
     }, [start, tempo, acertos])
 
@@ -89,7 +89,7 @@ export function JogoProvider({ children }: JogoProviderProps) {
             setPontos(0)
             setTempo(0)
             setAcertos({ qtd_acertos: 0, letrasAcertadas: [] })
-            setTentativas([])
+            //setTentativas([])
         }
     }
 
@@ -98,7 +98,7 @@ export function JogoProvider({ children }: JogoProviderProps) {
         setPontos(0)
         setTempo(tempo)
         setAcertos({ qtd_acertos: 0, letrasAcertadas: [] })
-        setTentativas([])
+        //setTentativas([])
     }
 
     return (

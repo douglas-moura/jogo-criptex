@@ -9,9 +9,10 @@ import BotaoPadrao from "../../src/components/BotaoPadrao"
 import numToTime from "../../src/functions/numToTime"
 
 export default function ParabensScreen() {
-    const { tempo, dificuldadeSelecionada, prefTema } = useJogo()
+    const { tempo, dificuldadeSelecionada, tentativas, prefLimiteErros, prefTema } = useJogo()
     const [ tempoFinal, setTempoFinal ] = useState(tempo)
     const [ temaAtivo, setTemaAtivo ] = useState(temas.light)
+    const [ erros, setErros ] = useState(tentativas.length)
 
     const desempenho: Estatistica = {
         qtd_partidas: 1,
@@ -20,7 +21,8 @@ export default function ParabensScreen() {
     }
 
     useEffect(() => {
-        salvarDesempenho(dificuldadeSelecionada, desempenho)
+        console.log(erros)
+        erros >= 3 && prefLimiteErros ? null : salvarDesempenho(dificuldadeSelecionada, desempenho)
     }, [])
     
     useEffect(() => {
@@ -29,8 +31,8 @@ export default function ParabensScreen() {
 
     return (
         <SafeAreaView style={{ flex: 1, alignItems: 'center', justifyContent: 'center', gap: 20, backgroundColor: temaAtivo.backgroundColor }}>
-            <Text>PARABÉNS! VOCÊ COMPLETOU A PARTIDA!</Text>
-            <Text>Tempo: {numToTime(tempoFinal)}</Text>
+            { erros >= 3 && prefLimiteErros ? <Text>LIMITE DE ERROS ATINGIDO!</Text> : <Text>PARABÉNS! VOCÊ COMPLETOU A PARTIDA!</Text> }
+            { erros >= 3 && prefLimiteErros ? null : <Text>Tempo: {numToTime(tempoFinal)}</Text> }
             <Text>Dificuldade: {dificuldadeSelecionada}</Text>
             <View style={{ width: '60%', borderWidth: 1, borderColor: 'blue' }}>
                 <BotaoPadrao

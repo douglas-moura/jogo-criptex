@@ -47,13 +47,15 @@ export default function BoxLetra({letra, simb}: {letra: string, simb: number}) {
                 })
             }
         } else {
-            setTentativas(prev => [
-                ...prev,
-                {
-                    letraErrada: palpite,
-                    simbolo: simb,
-                }
-            ])
+            if (palpite != '') { 
+                setTentativas(prev => [
+                    ...prev,
+                    {
+                        letraErrada: palpite,
+                        simbolo: simb,
+                    }
+                ])
+            }
 
             // se a letra estava certa e o usuário errou agora, remove dos acertos e do histórico
             if (historicoLetras.includes(letra)) {
