@@ -21,7 +21,7 @@ export default function ParabensScreen() {
     }
 
     useEffect(() => {
-        console.log(erros)
+        //console.log(erros)
         erros >= 3 && prefLimiteErros ? null : salvarDesempenho(dificuldadeSelecionada, desempenho)
     }, [])
     

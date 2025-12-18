@@ -5,10 +5,10 @@ export const buscarUserPrefs = async (chave: string): Promise<Preferencias | nul
     try {
         const response = await AsyncStorage.getItem(chave)
         const data: Preferencias = response ? JSON.parse(response) : null
-        console.log('User achado', data)
+        //console.log('User achado', data)
         return data
     } catch (erro) {
-        console.log('Erro ao buscar dados usuário', erro)
+        //console.log('Erro ao buscar dados usuário', erro)
         return null
     }
 }

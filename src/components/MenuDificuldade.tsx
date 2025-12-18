@@ -1,6 +1,6 @@
-import { StyleSheet, View, Text, FlatList } from "react-native"
-import BotaoPadrao from "./BotaoPadrao"
+import { StyleSheet, View, FlatList } from "react-native"
 import { useJogo } from "../context/JogoContext"
+import BotaoPadrao from "./BotaoPadrao"
 
 export default function MenuDificuldade() {
     const dificuldades: string[] = [ "Fácil", "Médio", "Difícil" ]

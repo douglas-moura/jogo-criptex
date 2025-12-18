@@ -3,7 +3,7 @@ import { Estatistica } from "../types/interfaces"
 
 export const salvarDesempenho = async (chave: string, dados: Estatistica) => {
     //await AsyncStorage.removeItem('@criptex:desempenho-fácil')
-    console.log(chave)
+    //console.log(chave)
     
     chave = chave ?? 'teste'
     
@@ -18,7 +18,7 @@ export const salvarDesempenho = async (chave: string, dados: Estatistica) => {
             await AsyncStorage.setItem('@criptex:desempenho-' + chave.toLocaleLowerCase(), JSON.stringify(novoDesemp))
         }
     } catch (e) {
-        console.log("Nenhum dado encontrado:", e)
+        //console.log("Nenhum dado encontrado:", e)
         return null
     }
 }

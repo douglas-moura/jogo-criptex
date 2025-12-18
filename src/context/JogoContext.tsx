@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, ReactNode, useEffect } from 'react'
 import { buscarUserPrefs } from '../functions/userPrefsFunctions'
-import { Partida } from '../types/classes'
 import { AcertosPartida, TentativaPartida } from '../types/interfaces'
+import { Partida } from '../types/classes'
 
 export type JogoContextType = {
     partida: Partida | null
@@ -68,7 +68,7 @@ export function JogoProvider({ children }: JogoProviderProps) {
             start ? setTempo(tempo + 1) : setTempo(0)
         }, 1000)
         //console.log("acerto: ", acertos);
-        console.log("erro: ", tentativas, tentativas.length);
+        //console.log("erro: ", tentativas, tentativas.length);
         
     }, [start, tempo, acertos])
 
@@ -94,11 +94,13 @@ export function JogoProvider({ children }: JogoProviderProps) {
     }
 
     const encerrarPartida = () => {
-        setStart(false)
-        setPontos(0)
-        setTempo(tempo)
-        setAcertos({ qtd_acertos: 0, letrasAcertadas: [] })
-        //setTentativas([])
+        setTimeout(() => {
+            setStart(false)
+            setPontos(0)
+            setTempo(tempo)
+            setAcertos({ qtd_acertos: 0, letrasAcertadas: [] })
+            //setTentativas([])
+        }, 600)
     }
 
     return (

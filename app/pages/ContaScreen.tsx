@@ -1,12 +1,12 @@
 import { View, Text, StyleSheet, ScrollView } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
-import { Switch } from 'react-native-paper'
 import { useEffect, useState } from 'react'
 import { Estatistica } from "../../src/types/interfaces"
 import { buscarDadosDesempenho, excluirDesempenhos } from "../../src/functions/desempenhosFunctions"
 import { atualizarPrefsUserStorage } from "../../src/functions/userPrefsFunctions"
 import { useJogo } from "../../src/context/JogoContext"
 import { temas } from "../../src/styles/StylesGlobal"
+import { Switch } from 'react-native-paper'
 import BotaoPadrao from "../../src/components/BotaoPadrao"
 import EstatisticaContainer from "../../src/components/EstatisticaContainer"
 
@@ -59,8 +59,8 @@ export default function ContaScreen() {
     }, [prefTema])
 
     return (
-        <SafeAreaView style={{ flex: 1, paddingHorizontal: 20, paddingTop: 40, backgroundColor: temaAtivo.backgroundColor }}>
-            <ScrollView style={{ height: '120%' }} showsVerticalScrollIndicator={false} >
+        <SafeAreaView style={{ flex: 1, paddingHorizontal: 20, backgroundColor: temaAtivo.backgroundColor }}>
+            <ScrollView style={{ height: '120%', paddingTop: 40 }} showsVerticalScrollIndicator={false} >
                 <Text style={styles.titulo_1}>Minha Conta</Text>
                 {/*<Text style={styles.titulo_3}>Olá, Nome</Text>*/}
                 <View style={styles.container}>

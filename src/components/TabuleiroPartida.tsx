@@ -4,7 +4,6 @@ import { dividirPalavra } from "../functions/dividirPalavra"
 import { charadas } from "../../db/charadas"
 import { Partida } from "../types/classes"
 import { useJogo } from "../context/JogoContext"
-import { contarAcertos } from "../functions/contarAcertos"
 import { useNavigation } from "@react-navigation/native"
 import { selecionarCharadas } from "../functions/selecionarCharadas"
 import BoxLetra from "./BoxLetra"
@@ -60,11 +59,13 @@ export default function TabuleiroPartida() {
     return (
         <KeyboardAvoidingView 
             style={{ flex: 1 }} 
-            behavior={Platform.OS === "ios" ? "padding" : undefined}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            keyboardVerticalOffset={Platform.OS === 'ios' ? 80 : 0}
         >
             <ScrollView
                 contentContainerStyle={styles.tabuleiro}
-                keyboardShouldPersistTaps="always"
+                keyboardShouldPersistTaps="handled"
+                showsVerticalScrollIndicator={false}
             >
                 {partida?.getCharadas().map((item, index) => (
                     dividirPalavra(item.resposta).length == item.qtd_letras /*&& dividirPalavra(item.resposta).length == 7*/ ?
@@ -89,10 +90,11 @@ export default function TabuleiroPartida() {
 
 const styles = StyleSheet.create({
     tabuleiro: {
-        //flex: 1,
         borderWidth: 1,
         borderColor: 'red',
-        width: 350
+        width: 350,
+        flexGrow: 1,
+        paddingBottom: 140,
     },
     tabuleiroLinha: {
         marginVertical: 5,

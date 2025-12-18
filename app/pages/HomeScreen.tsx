@@ -26,7 +26,7 @@ export default function HomeScreen() {
 
         if (!checkUser) {
             await AsyncStorage.setItem('@criptex:usuario', JSON.stringify(u.getPrefs()))
-            console.log('User Salvo: ', await AsyncStorage.getItem('@criptex:usuario'))
+            //console.log('User Salvo: ', await AsyncStorage.getItem('@criptex:usuario'))
         }
 
         //console.log('User Já Presente: ', await AsyncStorage.getItem('@criptex:usuario'))
