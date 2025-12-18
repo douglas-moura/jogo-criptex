@@ -89,6 +89,7 @@ export function JogoProvider({ children }: JogoProviderProps) {
             setPontos(0)
             setTempo(0)
             setAcertos({ qtd_acertos: 0, letrasAcertadas: [] })
+            setTentativas([])
         }
     }
 
@@ -97,6 +98,7 @@ export function JogoProvider({ children }: JogoProviderProps) {
         setPontos(0)
         setTempo(tempo)
         setAcertos({ qtd_acertos: 0, letrasAcertadas: [] })
+        setTentativas([])
     }
 
     return (
