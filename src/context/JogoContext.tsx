@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, ReactNode, useEffect } from 'react'
 import { buscarUserPrefs } from '../functions/userPrefsFunctions'
 import { Partida } from '../types/classes'
+import { AcertosPartida } from '../types/interfaces'
 
 export type JogoContextType = {
     partida: Partida | null
@@ -18,8 +19,8 @@ export type JogoContextType = {
     tempo: number
     setTempo: (value: number) => void
 
-    acertos: string[]
-    setAcertos: React.Dispatch<React.SetStateAction<string[]>>
+    acertos: AcertosPartida
+    setAcertos: React.Dispatch<React.SetStateAction<AcertosPartida>>
 
     resetarJogo: () => void
 
@@ -52,7 +53,7 @@ export function JogoProvider({ children }: JogoProviderProps) {
     const [start, setStart] = useState<boolean>(false)
     const [pontos, setPontos] = useState<number>(0)
     const [tempo, setTempo] = useState<number>(0)
-    const [acertos, setAcertos] = useState<string[]>([])
+    const [acertos, setAcertos] = useState<AcertosPartida>({ qtd_acertos: 0, letrasAcertadas: [] })
     const [prefTema, setPrefTema] = useState<boolean>(false)
     const [prefAutoPreen, setPrefAutoPreen] = useState<boolean>(true)
     const [prefLimiteErros, setPrefLimiteErros] = useState<boolean>(true)
@@ -62,7 +63,7 @@ export function JogoProvider({ children }: JogoProviderProps) {
         setTimeout(() => {
             start ? setTempo(tempo + 1) : setTempo(0)
         }, 1000)
-        console.log(acertos.length);
+        console.log(acertos, acertos.qtd_acertos);
         
     }, [start, tempo, acertos])
 
@@ -82,7 +83,7 @@ export function JogoProvider({ children }: JogoProviderProps) {
             setStart(false)
             setPontos(0)
             setTempo(0)
-            setAcertos([])
+            setAcertos({ qtd_acertos: 0, letrasAcertadas: [] })
         }
     }
 
@@ -90,23 +91,22 @@ export function JogoProvider({ children }: JogoProviderProps) {
         setStart(false)
         setPontos(0)
         setTempo(tempo)
-        setAcertos([])
+        setAcertos({ qtd_acertos: 0, letrasAcertadas: [] })
     }
 
     return (
         <JogoContext.Provider value={{
             partida, setPartida,
-            dificuldadeSelecionada,
-            setDificuldadeSelecionada,
             start, setStart,
             pontos, setPontos,
             tempo, setTempo,
             acertos, setAcertos,
-            resetarJogo, encerrarPartida,
             prefTema, setPrefTema,
             prefAutoPreen, setPrefAutoPreen,
             prefLimiteErros, setPrefLimiteErros,
-            prefExibirAcertos, setPrefExibirAcertos
+            prefExibirAcertos, setPrefExibirAcertos,
+            dificuldadeSelecionada, setDificuldadeSelecionada,
+            resetarJogo, encerrarPartida
         }}>
             {children}
         </JogoContext.Provider>

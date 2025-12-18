@@ -10,7 +10,8 @@ export default function BoxLetra({letra, simb}: {letra: string, simb: number}) {
     //const inputRef = useRef<TextInput>(null)
     const { acertos, setAcertos, prefAutoPreen, prefExibirAcertos } = useJogo()
     const [ value, setValue ] = useState('')
-    const [ statusLetra, setStatusLetra ] = useState<boolean>(acertos.includes(letra))
+    const [ statusLetra, setStatusLetra ] = useState<boolean>(acertos.letrasAcertadas.includes(letra))
+    const [ historicoLetras, setHistoricoLetras ] = useState<string[]>([])
 
     const handleChange = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
         // pega letra palpite
@@ -19,38 +20,56 @@ export default function BoxLetra({letra, simb}: {letra: string, simb: number}) {
         // atualiza valor do input e status da letra
         setValue(palpite)
 
-        // checa se o palpite está correto
+        // inclui letra no histórico de palpites
+        if (palpite != '') setHistoricoLetras(prev => [...prev, palpite])
+
+        // define status da letra (certa ou errada)
         setStatusLetra(checarLetra(palpite, letra || ''))
         
-        // se estiver correto, adiciona aos acertos
+        // verifica se a letra está correta para atualizar os acertos
         if (checarLetra(palpite, letra || '')) {
-            if (prefAutoPreen) {
-                if (!acertos.includes(letra)) {
-                    // adiciona letra aos acertos no contexto
-                    setAcertos(prev => {
-                        if (!prev.includes(letra)) {
-                            return [...prev, letra]   // <-- sempre a letra CORRETA
-                        }
-                        return prev
-                    })
-                }
-            } else {
+            // se a letra certa já esta nos acertos, não faz nada
+            if (!acertos.letrasAcertadas.includes(letra)) {
                 // adiciona letra aos acertos no contexto
                 setAcertos(prev => {
-                    return [...prev, letra]   // <-- sempre a letra CORRETA
+                    return {
+                        ...prev,
+                        letrasAcertadas: [...prev.letrasAcertadas, letra],
+                        qtd_acertos: prev.qtd_acertos + 1
+                    }
+                })
+            } else {
+                setAcertos(prev => {
+                    return {
+                        ...prev,
+                        qtd_acertos: prev.qtd_acertos + 1
+                    }
                 })
             }
-            
+        } else {
+            // se a letra estava certa e o usuário errou agora, remove dos acertos
+            if (historicoLetras.includes(letra)) {
+                setAcertos(prev => {
+                    return {
+                        ...prev,
+                        letrasAcertadas: prev.letrasAcertadas.filter(l => l != letra),
+                        qtd_acertos: prev.qtd_acertos - 1
+                    }
+                })
+                setHistoricoLetras(prev => prev.filter(l => l != letra))
+            }
         }
     }
+    
+    // AUTOPREENCHIMENTO DAS LETRAS
+    if (prefAutoPreen && prefExibirAcertos) {
+        useEffect(() => {
+            setStatusLetra(acertos.letrasAcertadas.includes(letra))
+            acertos.letrasAcertadas.includes(letra) ? setValue(letra) : null
+        }, [acertos])
+    }
 
-    useEffect(() => {
-        // atualiza o status da letra e valor do input sempre que há mudança nos acertos
-        setStatusLetra(acertos.includes(letra))
-        if (prefAutoPreen && prefExibirAcertos) {
-            acertos.includes(letra) ? setValue(letra) : null
-        }
-    }, [acertos])
+    //console.log('hist: ', historicoLetras.pop());
 
     return (
         <View style={{ flexDirection: 'column', alignItems: 'center', gap: 2, width: 28 }}>

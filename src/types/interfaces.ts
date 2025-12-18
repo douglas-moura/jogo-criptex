@@ -25,3 +25,8 @@ export interface Preferencias {
     limite_erros: boolean;
     mostrar_acertos: boolean;
 }
+
+export interface AcertosPartida {
+    qtd_acertos: number,
+    letrasAcertadas: string[];
+}

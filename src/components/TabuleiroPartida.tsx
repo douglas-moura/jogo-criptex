@@ -37,7 +37,7 @@ export default function TabuleiroPartida() {
 
     useEffect(() => {
         if (prefAutoPreen) {
-            if (partida && partida.getLetras().length == contarAcertos(acertos)) {
+            if (partida && partida.getLetras().length == acertos.qtd_acertos) {
                 encerrarPartida()
                 setTimeout(() => {
                     setPartida(null)
@@ -45,7 +45,7 @@ export default function TabuleiroPartida() {
                 }, 300)
             }
         } else {
-            if (partida && (partida.getQtsCharadas() * numLetraPalavras) == contarAcertos(acertos)) {
+            if (partida && (partida.getCharadas().length * numLetraPalavras) == acertos.qtd_acertos) {
                 encerrarPartida()
                 setTimeout(() => {
                     setPartida(null)
