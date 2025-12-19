@@ -1,4 +1,4 @@
-import { View, Text } from "react-native"
+import { View, Text, StyleSheet } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { useJogo } from "../../src/context/JogoContext"
 import { useState, useEffect } from "react"
@@ -27,18 +27,29 @@ export default function ParabensScreen() {
 
     return (
         <SafeAreaView style={[ temaAtivo._bgPagina, componente._pagina, { gap: 20 } ]}>
-            <View style={componente._conteudoCentral}>
-                { erros >= 3 && prefLimiteErros ? <Text>LIMITE DE ERROS ATINGIDO!</Text> : <Text>PARABÉNS! VOCÊ COMPLETOU A PARTIDA!</Text> }
-                { erros >= 3 && prefLimiteErros ? null : <Text>Tempo: {numToTime(tempoFinal)}</Text> }
-                <Text>Dificuldade: {dificuldadeSelecionada}</Text>
-                <View style={{ width: '60%', borderWidth: 1, borderColor: 'blue' }}>
+            <View style={[componente._conteudoCentral, { alignItems: 'center' }]}>
+                {erros >= 3 && prefLimiteErros ? 
+                    <Text style={[temaAtivo._colorTexto, componente._titulo_2, styles.titulo ]}>LIMITE DE ERROS ATINGIDO!</Text> :
+                    <Text style={[temaAtivo._colorTexto, componente._titulo_2, styles.titulo ]}>PARABÉNS! VOCÊ COMPLETOU A PARTIDA!</Text>
+                }
+                { erros >= 3 && prefLimiteErros ? null : <Text style={[temaAtivo._colorTexto, componente._titulo_3]}>Tempo: {numToTime(tempoFinal)}</Text> }
+                <Text style={[temaAtivo._colorTexto, componente._titulo_4, { marginVertical: 18 }]}>Dificuldade: {dificuldadeSelecionada}</Text>
+                <View style={{ width: '80%', borderWidth: 0, borderColor: 'blue', marginTop: 32 }}>
                     <BotaoPadrao
                         icone="arrow-back-outline"
                         texto="Jogar Novamente"
                         destino="Tabs"
+                        type="secundario"
                     />
                 </View>
             </View>
         </SafeAreaView>
     )
 }
+
+const styles = StyleSheet.create({
+    titulo: {
+        textAlign: 'center',
+        marginBottom: 12,
+    }
+})

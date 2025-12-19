@@ -7,6 +7,7 @@ import { atualizarPrefsUserStorage } from "../../src/functions/userPrefsFunction
 import { useJogo } from "../../src/context/JogoContext"
 import { temas, componente } from "../../src/styles/StylesGlobal"
 import { Switch } from 'react-native-paper'
+import { Ionicons } from "@expo/vector-icons"
 import BotaoPadrao from "../../src/components/BotaoPadrao"
 import EstatisticaContainer from "../../src/components/EstatisticaContainer"
 
@@ -51,7 +52,10 @@ export default function ContaScreen() {
                 <Text style={[temaAtivo._colorTexto, componente._titulo_1]}>Minha Conta</Text>
                 {/*<Text style={styles.titulo_3}>Olá, Nome</Text>*/}
                 <View style={styles.container}>
-                    <Text style={[temaAtivo._colorTexto, componente._titulo_3]}>Preferências</Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12 }}>
+                        <Ionicons style={[temaAtivo._colorTexto, { marginRight: 8 }]} name={'options'} size={24} />
+                        <Text style={[temaAtivo._colorTexto, componente._titulo_3]}>Preferências</Text>
+                    </View>
                     <View style={styles.linhaContainer}>
                         <Text style={temaAtivo._colorTexto}>Modo Escuro</Text>
                         <Switch value={prefTema} onValueChange={() => setPrefTema(!prefTema)} />
@@ -70,7 +74,10 @@ export default function ContaScreen() {
                     </View>
                 </View>
                 <View style={styles.container}>
-                    <Text style={[temaAtivo._colorTexto, componente._titulo_3]}>Estatísticas</Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12 }}>
+                        <Ionicons style={[temaAtivo._colorTexto, { marginRight: 8 }]} name={'stats-chart'} size={24} />
+                        <Text style={[temaAtivo._colorTexto, componente._titulo_3]}>Estatísticas</Text>
+                    </View>
                     <EstatisticaContainer titulo='Fácil' data={desempFacil ?? null} />
                     <EstatisticaContainer titulo='Médio' data={desempMedio ?? null} />
                     <EstatisticaContainer titulo='Difícil' data={desempDificil ?? null} />
@@ -83,7 +90,7 @@ export default function ContaScreen() {
                         onClick={onClickExcluirDesempenhos}
                     />
                     <View style={{marginTop: 20, marginBottom: 50, alignItems: 'center'}}>
-                        <Text style={[componente._texto_3, {color: '#bbb'}]}>Versão 1.0.0</Text>
+                        <Text style={[componente._texto_3, temaAtivo._colorTexto]}>Versão 1.0.0</Text>
                     </View>
                 </View>
             </ScrollView>

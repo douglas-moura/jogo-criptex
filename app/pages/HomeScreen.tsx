@@ -42,7 +42,7 @@ export default function HomeScreen() {
                     </View>
                     <View style={{ width: 160, alignSelf: 'center' }}>
                         <BotaoPadrao
-                            icone="play-outline"
+                            icone="play"
                             texto="Iniciar"
                             destino="Jogar"
                             type="primario"

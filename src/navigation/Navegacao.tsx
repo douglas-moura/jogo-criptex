@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { useEffect, useState } from "react"
-import { temas } from "../styles/StylesGlobal"
+import { temas, componente, paletaCores } from "../styles/StylesGlobal"
 import { useJogo } from "../context/JogoContext"
 import { Ionicons } from '@expo/vector-icons'
 import HomeScreen from "../../app/pages/HomeScreen"
@@ -14,21 +14,34 @@ const Stack = createNativeStackNavigator()
 
 function Tabs() {
     const { prefTema } = useJogo()
-    const [ temaAtivo, setTemaAtivo ] = useState(temas.light)
-
-    useEffect(() => {
-        setTemaAtivo(prefTema ? temas.dark : temas.light)
-    }, [prefTema])
+    const temaAtivo = prefTema ? temas.dark : temas.light
 
     return (
         <Tab.Navigator
             initialRouteName="Jogar"
             screenOptions={({ route }) => ({
                 headerShown: false,
-                tabBarActiveTintColor: '#e91e63',
-                tabBarInactiveTintColor: '#aaa',
+                animation: 'shift',
+                tabBarActiveTintColor: paletaCores._primario,
+                tabBarInactiveTintColor: paletaCores._cinza_2,
                 tabBarStyle: {
                     backgroundColor: temaAtivo._bgPagina.backgroundColor,
+                    //paddingVertical: 12,
+                    borderTopWidth: 0,
+                    height: 80,
+                },
+                tabBarLabelStyle: {
+                    fontSize: 12,
+                    fontWeight: '800',
+                },
+                tabBarItemStyle: {
+                    paddingVertical: 8,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                },
+                tabBarIconStyle: {
+                    justifyContent: 'center',
+                    alignItems: 'center',
                 },
                 tabBarIcon: ({ focused, color, size }) => {
                     type IconName = keyof typeof Ionicons.glyphMap
@@ -42,7 +55,7 @@ function Tabs() {
                         iconName = 'help-circle-outline'
                     }
 
-                    return <Ionicons style={{}} name={iconName} size={size} color={color} />
+                    return <Ionicons name={iconName} size={size} color={color} />
                 }
             })}
         >

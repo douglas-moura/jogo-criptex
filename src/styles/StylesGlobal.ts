@@ -1,11 +1,11 @@
 import { StyleSheet } from "react-native"
 
 export const paletaCores = {
-    _primario: '#4a90e2',
-    _secundario: '#50e3c2',
+    _primario: '#F22942',
+    _secundario: '#FE7210',
     _sucesso: '#7ed321',
     _alerta: '#f5a623',
-    _erro: '#d0021b',
+    _erro: '#f1001cff',
     _erro_escuro: '#960011ff',
     _cinza_1: '#e8e8e8',
     _cinza_2: '#888',
