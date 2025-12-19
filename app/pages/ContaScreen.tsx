@@ -5,18 +5,13 @@ import { Estatistica } from "../../src/types/interfaces"
 import { buscarDadosDesempenho, excluirDesempenhos } from "../../src/functions/desempenhosFunctions"
 import { atualizarPrefsUserStorage } from "../../src/functions/userPrefsFunctions"
 import { useJogo } from "../../src/context/JogoContext"
-import { temas } from "../../src/styles/StylesGlobal"
+import { temas, componente } from "../../src/styles/StylesGlobal"
 import { Switch } from 'react-native-paper'
 import BotaoPadrao from "../../src/components/BotaoPadrao"
 import EstatisticaContainer from "../../src/components/EstatisticaContainer"
 
 export default function ContaScreen() {    
-    const {
-        prefTema, setPrefTema,
-        prefAutoPreen, setPrefAutoPreen,
-        prefLimiteErros, setPrefLimiteErros,
-        prefExibirAcertos, setPrefExibirAcertos
-    } = useJogo()
+    const { prefTema, setPrefTema, prefAutoPreen, setPrefAutoPreen, prefLimiteErros, setPrefLimiteErros, prefExibirAcertos, setPrefExibirAcertos } = useJogo()
     const [ desempFacil, setDesempFacil ] = useState<Estatistica | null>(null)
     const [ desempMedio, setDesempMedio ] = useState<Estatistica | null>(null)
     const [ desempDificil, setDesempDificil ] = useState<Estatistica | null>(null)
@@ -44,59 +39,52 @@ export default function ContaScreen() {
     useEffect(() => {
         //if (!prefExibirAcertos) setPrefAutoPreen(false)    
         atualizarPrefsUserStorage(prefTema, prefAutoPreen, prefLimiteErros, prefExibirAcertos)
-    }, [
-        desempFacil,
-        desempMedio,
-        desempDificil,
-        prefTema,
-        prefAutoPreen,
-        prefLimiteErros,
-        prefExibirAcertos
-    ])
+    }, [desempFacil, desempMedio, desempDificil, prefTema, prefAutoPreen, prefLimiteErros, prefExibirAcertos])
 
     useEffect(() => {
         setTemaAtivo(prefTema ? temas.dark : temas.light)
     }, [prefTema])
 
     return (
-        <SafeAreaView style={{ flex: 1, paddingHorizontal: 20, backgroundColor: temaAtivo.backgroundColor }}>
-            <ScrollView style={{ height: '120%', paddingTop: 40 }} showsVerticalScrollIndicator={false} >
-                <Text style={styles.titulo_1}>Minha Conta</Text>
+        <SafeAreaView style={[ temaAtivo._bgPagina, componente._pagina ]}>
+            <ScrollView style={{ height: '100%', paddingTop: 40, flexGrow: 1 }} showsVerticalScrollIndicator={false} >
+                <Text style={[temaAtivo._colorTexto, componente._titulo_1]}>Minha Conta</Text>
                 {/*<Text style={styles.titulo_3}>Olá, Nome</Text>*/}
                 <View style={styles.container}>
-                    <Text style={styles.titulo_2}>Preferências</Text>
+                    <Text style={[temaAtivo._colorTexto, componente._titulo_3]}>Preferências</Text>
                     <View style={styles.linhaContainer}>
-                        <Text style={styles.texto_1}>Modo Escuro</Text>
+                        <Text style={temaAtivo._colorTexto}>Modo Escuro</Text>
                         <Switch value={prefTema} onValueChange={() => setPrefTema(!prefTema)} />
                     </View>
                     <View style={styles.linhaContainer}>
-                        <Text style={styles.texto_1}>Auto Preechimento</Text>
+                        <Text style={temaAtivo._colorTexto}>Auto Preechimento</Text>
                         <Switch value={prefAutoPreen} onValueChange={() => setPrefAutoPreen(!prefAutoPreen)} />
                     </View>
                     <View style={styles.linhaContainer}>
-                        <Text style={styles.texto_1}>Limite de Erros</Text>
+                        <Text style={temaAtivo._colorTexto}>Limite de Erros</Text>
                         <Switch value={prefLimiteErros} onValueChange={() => setPrefLimiteErros(!prefLimiteErros)} />
                     </View>
                     <View style={styles.linhaContainer}>
-                        <Text style={styles.texto_1}>Exibir Acertos/Erros</Text>
+                        <Text style={temaAtivo._colorTexto}>Exibir Acertos/Erros</Text>
                         <Switch value={prefExibirAcertos} onValueChange={() => setPrefExibirAcertos(!prefExibirAcertos)} />
                     </View>
                 </View>
                 <View style={styles.container}>
-                    <Text style={styles.titulo_2}>Estatísticas</Text>
+                    <Text style={[temaAtivo._colorTexto, componente._titulo_3]}>Estatísticas</Text>
                     <EstatisticaContainer titulo='Fácil' data={desempFacil ?? null} />
                     <EstatisticaContainer titulo='Médio' data={desempMedio ?? null} />
                     <EstatisticaContainer titulo='Difícil' data={desempDificil ?? null} />
                 </View>
-                <View style={styles.container}>
+                <View style={[styles.container, { alignItems: 'center' }]}>
                     <BotaoPadrao
                         texto="Excluir Dados"
                         destino="Minha Conta"
+                        type="alerta"
                         onClick={onClickExcluirDesempenhos}
                     />
-                </View>
-                <View style={{marginVertical: 20, alignItems: 'center'}}>
-                    <Text style={[styles.texto_3, {color: '#bbb'}]}>Versão 1.0.0</Text>
+                    <View style={{marginTop: 20, marginBottom: 50, alignItems: 'center'}}>
+                        <Text style={[componente._texto_3, {color: '#bbb'}]}>Versão 1.0.0</Text>
+                    </View>
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -105,7 +93,7 @@ export default function ContaScreen() {
 
 const styles = StyleSheet.create({
     container: {
-        paddingVertical: 20
+        paddingVertical: 20,
     },
     linhaContainer: {
         flexDirection: 'row',
@@ -115,36 +103,11 @@ const styles = StyleSheet.create({
     containerEstatisticas: {
         marginVertical: 6,
         borderWidth: 1,
-        borderColor: '#ccc',
         paddingHorizontal: 24,
         paddingVertical: 18,
         borderRadius: 16
     },
     iconeEstatistica: {
         marginBottom: 6
-    },
-    titulo_1: {
-        fontSize: 32,
-        fontWeight: 900,
-        marginBottom: 16
-    },
-    titulo_2: {
-        fontSize: 26,
-        fontWeight: 900,
-        marginBottom: 8,
-    },
-    titulo_3: {
-        fontSize: 20,
-        fontWeight: 800,
-        marginBottom: 4,
-    },
-    texto_1: {
-        fontSize: 16
-    },
-    texto_2: {
-        fontSize: 12
-    },
-    texto_3: {
-        fontSize: 10
     }
 })

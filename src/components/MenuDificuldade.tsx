@@ -1,10 +1,12 @@
 import { StyleSheet, View, FlatList } from "react-native"
 import { useJogo } from "../context/JogoContext"
+import { temas } from "../styles/StylesGlobal"
 import BotaoPadrao from "./BotaoPadrao"
 
 export default function MenuDificuldade() {
     const dificuldades: string[] = [ "Fácil", "Médio", "Difícil" ]
-    const { resetarJogo, setDificuldadeSelecionada } = useJogo()
+    const { resetarJogo, setDificuldadeSelecionada, prefTema } = useJogo()
+    const temaAtivo = prefTema ? temas.dark : temas.light
 
     const iniciarPartida = (d: string) => {
         setDificuldadeSelecionada(d)
@@ -12,11 +14,12 @@ export default function MenuDificuldade() {
     }
     
     return (
-        <View style={styles.listaContainer}>
+        <View style={[styles.listaContainer, temaAtivo._bgPagina]}>
             <FlatList
+                style={{ width: '100%' }}
                 data={dificuldades}
                 renderItem={({ item }) => (
-                    <View style={{ width: '100%', alignSelf: 'center' }}>
+                    <View style={{ marginBottom: 8 }}>
                         <BotaoPadrao
                             texto={item}
                             destino="Partida"
@@ -37,7 +40,6 @@ const styles = StyleSheet.create({
         padding: 36,
         borderTopStartRadius: 32,
         borderTopEndRadius: 32,
-        backgroundColor: '#fff'
     },
     listaTexto: {
         textAlign: 'center',

@@ -28,10 +28,8 @@ function Tabs() {
                 tabBarActiveTintColor: '#e91e63',
                 tabBarInactiveTintColor: '#aaa',
                 tabBarStyle: {
-                    backgroundColor: temaAtivo.backgroundColor
+                    backgroundColor: temaAtivo._bgPagina.backgroundColor,
                 },
-                //tabBarActiveBackgroundColor: temaAtivo.backgroundColor,
-                //tabBarInactiveBackgroundColor: temaAtivo.backgroundColor,
                 tabBarIcon: ({ focused, color, size }) => {
                     type IconName = keyof typeof Ionicons.glyphMap
                     let iconName: IconName = 'help-circle-outline'

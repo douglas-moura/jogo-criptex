@@ -6,12 +6,14 @@ import { Partida } from "../types/classes"
 import { useJogo } from "../context/JogoContext"
 import { useNavigation } from "@react-navigation/native"
 import { selecionarCharadas } from "../functions/selecionarCharadas"
+import { temas, componente } from "../styles/StylesGlobal"
 import BoxLetra from "./BoxLetra"
 
 export default function TabuleiroPartida() {
-    const { partida, setPartida, acertos, tentativas, setTentativas, encerrarPartida, dificuldadeSelecionada, prefAutoPreen, prefLimiteErros } = useJogo()
-    const navigation = useNavigation<any>()
+    const { partida, setPartida, acertos, tentativas, setTentativas, encerrarPartida, dificuldadeSelecionada, prefTema, prefAutoPreen, prefLimiteErros } = useJogo()
     const [finalizada, setFinalizada] = useState(false)
+    const temaAtivo = prefTema ? temas.dark : temas.light
+    const navigation = useNavigation<any>()
 
     switch (dificuldadeSelecionada) {
         case 'Fácil':
@@ -58,7 +60,7 @@ export default function TabuleiroPartida() {
 
     return (
         <KeyboardAvoidingView 
-            style={{ flex: 1 }} 
+            style={{ flex: 1, width: '100%' }} 
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             keyboardVerticalOffset={Platform.OS === 'ios' ? 80 : 0}
         >
@@ -68,9 +70,9 @@ export default function TabuleiroPartida() {
                 showsVerticalScrollIndicator={false}
             >
                 {partida?.getCharadas().map((item, index) => (
-                    dividirPalavra(item.resposta).length == item.qtd_letras /*&& dividirPalavra(item.resposta).length == 7*/ ?
+                    dividirPalavra(item.resposta).length == item.qtd_letras ?
                         <View style={styles.tabuleiroLinha} key={index}>
-                            <Text style={styles.linhaDica}>{item.dica}</Text>
+                            <Text style={[temaAtivo._colorTexto, componente._texto_3, styles.linhaDica]}>{item.dica}</Text>
                             <View style={styles.linhaLetras}>
                                 {dividirPalavra(item.resposta).map((letra, index) => (
                                     partida.getLetras().map((l, indexL) => {
@@ -90,26 +92,24 @@ export default function TabuleiroPartida() {
 
 const styles = StyleSheet.create({
     tabuleiro: {
-        borderWidth: 1,
-        borderColor: 'red',
-        width: 350,
         flexGrow: 1,
-        paddingBottom: 140,
+        //paddingBottom: 140,
+        width: '100%',
     },
     tabuleiroLinha: {
-        marginVertical: 5,
+        height: 50,
+        borderWidth: 0,
+        //backgroundColor: 'orange',
+        borderColor: 'red',
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        borderWidth: 1,
-        borderColor: '#000',
-        gap: 2,
     },
     linhaDica: {
         width: '30%',
-        fontSize: 10,
     },
     linhaLetras: {
+        gap: 2,
         width: '60%',
         flexDirection: 'row',
         justifyContent: 'flex-end'

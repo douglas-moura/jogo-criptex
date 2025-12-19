@@ -7,7 +7,7 @@ export class Partida {
     private charadas: Charada[]
     private dificuldade: string = ''
     private letras: LetraCharada[] = []
-    private qts_charadas: number = 13
+    private qts_charadas: number = 12
     private vitoria: boolean = false
 
     constructor(id: number, charadas: Charada[], dificuldade: string) {

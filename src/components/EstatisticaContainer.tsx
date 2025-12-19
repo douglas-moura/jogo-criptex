@@ -1,20 +1,25 @@
 import { View, Text, StyleSheet } from "react-native"
 import { componente } from "../styles/StylesGlobal"
 import { Estatistica } from "../types/interfaces"
+import { temas } from "../styles/StylesGlobal"
+import { useJogo } from "../context/JogoContext"
 import numToTime from "../functions/numToTime"
 
-export default function EstatisticaContainer({titulo, data}: {titulo: string, data: Estatistica | null}) {    
+export default function EstatisticaContainer({titulo, data}: {titulo: string, data: Estatistica | null}) {
+    const { prefTema } = useJogo()
+    const temaAtivo = prefTema ? temas.dark : temas.light
+
     return (
-        <View style={styles.containerEstatisticas}>
-            <Text style={componente._titulo_3}>{titulo}</Text>
+        <View style={[styles.containerEstatisticas, temaAtivo._borderColor]}>
+            <Text style={[temaAtivo._colorTexto, componente._titulo_3]}>{titulo}</Text>
             <View style={styles.linhaContainer}>
                 <View>
-                    <Text style={componente._texto_2}>Partidas</Text>
-                    <Text style={[componente._texto_1, { fontWeight: 900 }]}>{data ? data.qtd_partidas : 0}</Text>
+                    <Text style={[temaAtivo._colorTexto, componente._texto_2]}>Partidas</Text>
+                    <Text style={[temaAtivo._colorTexto, componente._texto_1, { fontWeight: 900 }]}>{data ? data.qtd_partidas : 0}</Text>
                 </View>
                 <View>
-                    <Text style={componente._texto_2}>Melhor Tempo</Text>
-                    <Text style={[componente._texto_1, { fontWeight: 900 }]}>{numToTime(data ? data.tempo : 0)}</Text>
+                    <Text style={[temaAtivo._colorTexto, componente._texto_2]}>Melhor Tempo</Text>
+                    <Text style={[temaAtivo._colorTexto, componente._texto_1, { fontWeight: 900 }]}>{numToTime(data ? data.tempo : 0)}</Text>
                 </View>
                 {/*}
                 <View>
@@ -34,10 +39,9 @@ const styles = StyleSheet.create({
     containerEstatisticas: {
         marginVertical: 6,
         borderWidth: 1,
-        borderColor: '#ccc',
         paddingHorizontal: 24,
         paddingVertical: 18,
-        borderRadius: 16,
+        borderRadius: 8,
         flexDirection: 'row',
         justifyContent: 'space-between',
     },

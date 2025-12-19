@@ -1,6 +1,7 @@
 import { View, Text, TextInput, NativeSyntheticEvent, TextInputChangeEventData } from "react-native"
 import { useJogo } from "../context/JogoContext"
 import { useEffect, useState } from "react"
+import { temas, componente } from "../styles/StylesGlobal"
 
 function checarLetra(letraPalpite: string, letraCerta: string): boolean {
     return letraPalpite.toLocaleUpperCase() == letraCerta.toLocaleUpperCase()
@@ -8,10 +9,11 @@ function checarLetra(letraPalpite: string, letraCerta: string): boolean {
 
 export default function BoxLetra({letra, simb}: {letra: string, simb: number}) {
     //const inputRef = useRef<TextInput>(null)
-    const { acertos, setAcertos, tentativas, setTentativas, prefAutoPreen, prefExibirAcertos } = useJogo()
+    const { acertos, setAcertos, tentativas, setTentativas, prefTema, prefAutoPreen, prefExibirAcertos } = useJogo()
     const [ value, setValue ] = useState('')
     const [ statusLetra, setStatusLetra ] = useState<boolean>(acertos.letrasAcertadas.includes(letra))
     const [ historicoLetras, setHistoricoLetras ] = useState<string[]>([])
+    const temaAtivo = prefTema ? temas.dark : temas.light
 
     const handleChange = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
         // pega letra palpite
@@ -91,22 +93,21 @@ export default function BoxLetra({letra, simb}: {letra: string, simb: number}) {
     //console.log('hist: ', historicoLetras.pop());
 
     return (
-        <View style={{ flexDirection: 'column', alignItems: 'center', gap: 2, width: 28 }}>
-            <View style={{ borderWidth: 0, borderColor: 'green', aspectRatio: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', width: 24, height: 40, borderWidth: 0 }}>
+            <View style={{ width: '100%', backgroundColor: 'blue', aspectRatio: 1 / 1, borderRadius: 4, overflow: 'hidden' }}>
                 <TextInput style={{
-                    fontSize: 16,
+                    fontSize: 12,
                     color: 'black',
-                    borderBottomWidth: 1,
+                    borderBottomWidth: 0,
                     borderColor: 'black',
                     width: '100%',
+                    height: '100%',
                     padding: 0,
                     textAlign: 'center',
                     backgroundColor: (value == '' || !prefExibirAcertos) ? '#efefef' : statusLetra && value == letra ? 'lightgreen' : 'red'
                 }} maxLength={1} value={value} onChange={handleChange} editable={!statusLetra || !prefExibirAcertos}  />
             </View>
-            <Text style={{
-                fontSize: 10,
-            }}>{simb}</Text>
+            <Text style={[temaAtivo._colorTexto, componente._texto_3, { flexDirection: 'row', justifyContent: 'flex-end', alignContent: 'flex-end', alignItems: 'flex-end' }]}>{simb}</Text>
         </View>
     )
 }

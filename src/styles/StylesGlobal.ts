@@ -1,6 +1,30 @@
 import { StyleSheet } from "react-native"
 
+export const paletaCores = {
+    _primario: '#4a90e2',
+    _secundario: '#50e3c2',
+    _sucesso: '#7ed321',
+    _alerta: '#f5a623',
+    _erro: '#d0021b',
+    _erro_escuro: '#960011ff',
+    _cinza_1: '#e8e8e8',
+    _cinza_2: '#888',
+    _cinza_3: '#3a3a3a',
+    _preto: '#252525',
+    _branco: '#fff'
+}
+
 export const componente = StyleSheet.create({
+    _pagina: {
+        flex: 1,
+        justifyContent: 'flex-start',
+        //alignItems: 'center'
+        paddingHorizontal: 30,
+    },
+    _conteudoCentral: {
+        height: '100%',
+        justifyContent: 'center',
+    },
     _titulo_1: {
         fontSize: 32,
         fontWeight: 900,
@@ -13,6 +37,10 @@ export const componente = StyleSheet.create({
         fontSize: 20,
         fontWeight: 800,
     },
+    _titulo_4: {
+        fontSize: 18,
+        fontWeight: 800,
+    },
     _texto_1: {
         fontSize: 16
     },
@@ -21,15 +49,55 @@ export const componente = StyleSheet.create({
     },
     _texto_3: {
         fontSize: 10
-    }
+    },
+    _texto_4: {
+        fontSize: 8
+    },
+    _botao_texto: {
+        color: paletaCores._branco,
+        fontSize: 18,
+        fontWeight: 600,
+    },
+    _botao_primario: {
+        backgroundColor: paletaCores._primario,
+        color: paletaCores._branco
+    },
+    _botao_secundario: {
+        backgroundColor: paletaCores._secundario,
+        color: paletaCores._branco
+    },
+    _botao_alerta: {
+        backgroundColor: paletaCores._erro,
+        color: paletaCores._branco,
+    },
+    _botao_default: {
+        backgroundColor: paletaCores._cinza_3,
+        color: paletaCores._preto
+    },
 })
 
 export const temaClaro = {
-    backgroundColor: '#ccc',
+    _bgPagina: {
+        backgroundColor: paletaCores._branco,
+    },
+    _colorTexto: {
+        color: paletaCores._cinza_3,
+    },
+    _borderColor: {
+        borderColor: paletaCores._cinza_1,
+    }
 }
 
 export const temaEscuro = {
-    backgroundColor: '#252525',
+    _bgPagina: {
+        backgroundColor: paletaCores._preto,
+    },
+    _colorTexto: {
+        color: paletaCores._cinza_1,
+    },
+    _borderColor: {
+        borderColor: paletaCores._cinza_2,
+    }
 }
 
 export const temas = {
