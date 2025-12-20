@@ -1,15 +1,16 @@
 import { View, Text, StyleSheet, Pressable } from "react-native"
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useJogo } from "../../src/context/JogoContext"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback } from "react"
 import { Usuario } from "../../src/types/classes"
 import { temas, componente } from "../../src/styles/StylesGlobal"
+import { useFocusEffect } from "@react-navigation/native"
 import MenuDificuldade from "../../src/components/MenuDificuldade"
 import BotaoPadrao from "../../src/components/BotaoPadrao"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
 export default function HomeScreen() {
-    const { start, prefTema } = useJogo()
+    const { start, setStart, prefTema } = useJogo()
     const [ diff, setDiff ] = useState<boolean>(false)
     const temaAtivo = prefTema ? temas.dark : temas.light
     
@@ -32,6 +33,13 @@ export default function HomeScreen() {
         const p = new Usuario(new Date().getTime())
         salvarUsuario(p)
     }, [salvarUsuario])
+
+    useFocusEffect(
+        useCallback(() => {
+            setDiff(false)
+            setStart(false)
+        }, [])
+    )
 
     return (
         <SafeAreaView style={[ temaAtivo._bgPagina, componente._pagina, { paddingHorizontal: 0 } ]}>
