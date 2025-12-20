@@ -41,12 +41,4 @@ const styles = StyleSheet.create({
         borderTopStartRadius: 32,
         borderTopEndRadius: 32,
     },
-    listaTexto: {
-        textAlign: 'center',
-        fontSize: 24,
-        borderBottomWidth: .75,
-        borderColor: "#f7a01fff",
-        paddingVertical: 16,
-        color: "#333"
-    }
 })

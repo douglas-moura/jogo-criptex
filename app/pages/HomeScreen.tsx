@@ -8,6 +8,7 @@ import { useFocusEffect } from "@react-navigation/native"
 import MenuDificuldade from "../../src/components/MenuDificuldade"
 import BotaoPadrao from "../../src/components/BotaoPadrao"
 import AsyncStorage from "@react-native-async-storage/async-storage"
+import Rodape from "../../src/components/Rodape"
 
 export default function HomeScreen() {
     const { start, setStart, prefTema } = useJogo()
@@ -62,12 +63,14 @@ export default function HomeScreen() {
                     <MenuDificuldade />
                 </Pressable>
             </View>
+            <Rodape />
         </SafeAreaView>
     )
 }
 
 const styles = StyleSheet.create({
     menuDificuldadeContainer: {
+        zIndex: 90,
         position: 'absolute',
         padding: 24,
         width: '100%',
