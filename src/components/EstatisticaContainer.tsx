@@ -11,7 +11,7 @@ export default function EstatisticaContainer({titulo, data}: {titulo: string, da
 
     return (
         <View style={[styles.containerEstatisticas, temaAtivo._borderColor]}>
-            <Text style={[temaAtivo._colorTexto, componente._titulo_3, { marginBottom: 0 }]}>{titulo}</Text>
+            <Text style={[ temaAtivo._colorTexto, componente._titulo_3 ]}>{titulo}</Text>
             <View style={styles.linhaContainer}>
                 <View>
                     <Text style={[temaAtivo._colorTexto, componente._texto_2]}>Partidas</Text>
@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         flexDirection: 'row',
         justifyContent: 'space-between',
+        alignItems: 'center'
     },
     linhaContainer: {
         width: '60%',

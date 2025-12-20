@@ -52,7 +52,7 @@ export default function HomeScreen() {
                         <BotaoPadrao
                             icone="play"
                             texto="Iniciar"
-                            destino="Jogar"
+                            destino="Início"
                             type="primario"
                             onClick={iniciarNovaPartida}
                         />

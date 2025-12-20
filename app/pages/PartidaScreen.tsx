@@ -1,4 +1,4 @@
-import { View, Text } from "react-native"
+import { View, Text, StyleSheet } from "react-native"
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useJogo } from "../../src/context/JogoContext"
 import { useEffect } from "react"
@@ -18,7 +18,7 @@ export default function PartidaScreen() {
 
     return (
         <SafeAreaView style={[ temaAtivo._bgPagina, componente._pagina ]}>
-            <View>
+            <View style={componente._container}>
                 <BotaoPadrao
                     icone="arrow-back-outline"
                     texto="Voltar"
@@ -26,7 +26,7 @@ export default function PartidaScreen() {
                     onClick={encerrarPartida}
                 />
             </View>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20, marginBottom: 12 }}>
+            <View style={[componente._container, styles.cabecalho]}>
                 <View style={{ flexDirection: 'row' }}>
                     <Ionicons style={[temaAtivo._colorTexto, { marginRight: 8 }]} name={'time-outline'} size={24} />
                     <Text style={[temaAtivo._colorTexto, componente._titulo_3]}>{numToTime(tempo)}</Text>
@@ -34,9 +34,18 @@ export default function PartidaScreen() {
                 { prefLimiteErros ? <Text style={[temaAtivo._colorTexto, componente._titulo_4]}>Erros: {3 - tentativas.length}</Text> : null }
                 {/* <Text>Pontos: {calcularPontos(tempo, acertos.qtd_acertos, tentativas.length)}</Text> */}
             </View>
-            <View style={[ temaAtivo._borderColor, { height: 12 * 50 + 30, padding: 12, alignItems: 'center', borderWidth: 1, borderRadius: 8 } ]}>
+            <View style={[ temaAtivo._borderColor, { height: 12 * 50 + 30, padding: 12, alignItems: 'center', borderWidth: 1 } ]}>
                 <TabuleiroPartida />
             </View>
         </SafeAreaView>
     )
 }
+
+const styles = StyleSheet.create({
+    cabecalho: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 16,
+        marginBottom: 18
+    }
+})

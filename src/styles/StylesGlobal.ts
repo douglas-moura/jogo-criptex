@@ -19,11 +19,14 @@ export const componente = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-start',
         //alignItems: 'center'
-        paddingHorizontal: 30,
+        //paddingHorizontal: 30,
     },
     _conteudoCentral: {
         height: '100%',
         justifyContent: 'center',
+    },
+    _container: {
+        marginHorizontal: 30
     },
     _titulo_1: {
         fontSize: 32,
@@ -96,7 +99,7 @@ export const temaEscuro = {
         color: paletaCores._cinza_1,
     },
     _borderColor: {
-        borderColor: paletaCores._cinza_2,
+        borderColor: paletaCores._cinza_3,
     }
 }
 

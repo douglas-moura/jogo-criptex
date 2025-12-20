@@ -27,7 +27,7 @@ export default function ParabensScreen() {
 
     return (
         <SafeAreaView style={[ temaAtivo._bgPagina, componente._pagina, { gap: 20 } ]}>
-            <View style={[componente._conteudoCentral, { alignItems: 'center' }]}>
+            <View style={[componente._container, componente._conteudoCentral, { alignItems: 'center' }]}>
                 {erros >= 3 && prefLimiteErros ? 
                     <Text style={[temaAtivo._colorTexto, componente._titulo_2, styles.titulo ]}>LIMITE DE ERROS ATINGIDO!</Text> :
                     <Text style={[temaAtivo._colorTexto, componente._titulo_2, styles.titulo ]}>PARABÉNS! VOCÊ COMPLETOU A PARTIDA!</Text>

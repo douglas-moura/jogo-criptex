@@ -18,7 +18,7 @@ function Tabs() {
 
     return (
         <Tab.Navigator
-            initialRouteName="Jogar"
+            initialRouteName="Início"
             screenOptions={({ route }) => ({
                 headerShown: false,
                 animation: 'shift',
@@ -47,8 +47,8 @@ function Tabs() {
                     type IconName = keyof typeof Ionicons.glyphMap
                     let iconName: IconName = 'help-circle-outline'
 
-                    if (route.name === 'Jogar') {
-                        iconName = focused ? 'play' : 'play-outline'
+                    if (route.name === 'Início') {
+                        iconName = focused ? 'home' : 'home-outline'
                     } else if (route.name === 'Minha Conta') {
                         iconName = focused ? 'person' : 'person-outline'
                     } else {
@@ -59,7 +59,7 @@ function Tabs() {
                 }
             })}
         >
-            <Tab.Screen name="Jogar" component={HomeScreen} />
+            <Tab.Screen name="Início" component={HomeScreen} />
             <Tab.Screen name="Minha Conta" component={ContaScreen} />
         </Tab.Navigator>
     )
