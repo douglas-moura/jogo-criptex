@@ -1,7 +1,7 @@
 import { View, Text, TextInput, NativeSyntheticEvent, TextInputChangeEventData } from "react-native"
-import { useJogo } from "../context/JogoContext"
 import { useEffect, useState } from "react"
 import { temas, componente } from "../styles/StylesGlobal"
+import { useJogo } from "../context/JogoContext"
 
 function checarLetra(letraPalpite: string, letraCerta: string): boolean {
     return letraPalpite.toLocaleUpperCase() == letraCerta.toLocaleUpperCase()

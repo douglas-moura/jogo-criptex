@@ -1,10 +1,8 @@
 import { Text, Pressable, StyleSheet } from "react-native"
 import { useNavigation } from "@react-navigation/native"
+import { componente, temas } from "../styles/StylesGlobal"
 import { Ionicons } from '@expo/vector-icons'
-import { componente, paletaCores, temas } from "../styles/StylesGlobal"
 import { useJogo } from "../context/JogoContext"
-import { useEffect, useState } from "react"
-import { Shadow } from 'react-native-shadow-2'
 
 type IconName = keyof typeof Ionicons.glyphMap
 type funcaoExtraBotao = () => void

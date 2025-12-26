@@ -1,10 +1,10 @@
 import { View, Text, StyleSheet, Pressable } from "react-native"
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { useJogo } from "../../src/context/JogoContext"
 import { useEffect, useState, useCallback } from "react"
-import { Usuario } from "../../src/types/classes"
 import { temas, componente } from "../../src/styles/StylesGlobal"
 import { useFocusEffect } from "@react-navigation/native"
+import { useJogo } from "../../src/context/JogoContext"
+import { Usuario } from "../../src/types/classes"
 import MenuDificuldade from "../../src/components/MenuDificuldade"
 import BotaoPadrao from "../../src/components/BotaoPadrao"
 import AsyncStorage from "@react-native-async-storage/async-storage"

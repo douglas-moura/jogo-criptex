@@ -1,7 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { useEffect, useState } from "react"
-import { temas, componente, paletaCores } from "../styles/StylesGlobal"
+import { temas, paletaCores } from "../styles/StylesGlobal"
 import { useJogo } from "../context/JogoContext"
 import { Ionicons } from '@expo/vector-icons'
 import HomeScreen from "../../app/pages/HomeScreen"

@@ -1,5 +1,5 @@
-import AsyncStorage from "@react-native-async-storage/async-storage"
 import { Estatistica } from "../types/interfaces"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 export const salvarDesempenho = async (chave: string, dados: Estatistica) => {
     //await AsyncStorage.removeItem('@criptex:desempenho-fácil')
