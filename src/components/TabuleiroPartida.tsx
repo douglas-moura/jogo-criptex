@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, KeyboardAvoidingView, Platform, ScrollView } from "react-native"
+import { View, Text, StyleSheet, KeyboardAvoidingView, Platform, ScrollView, Keyboard } from "react-native"
 import { useEffect, useState } from "react"
 import { dividirPalavra } from "../functions/dividirPalavra"
 import { charadas } from "../../db/charadas"
@@ -11,7 +11,8 @@ import BoxLetra from "./BoxLetra"
 
 export default function TabuleiroPartida() {
     const { partida, setPartida, acertos, tentativas, setTentativas, encerrarPartida, dificuldadeSelecionada, prefTema, prefAutoPreen, prefLimiteErros } = useJogo()
-    const [finalizada, setFinalizada] = useState(false)
+    const [ finalizada, setFinalizada ] = useState(false)
+    const [ tecladoAltura, setTecladoAltura ] = useState(0)
     const temaAtivo = prefTema ? temas.dark : temas.light
     const navigation = useNavigation<any>()
 
@@ -58,14 +59,33 @@ export default function TabuleiroPartida() {
         }
     }, [acertos, tentativas, partida, prefAutoPreen, prefLimiteErros])
 
+    useEffect(() => {
+        const showSub = Keyboard.addListener('keyboardDidShow', e => {
+            setTecladoAltura(e.endCoordinates.height)
+        })
+
+        const hideSub = Keyboard.addListener('keyboardDidHide', () => {
+            setTecladoAltura(0)
+        })
+        
+        return () => {
+            showSub.remove()
+            hideSub.remove()
+        }
+    }, [])
+
     return (
         <KeyboardAvoidingView 
             style={{ flex: 1, width: '100%' }} 
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            behavior={Platform.OS === 'ios' ? 'padding' : undefined}
             keyboardVerticalOffset={Platform.OS === 'ios' ? 80 : 0}
         >
             <ScrollView
-                contentContainerStyle={styles.tabuleiro}
+                style={styles.tabuleiro}
+                contentContainerStyle={{
+                    alignItems: 'center',
+                    paddingBottom: tecladoAltura - 40
+                }}
                 keyboardShouldPersistTaps="handled"
                 showsVerticalScrollIndicator={false}
             >
