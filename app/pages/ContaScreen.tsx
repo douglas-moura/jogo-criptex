@@ -58,7 +58,7 @@ export default function ContaScreen() {
                     </View>
                     <View style={[temaAtivo._borderColor, {paddingHorizontal: 24, paddingVertical: 12, borderWidth: 1, borderRadius: 8 }]}>
                         <View style={styles.linhaContainer}>
-                            <Text style={temaAtivo._colorTexto}>Modo Escuro</Text>
+                            <Text style={[temaAtivo._colorTexto, componente._texto_1]}>Modo Escuro</Text>
                             <Switch value={prefTema}
                                 thumbColor={prefTema ? paletaCores._primario : paletaCores._cinza_1}
                                 trackColor={{false: paletaCores._cinza_2, true: paletaCores._cinza_1}}
@@ -66,7 +66,7 @@ export default function ContaScreen() {
                             />
                         </View>
                         <View style={styles.linhaContainer}>
-                            <Text style={temaAtivo._colorTexto}>Auto Preechimento</Text>
+                            <Text style={[temaAtivo._colorTexto, componente._texto_1]}>Auto Preechimento</Text>
                             <Switch value={prefAutoPreen}
                                 thumbColor={prefAutoPreen ? paletaCores._primario : paletaCores._cinza_1}
                                 trackColor={{false: paletaCores._cinza_2, true: paletaCores._cinza_1}}
@@ -74,7 +74,7 @@ export default function ContaScreen() {
                             />
                         </View>
                         <View style={styles.linhaContainer}>
-                            <Text style={temaAtivo._colorTexto}>Exibir Acertos/Erros</Text>
+                            <Text style={[temaAtivo._colorTexto, componente._texto_1]}>Exibir Acertos/Erros</Text>
                             <Switch
                                 value={prefExibirAcertos}
                                 thumbColor={prefExibirAcertos ? paletaCores._primario : paletaCores._cinza_1}
@@ -83,7 +83,7 @@ export default function ContaScreen() {
                             />
                         </View>
                         <View style={styles.linhaContainer}>
-                            <Text style={temaAtivo._colorTexto}>Limite de Erros</Text>
+                            <Text style={[temaAtivo._colorTexto, componente._texto_1]}>Limite de Erros</Text>
                             <Switch value={prefLimiteErros}
                                 thumbColor={prefLimiteErros ? paletaCores._primario : paletaCores._cinza_1}
                                 trackColor={{false: paletaCores._cinza_2, true: paletaCores._cinza_1}}

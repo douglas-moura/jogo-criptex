@@ -15,11 +15,11 @@ export default function EstatisticaContainer({titulo, data}: {titulo: string, da
             <View style={styles.linhaContainer}>
                 <View>
                     <Text style={[temaAtivo._colorTexto, componente._texto_2]}>Partidas</Text>
-                    <Text style={[temaAtivo._colorTexto, componente._texto_1, { fontWeight: 900 }]}>{data ? data.qtd_partidas : 0}</Text>
+                    <Text style={[temaAtivo._colorTexto, componente._texto_1, {fontFamily: 'FredokaB'} ]}>{data ? data.qtd_partidas : 0}</Text>
                 </View>
                 <View>
                     <Text style={[temaAtivo._colorTexto, componente._texto_2]}>Melhor Tempo</Text>
-                    <Text style={[temaAtivo._colorTexto, componente._texto_1, { fontWeight: 900 }]}>{numToTime(data ? data.tempo : 0)}</Text>
+                    <Text style={[temaAtivo._colorTexto, componente._texto_1, {fontFamily: 'FredokaB'}]}>{numToTime(data ? data.tempo : 0)}</Text>
                 </View>
                 {/*}
                 <View>

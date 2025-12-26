@@ -30,36 +30,40 @@ export const componente = StyleSheet.create({
     },
     _titulo_1: {
         fontSize: 32,
-        fontWeight: 900,
+        fontFamily: 'FredokaB'
     },
     _titulo_2: {
         fontSize: 26,
-        fontWeight: 900,
+        fontFamily: 'FredokaB'
     },
     _titulo_3: {
         fontSize: 20,
-        fontWeight: 800,
+        fontFamily: 'FredokaM'
     },
     _titulo_4: {
         fontSize: 18,
-        fontWeight: 800,
+        fontFamily: 'FredokaM'
     },
     _texto_1: {
-        fontSize: 16
+        fontSize: 16,
+        fontFamily: 'FredokaR'
     },
     _texto_2: {
-        fontSize: 12
+        fontSize: 12,
+        fontFamily: 'FredokaR'
     },
     _texto_3: {
-        fontSize: 10
+        fontSize: 10,
+        fontFamily: 'FredokaR'
     },
     _texto_4: {
-        fontSize: 8
+        fontSize: 8,
+        fontFamily: 'FredokaR'
     },
     _botao_texto: {
         color: paletaCores._branco,
+        fontFamily: 'FredokaM',
         fontSize: 18,
-        fontWeight: 600,
     },
     _botao_primario: {
         backgroundColor: paletaCores._primario,

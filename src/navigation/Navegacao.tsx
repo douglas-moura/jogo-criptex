@@ -32,7 +32,7 @@ function Tabs() {
                 },
                 tabBarLabelStyle: {
                     fontSize: 12,
-                    fontWeight: '800',
+                    fontFamily: 'FredokaM'
                 },
                 tabBarItemStyle: {
                     paddingVertical: 8,

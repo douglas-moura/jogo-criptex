@@ -97,6 +97,7 @@ export default function BoxLetra({letra, simb}: {letra: string, simb: number}) {
             <View style={{ width: '100%', backgroundColor: 'blue', aspectRatio: 1 / 1, borderRadius: 4, overflow: 'hidden' }}>
                 <TextInput style={{
                     fontSize: 12,
+                    fontFamily: 'FredokaM',
                     color: 'black',
                     borderBottomWidth: 0,
                     borderColor: 'black',

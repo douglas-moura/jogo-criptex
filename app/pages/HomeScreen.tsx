@@ -47,7 +47,7 @@ export default function HomeScreen() {
             <View style={componente._conteudoCentral}>
                 <View>
                     <View style={{ alignItems: 'center', marginBottom: 20 }}>
-                        <Text style={[temaAtivo._colorTexto, { fontSize: 72, fontWeight: '800' }]}>CRIPTEX</Text>
+                        <Text style={[temaAtivo._colorTexto, {fontSize: 62, fontFamily: 'Audiowide'} ]}>CRIPTEX</Text>
                     </View>
                     <View style={{ width: 160, alignSelf: 'center' }}>
                         <BotaoPadrao
