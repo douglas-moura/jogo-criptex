@@ -1,8 +1,8 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { temas, paletaCores } from "../styles/StylesGlobal"
-import { useJogo } from "../context/JogoContext"
 import { Ionicons } from '@expo/vector-icons'
+import { useJogo } from "../context/JogoContext"
 import HomeScreen from "../../app/pages/HomeScreen"
 import ContaScreen from "../../app/pages/ContaScreen"
 import PartidaScreen from "../../app/pages/PartidaScreen"

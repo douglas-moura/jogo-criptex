@@ -1,10 +1,11 @@
-import { View, Text, StyleSheet, Pressable } from "react-native"
+import { View, Text, StyleSheet, Pressable, Animated, Button } from "react-native"
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { useEffect, useState, useCallback } from "react"
+import { useEffect, useState, useCallback, useRef } from "react"
 import { temas, componente } from "../../src/styles/StylesGlobal"
 import { useFocusEffect } from "@react-navigation/native"
 import { useJogo } from "../../src/context/JogoContext"
 import { Usuario } from "../../src/types/classes"
+import { linear } from "../../src/functions/animacoesEfeitos"
 import MenuDificuldade from "../../src/components/MenuDificuldade"
 import BotaoPadrao from "../../src/components/BotaoPadrao"
 import AsyncStorage from "@react-native-async-storage/async-storage"
@@ -14,20 +15,26 @@ export default function HomeScreen() {
     const { start, setStart, prefTema } = useJogo()
     const [ diff, setDiff ] = useState<boolean>(false)
     const temaAtivo = prefTema ? temas.dark : temas.light
-    
-    const iniciarNovaPartida = () => {
+    const logoOpacity = useRef(new Animated.Value(0)).current
+    const logoPosition = useRef(new Animated.Value(-10)).current
+    const menuPeliculaOpacity = useRef(new Animated.Value(0)).current
+    const menuPosition = useRef(new Animated.Value(250)).current
+
+    const abrirMenu = () => {
         setDiff(true)
+        linear(menuPeliculaOpacity, 1)
+        setTimeout(() => linear(menuPosition, 1), 500)
+    }
+
+    const fecharMenu = () => {
+        linear(menuPosition, 250)
+        setTimeout(() => linear(menuPeliculaOpacity, 0), 500)
+        setTimeout(() => setDiff(false), 900)
     }
     
     const salvarUsuario = async (u: Usuario): Promise<void> => {
         const checkUser = await AsyncStorage.getItem('@criptex:usuario')
-
-        if (!checkUser) {
-            await AsyncStorage.setItem('@criptex:usuario', JSON.stringify(u.getPrefs()))
-            //console.log('User Salvo: ', await AsyncStorage.getItem('@criptex:usuario'))
-        }
-
-        //console.log('User Já Presente: ', await AsyncStorage.getItem('@criptex:usuario'))
+        if (!checkUser) await AsyncStorage.setItem('@criptex:usuario', JSON.stringify(u.getPrefs()))
     }
 
     useEffect(() => {
@@ -42,26 +49,46 @@ export default function HomeScreen() {
         }, [])
     )
 
+    useEffect(() => {
+        // fade-in do logo
+        linear(logoOpacity, 1)
+        linear(logoPosition, 1)
+    }, [])
+
     return (
         <SafeAreaView style={[ temaAtivo._bgPagina, componente._pagina, { paddingHorizontal: 0 } ]}>
             <View style={componente._conteudoCentral}>
                 <View>
-                    <View style={{ alignItems: 'center', marginBottom: 20 }}>
+                    <Animated.View
+                        style={{
+                            alignItems: 'center',
+                            marginBottom: 20,
+                            opacity: logoOpacity,
+                            transform: [{
+                                translateY: logoPosition
+                            }]
+                        }}>
                         <Text style={[temaAtivo._colorTexto, {fontSize: 62, fontFamily: 'Audiowide'} ]}>CRIPTEX</Text>
-                    </View>
+                    </Animated.View>
                     <View style={{ width: 160, alignSelf: 'center' }}>
                         <BotaoPadrao
                             icone="play"
                             texto="Iniciar"
                             destino="Início"
                             type="primario"
-                            onClick={iniciarNovaPartida}
+                            onClick={abrirMenu}
                         />
                     </View>
                 </View>
-                <Pressable onPress={() => setDiff(false)} style={[styles.menuDificuldadeContainer, { display: diff && !start ? 'flex' : 'none' } ]}>
-                    <MenuDificuldade />
-                </Pressable>
+                <View style={[ styles.menuDificuldadeContainer, { display: diff && !start ? 'flex' : 'none' } ]}>
+                    <Animated.View style={{ opacity: menuPeliculaOpacity }}>
+                        <Pressable onPress={() => fecharMenu()} style={styles.pelicula}>
+                            <Animated.View style={{ transform: [{ translateY: menuPosition }] }}>
+                                <MenuDificuldade />
+                            </Animated.View>
+                        </Pressable>
+                    </Animated.View>
+                </View>
             </View>
             <Rodape />
         </SafeAreaView>
@@ -70,14 +97,17 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
     menuDificuldadeContainer: {
-        zIndex: 90,
+        height: '100%',
+        width: '100%', 
         position: 'absolute',
-        padding: 24,
+        zIndex: 90,
+    },
+    pelicula: {
+        height: '100%',
         width: '100%',
-        height: '120%',
+        backgroundColor: '#161616cc',
         flexDirection: 'column',
         justifyContent: 'flex-end',
-        alignItems: 'flex-end',
-        backgroundColor: '#161616cc'
+        alignItems: 'center',
     }
 })

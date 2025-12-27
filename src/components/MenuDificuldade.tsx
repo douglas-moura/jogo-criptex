@@ -35,9 +35,9 @@ export default function MenuDificuldade() {
 
 const styles = StyleSheet.create({
     listaContainer: {
-        width: '100%',
-        height: '40%',
-        padding: 36,
+        width: 300,
+        height: 250,
+        padding: 32,
         borderTopStartRadius: 32,
         borderTopEndRadius: 32,
     },

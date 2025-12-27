@@ -13,6 +13,7 @@ export default function TabuleiroPartida() {
     const { partida, setPartida, acertos, tentativas, setTentativas, encerrarPartida, dificuldadeSelecionada, prefTema, prefAutoPreen, prefLimiteErros } = useJogo()
     const [ finalizada, setFinalizada ] = useState(false)
     const [ tecladoAltura, setTecladoAltura ] = useState(0)
+    
     const temaAtivo = prefTema ? temas.dark : temas.light
     const navigation = useNavigation<any>()
 
