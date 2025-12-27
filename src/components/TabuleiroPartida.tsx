@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet, KeyboardAvoidingView, Platform, ScrollView, Keyboard } from "react-native"
-import { useEffect, useState } from "react"
+import { View, Text, StyleSheet, KeyboardAvoidingView, Platform, ScrollView, Keyboard, Animated } from "react-native"
+import { useEffect, useState, useRef } from "react"
 import { dividirPalavra } from "../functions/dividirPalavra"
 import { charadas } from "../../db/charadas"
 import { Partida } from "../types/classes"
@@ -7,13 +7,14 @@ import { useJogo } from "../context/JogoContext"
 import { useNavigation } from "@react-navigation/native"
 import { selecionarCharadas } from "../functions/selecionarCharadas"
 import { temas, componente } from "../styles/StylesGlobal"
+import { linear } from "../functions/animacoesEfeitos"
 import BoxLetra from "./BoxLetra"
 
 export default function TabuleiroPartida() {
     const { partida, setPartida, acertos, tentativas, setTentativas, encerrarPartida, dificuldadeSelecionada, prefTema, prefAutoPreen, prefLimiteErros } = useJogo()
     const [ finalizada, setFinalizada ] = useState(false)
     const [ tecladoAltura, setTecladoAltura ] = useState(0)
-    
+    const linhaCharadaOpacity = useRef(new Animated.Value(0)).current
     const temaAtivo = prefTema ? temas.dark : temas.light
     const navigation = useNavigation<any>()
 
@@ -61,6 +62,9 @@ export default function TabuleiroPartida() {
     }, [acertos, tentativas, partida, prefAutoPreen, prefLimiteErros])
 
     useEffect(() => {
+        // animação das linhas
+        linear(linhaCharadaOpacity, 1, 700)
+
         const showSub = Keyboard.addListener('keyboardDidShow', e => {
             setTecladoAltura(e.endCoordinates.height)
         })
@@ -92,13 +96,13 @@ export default function TabuleiroPartida() {
             >
                 {partida?.getCharadas().map((item, index) => (
                     dividirPalavra(item.resposta).length == item.qtd_letras ?
-                        <View style={styles.tabuleiroLinha} key={index}>
+                        <View style={[styles.tabuleiroLinha]} key={index}>
                             <Text style={[temaAtivo._colorTexto, componente._texto_3, styles.linhaDica]}>{item.dica}</Text>
                             <View style={styles.linhaLetras}>
                                 {dividirPalavra(item.resposta).map((letra, index) => (
                                     partida.getLetras().map((l, indexL) => {
                                         if (l.letra === letra) {
-                                            return <BoxLetra key={indexL} letra={l.letra} simb={l.simbolo} />
+                                            return <BoxLetra key={indexL} id={index} letra={l.letra} simb={l.simbolo} />
                                         }
                                     })
                                 ))}

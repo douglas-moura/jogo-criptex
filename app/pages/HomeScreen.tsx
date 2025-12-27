@@ -22,14 +22,14 @@ export default function HomeScreen() {
 
     const abrirMenu = () => {
         setDiff(true)
-        linear(menuPeliculaOpacity, 1)
-        setTimeout(() => linear(menuPosition, 1), 500)
+        linear(menuPeliculaOpacity, 1, 300)
+        linear(menuPosition, 1, 800)
     }
 
     const fecharMenu = () => {
-        linear(menuPosition, 250)
-        setTimeout(() => linear(menuPeliculaOpacity, 0), 500)
-        setTimeout(() => setDiff(false), 900)
+        linear(menuPosition, 250, 300)
+        linear(menuPeliculaOpacity, 0, 800)
+        setTimeout(() => setDiff(false), 1200)
     }
     
     const salvarUsuario = async (u: Usuario): Promise<void> => {
@@ -51,8 +51,8 @@ export default function HomeScreen() {
 
     useEffect(() => {
         // fade-in do logo
-        linear(logoOpacity, 1)
-        linear(logoPosition, 1)
+        linear(logoOpacity, 1, 400)
+        linear(logoPosition, 1, 400)
     }, [])
 
     return (

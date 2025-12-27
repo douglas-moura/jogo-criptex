@@ -1,18 +1,21 @@
-import { View, Text, TextInput, NativeSyntheticEvent, TextInputChangeEventData } from "react-native"
-import { useEffect, useState } from "react"
+import { View, Text, TextInput, NativeSyntheticEvent, TextInputChangeEventData, Animated } from "react-native"
+import { useEffect, useState, useRef } from "react"
 import { temas, componente } from "../styles/StylesGlobal"
 import { useJogo } from "../context/JogoContext"
+import { linear, shake } from "../functions/animacoesEfeitos"
 
 function checarLetra(letraPalpite: string, letraCerta: string): boolean {
     return letraPalpite.toLocaleUpperCase() == letraCerta.toLocaleUpperCase()
 }
 
-export default function BoxLetra({letra, simb}: {letra: string, simb: number}) {
+export default function BoxLetra({id, letra, simb}: {id: number, letra: string, simb: number}) {
     //const inputRef = useRef<TextInput>(null)
     const { acertos, setAcertos, tentativas, setTentativas, prefTema, prefAutoPreen, prefExibirAcertos } = useJogo()
     const [ value, setValue ] = useState('')
     const [ statusLetra, setStatusLetra ] = useState<boolean>(acertos.letrasAcertadas.includes(letra))
     const [ historicoLetras, setHistoricoLetras ] = useState<string[]>([])
+    const boxEscala = useRef(new Animated.Value(0)).current
+    const boxPosition = useRef(new Animated.Value(0)).current
     const temaAtivo = prefTema ? temas.dark : temas.light
 
     const handleChange = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
@@ -32,6 +35,8 @@ export default function BoxLetra({letra, simb}: {letra: string, simb: number}) {
         if (checarLetra(palpite, letra || '')) {
             // se a letra certa já esta nos acertos, não faz nada
             if (!acertos.letrasAcertadas.includes(letra)) {
+                shake(boxPosition, -6)
+                shake(boxEscala, 1.1)
                 // adiciona letra aos acertos no contexto
                 setAcertos(prev => {
                     return {
@@ -90,11 +95,13 @@ export default function BoxLetra({letra, simb}: {letra: string, simb: number}) {
         }
     }, [acertos, tentativas])
 
-    //console.log('hist: ', historicoLetras.pop());
+    useEffect(() => {
+        linear(boxEscala, 1, (id + 1) * 100)
+    }, [])
 
     return (
-        <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', width: 24, height: 40, borderWidth: 0 }}>
-            <View style={{ width: '100%', backgroundColor: 'blue', aspectRatio: 1 / 1, borderRadius: 4, overflow: 'hidden' }}>
+        <Animated.View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', width: 24, height: 40, borderWidth: 0, scaleX: boxEscala, scaleY: boxEscala }}>
+            <Animated.View style={{ width: '100%', backgroundColor: 'blue', aspectRatio: 1 / 1, borderRadius: 4, overflow: 'hidden', transform: [{ translateY: boxPosition }] }}>
                 <TextInput style={{
                     fontSize: 12,
                     fontFamily: 'FredokaM',
@@ -107,8 +114,8 @@ export default function BoxLetra({letra, simb}: {letra: string, simb: number}) {
                     textAlign: 'center',
                     backgroundColor: (value == '' || !prefExibirAcertos) ? '#efefef' : statusLetra && value == letra ? 'lightgreen' : 'red'
                 }} maxLength={1} value={value} onChange={handleChange} editable={!statusLetra || !prefExibirAcertos}  />
-            </View>
+            </Animated.View>
             <Text style={[temaAtivo._colorTexto, componente._texto_3, { flexDirection: 'row', justifyContent: 'flex-end', alignContent: 'flex-end', alignItems: 'flex-end' }]}>{simb}</Text>
-        </View>
+        </Animated.View>
     )
 }
