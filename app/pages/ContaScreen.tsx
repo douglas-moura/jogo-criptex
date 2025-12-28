@@ -50,7 +50,6 @@ export default function ContaScreen() {
         <SafeAreaView style={[ temaAtivo._bgPagina, componente._pagina ]}>
             <ScrollView style={{ height: '100%', paddingTop: 40, flexGrow: 1 }} showsVerticalScrollIndicator={false} >
                 <Text style={[temaAtivo._colorTexto, componente._container, componente._titulo_1]}>Minha Conta</Text>
-                {/*<Text style={styles.titulo_3}>Olá, Nome</Text>*/}
                 <View style={[componente._container, styles.container, temaAtivo._borderColor ]}>
                     <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12 }}>
                         <Ionicons style={styles.tituloIcone} name={'options'} size={24} />
@@ -61,7 +60,7 @@ export default function ContaScreen() {
                             <Text style={[temaAtivo._colorTexto, componente._texto_1]}>Modo Escuro</Text>
                             <Switch value={prefTema}
                                 thumbColor={prefTema ? paletaCores._primario : paletaCores._cinza_1}
-                                trackColor={{false: paletaCores._cinza_2, true: paletaCores._cinza_1}}
+                                trackColor={{false: paletaCores._cinza_2, true: paletaCores._cinza_2}}
                                 onValueChange={() => setPrefTema(!prefTema)}
                             />
                         </View>
@@ -69,7 +68,7 @@ export default function ContaScreen() {
                             <Text style={[temaAtivo._colorTexto, componente._texto_1]}>Auto Preechimento</Text>
                             <Switch value={prefAutoPreen}
                                 thumbColor={prefAutoPreen ? paletaCores._primario : paletaCores._cinza_1}
-                                trackColor={{false: paletaCores._cinza_2, true: paletaCores._cinza_1}}
+                                trackColor={{false: paletaCores._cinza_2, true: paletaCores._cinza_2}}
                                 onValueChange={() => setPrefAutoPreen(!prefAutoPreen)}
                             />
                         </View>
@@ -78,7 +77,7 @@ export default function ContaScreen() {
                             <Switch
                                 value={prefExibirAcertos}
                                 thumbColor={prefExibirAcertos ? paletaCores._primario : paletaCores._cinza_1}
-                                trackColor={{false: paletaCores._cinza_2, true: paletaCores._cinza_1}}
+                                trackColor={{false: paletaCores._cinza_2, true: paletaCores._cinza_2}}
                                 onValueChange={() => setPrefExibirAcertos(!prefExibirAcertos)}
                             />
                         </View>
@@ -86,7 +85,7 @@ export default function ContaScreen() {
                             <Text style={[temaAtivo._colorTexto, componente._texto_1]}>Limite de Erros</Text>
                             <Switch value={prefLimiteErros}
                                 thumbColor={prefLimiteErros ? paletaCores._primario : paletaCores._cinza_1}
-                                trackColor={{false: paletaCores._cinza_2, true: paletaCores._cinza_1}}
+                                trackColor={{false: paletaCores._cinza_2, true: paletaCores._cinza_2}}
                                 onValueChange={() => setPrefLimiteErros(!prefLimiteErros)}
                             />
                         </View>

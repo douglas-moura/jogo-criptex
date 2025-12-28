@@ -13,12 +13,12 @@ export const shake = (prop: any, intensidade: number, delay?: number) => {
     Animated.sequence([
         Animated.timing(prop, {
             toValue: intensidade,
-            duration: 50,
+            duration: 10,
             useNativeDriver: true,
         }),
         Animated.timing(prop, {
             toValue: prop,
-            duration: 50,
+            duration: 10,
             useNativeDriver: true,
         }),
         Animated.delay(delay ? delay : 0)

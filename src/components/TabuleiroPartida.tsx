@@ -118,7 +118,8 @@ export default function TabuleiroPartida() {
 const styles = StyleSheet.create({
     tabuleiro: {
         flexGrow: 1,
-        //paddingBottom: 140,
+        //backgroundColor: 'red',
+        paddingTop: 8,
         width: '100%',
     },
     tabuleiroLinha: {

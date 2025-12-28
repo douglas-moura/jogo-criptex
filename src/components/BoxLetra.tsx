@@ -1,4 +1,4 @@
-import { View, Text, TextInput, NativeSyntheticEvent, TextInputChangeEventData, Animated } from "react-native"
+import { View, Text, TextInput, NativeSyntheticEvent, TextInputChangeEventData, Animated, StyleSheet } from "react-native"
 import { useEffect, useState, useRef } from "react"
 import { temas, componente } from "../styles/StylesGlobal"
 import { useJogo } from "../context/JogoContext"
@@ -35,8 +35,10 @@ export default function BoxLetra({id, letra, simb}: {id: number, letra: string, 
         if (checarLetra(palpite, letra || '')) {
             // se a letra certa já esta nos acertos, não faz nada
             if (!acertos.letrasAcertadas.includes(letra)) {
-                shake(boxPosition, -6)
-                shake(boxEscala, 1.1)
+                if (prefExibirAcertos) {
+                    shake(boxPosition, -6)
+                    shake(boxEscala, 1.1)
+                }
                 // adiciona letra aos acertos no contexto
                 setAcertos(prev => {
                     return {
@@ -100,22 +102,48 @@ export default function BoxLetra({id, letra, simb}: {id: number, letra: string, 
     }, [])
 
     return (
-        <Animated.View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', width: 24, height: 40, borderWidth: 0, scaleX: boxEscala, scaleY: boxEscala }}>
-            <Animated.View style={{ width: '100%', backgroundColor: 'blue', aspectRatio: 1 / 1, borderRadius: 4, overflow: 'hidden', transform: [{ translateY: boxPosition }] }}>
-                <TextInput style={{
-                    fontSize: 12,
-                    fontFamily: 'FredokaM',
-                    color: 'black',
-                    borderBottomWidth: 0,
-                    borderColor: 'black',
-                    width: '100%',
-                    height: '100%',
-                    padding: 0,
-                    textAlign: 'center',
-                    backgroundColor: (value == '' || !prefExibirAcertos) ? '#efefef' : statusLetra && value == letra ? 'lightgreen' : 'red'
-                }} maxLength={1} value={value} onChange={handleChange} editable={!statusLetra || !prefExibirAcertos}  />
+        <Animated.View style={[styles.letraContainer, { scaleX: boxEscala, scaleY: boxEscala }]}>
+            <Animated.View style={[temaAtivo._borderColor, styles.letraBox, { transform: [{ translateY: boxPosition }] } ]}>
+                <TextInput
+                    style={[
+                        componente._texto_2,
+                        styles.letraInput,
+                        { backgroundColor: (value == '' || !prefExibirAcertos) ? temaAtivo._bgPagina.backgroundColor : statusLetra && value == letra ? 'lightgreen' : 'red' }
+                    ]}
+                    maxLength={1}
+                    value={value}
+                    onChange={handleChange}
+                    editable={!statusLetra || !prefExibirAcertos}
+                />
             </Animated.View>
             <Text style={[temaAtivo._colorTexto, componente._texto_3, { flexDirection: 'row', justifyContent: 'flex-end', alignContent: 'flex-end', alignItems: 'flex-end' }]}>{simb}</Text>
         </Animated.View>
     )
 }
+
+const styles = StyleSheet.create({
+    letraContainer: {
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        width: 24,
+        height: 40,
+        borderWidth: 0,
+    },
+    letraBox: {
+        width: '100%',
+        aspectRatio: 1 / 1,
+        borderRadius: 4, 
+        borderWidth: 1,
+        overflow: 'hidden',
+    },
+    letraInput: {
+        color: 'black',
+        borderBottomWidth: 0,
+        borderColor: 'black',
+        width: '100%',
+        height: '100%',
+        padding: 0,
+        textAlign: 'center',
+    }
+})
