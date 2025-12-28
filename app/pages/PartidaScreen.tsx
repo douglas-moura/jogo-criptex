@@ -31,7 +31,7 @@ export default function PartidaScreen() {
                     <Ionicons style={[temaAtivo._colorTexto, { marginRight: 8 }]} name={'time-outline'} size={24} />
                     <Text style={[temaAtivo._colorTexto, componente._titulo_3]}>{numToTime(tempo)}</Text>
                 </View>
-                { prefLimiteErros ? <Text style={[temaAtivo._colorTexto, componente._titulo_4]}>Erros: {3 - tentativas.length}</Text> : null }
+                { prefLimiteErros ? <Text style={[temaAtivo._colorTexto, componente._titulo_3]}>Erros: {3 - tentativas.length}</Text> : null }
                 {/* <Text>Pontos: {calcularPontos(tempo, acertos.qtd_acertos, tentativas.length)}</Text> */}
             </View>
             <View style={[ temaAtivo._borderColor, { height: 12 * 50 + 30, padding: 12, alignItems: 'center', borderWidth: 1 } ]}>
@@ -43,8 +43,9 @@ export default function PartidaScreen() {
 
 const styles = StyleSheet.create({
     cabecalho: {
+        gap: 32,
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         marginTop: 16,
         marginBottom: 18
     }

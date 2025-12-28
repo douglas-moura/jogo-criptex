@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { JogoProvider } from '../src/context/JogoContext'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useFonts } from 'expo-font'
+import { paletaCores } from '../src/styles/StylesGlobal'
 import Navegacao from '../src/navigation/Navegacao'
 
 export default function App() {
@@ -22,7 +23,10 @@ export default function App() {
         <SafeAreaView style={styles.container}>
             <JogoProvider>
                 <NavigationContainer>
-                    <StatusBar />
+                    <StatusBar
+                        style='light'
+                        backgroundColor={paletaCores._primario}
+                    />
                     <Navegacao />
                 </NavigationContainer>
             </JogoProvider>

@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native"
+import { View, Text, StyleSheet, Image } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { useJogo } from "../../src/context/JogoContext"
 import { useState, useEffect } from "react"
@@ -30,7 +30,10 @@ export default function ParabensScreen() {
             <View style={[componente._container, componente._conteudoCentral, { alignItems: 'center' }]}>
                 {erros >= 3 && prefLimiteErros ? 
                     <Text style={[temaAtivo._colorTexto, componente._titulo_2, styles.titulo ]}>LIMITE DE ERROS ATINGIDO!</Text> :
-                    <Text style={[temaAtivo._colorTexto, componente._titulo_2, styles.titulo ]}>PARABÉNS! VOCÊ COMPLETOU A PARTIDA!</Text>
+                    <View style={{ flexDirection: 'column', alignItems: 'center', width: 300, gap: 32 }}>
+                        <Image source={require("../../assets/img/recompensa.png")} style={{ width: 120, height: 120, marginHorizontal: 'auto' }} />
+                        <Text style={[temaAtivo._colorTexto, componente._titulo_2, styles.titulo ]}>PARABÉNS! VOCÊ COMPLETOU A PARTIDA!</Text>
+                    </View>
                 }
                 { erros >= 3 && prefLimiteErros ? null : <Text style={[temaAtivo._colorTexto, componente._titulo_3]}>Tempo: {numToTime(tempoFinal)}</Text> }
                 <Text style={[temaAtivo._colorTexto, componente._titulo_4, { marginVertical: 18 }]}>Dificuldade: {dificuldadeSelecionada}</Text>

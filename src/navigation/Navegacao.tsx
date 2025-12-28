@@ -17,7 +17,7 @@ function Tabs() {
 
     return (
         <Tab.Navigator
-            initialRouteName="Início"
+            initialRouteName="Parabens"
             screenOptions={({ route }) => ({
                 headerShown: false,
                 animation: 'shift',
@@ -59,6 +59,7 @@ function Tabs() {
             })}
         >
             <Tab.Screen name="Início" component={HomeScreen} />
+            <Tab.Screen name="Parabens" component={ParabensScreen} />
             <Tab.Screen name="Minha Conta" component={ContaScreen} />
         </Tab.Navigator>
     )
