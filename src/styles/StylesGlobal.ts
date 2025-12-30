@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native"
-import { Color } from "react-native/types_generated/Libraries/Animated/AnimatedExports"
 
 export const paletaCores = {
     _primario: '#ED5761',
