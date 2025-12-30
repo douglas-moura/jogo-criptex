@@ -36,8 +36,8 @@ export default function BoxLetra({id, letra, simb}: {id: number, letra: string, 
             // se a letra certa já esta nos acertos, não faz nada
             if (!acertos.letrasAcertadas.includes(letra)) {
                 if (prefExibirAcertos) {
-                    shake(boxPosition, -6)
-                    shake(boxEscala, 1.1)
+                    shake(boxPosition, -4, 1000)
+                    shake(boxEscala, 1.1, 5000)
                 }
                 // adiciona letra aos acertos no contexto
                 setAcertos(prev => {
@@ -108,7 +108,7 @@ export default function BoxLetra({id, letra, simb}: {id: number, letra: string, 
                     style={[
                         componente._texto_2,
                         styles.letraInput,
-                        { backgroundColor: (value == '' || !prefExibirAcertos) ? temaAtivo._bgPagina.backgroundColor : statusLetra && value == letra ? 'lightgreen' : 'red' }
+                        { backgroundColor: (value == '' || !prefExibirAcertos) ? temaAtivo._bgElemento.backgroundColor : statusLetra && value == letra ? 'lightgreen' : 'red' }
                     ]}
                     maxLength={1}
                     value={value}
@@ -116,7 +116,7 @@ export default function BoxLetra({id, letra, simb}: {id: number, letra: string, 
                     editable={!statusLetra || !prefExibirAcertos}
                 />
             </Animated.View>
-            <Text style={[temaAtivo._colorTexto, componente._texto_3, { flexDirection: 'row', justifyContent: 'flex-end', alignContent: 'flex-end', alignItems: 'flex-end' }]}>{simb}</Text>
+            <Text style={[temaAtivo._colorTexto, temaAtivo._bgPagina, componente._texto_4, styles.simbolo]}>{simb}</Text>
         </Animated.View>
     )
 }
@@ -145,5 +145,15 @@ const styles = StyleSheet.create({
         height: '100%',
         padding: 0,
         textAlign: 'center',
+    },
+    simbolo: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        alignContent: 'flex-end',
+        alignItems: 'flex-end',
+        padding: 2,
+        borderRadius: 500,
+        aspectRatio: 1 / 1,
+        textAlign: 'center'
     }
 })

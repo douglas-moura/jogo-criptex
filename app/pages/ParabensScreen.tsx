@@ -28,15 +28,21 @@ export default function ParabensScreen() {
     return (
         <SafeAreaView style={[ temaAtivo._bgPagina, componente._pagina, { gap: 20 } ]}>
             <View style={[componente._container, componente._conteudoCentral, { alignItems: 'center' }]}>
-                {erros >= 3 && prefLimiteErros ? 
-                    <Text style={[temaAtivo._colorTexto, componente._titulo_2, styles.titulo ]}>LIMITE DE ERROS ATINGIDO!</Text> :
-                    <View style={{ flexDirection: 'column', alignItems: 'center', width: 300, gap: 32 }}>
-                        <Image source={require("../../assets/img/recompensa.png")} style={{ width: 120, height: 120, marginHorizontal: 'auto' }} />
-                        <Text style={[temaAtivo._colorTexto, componente._titulo_2, styles.titulo ]}>PARABÉNS! VOCÊ COMPLETOU A PARTIDA!</Text>
-                    </View>
+                {
+                    erros >= 3 && prefLimiteErros ? 
+                        <Text style={[temaAtivo._colorTextoDestaque, componente._titulo_2, styles.titulo ]}>QUE PENA! VOCÊ ATINGIU O LIMITE DE ERROS!</Text>
+                        : <View style={{ flexDirection: 'column', alignItems: 'center', width: 300, gap: 32 }}>
+                            <Image source={require("../../assets/img/recompensa.png")} style={{ width: 120, height: 120, marginHorizontal: 'auto' }} />
+                            <Text style={[temaAtivo._colorTextoDestaque, componente._titulo_2, styles.titulo ]}>PARABÉNS! VOCÊ COMPLETOU A PARTIDA!</Text>
+                        </View>
                 }
-                { erros >= 3 && prefLimiteErros ? null : <Text style={[temaAtivo._colorTexto, componente._titulo_3]}>Tempo: {numToTime(tempoFinal)}</Text> }
-                <Text style={[temaAtivo._colorTexto, componente._titulo_4, { marginVertical: 18 }]}>Dificuldade: {dificuldadeSelecionada}</Text>
+                {
+                    // test
+                    erros >= 3 && prefLimiteErros ?
+                        null
+                        : <Text style={[temaAtivo._colorTexto, componente._titulo_3]}>Tempo: {numToTime(tempoFinal)}</Text>
+                }
+                <Text style={[temaAtivo._colorTexto, componente._titulo_4, { marginVertical: 18 } ]}>Dificuldade: {dificuldadeSelecionada}</Text>
                 <View style={{ width: '80%', borderWidth: 0, borderColor: 'blue', marginTop: 32 }}>
                     <BotaoPadrao
                         icone="arrow-back-outline"

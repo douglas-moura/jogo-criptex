@@ -2,11 +2,12 @@ import 'react-native-gesture-handler'
 import { StatusBar } from 'expo-status-bar'
 import { StyleSheet } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
-import { JogoProvider } from '../src/context/JogoContext'
+import { JogoProvider, useJogo } from '../src/context/JogoContext'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useFonts } from 'expo-font'
-import { paletaCores } from '../src/styles/StylesGlobal'
+import { paletaCores, temas } from '../src/styles/StylesGlobal'
 import Navegacao from '../src/navigation/Navegacao'
+import StatusBarComponente from '../src/components/StatusBarComponente'
 
 export default function App() {
     const [ fontLoaded ] = useFonts({
@@ -23,10 +24,7 @@ export default function App() {
         <SafeAreaView style={styles.container}>
             <JogoProvider>
                 <NavigationContainer>
-                    <StatusBar
-                        style='light'
-                        backgroundColor={paletaCores._primario}
-                    />
+                    <StatusBarComponente />
                     <Navegacao />
                 </NavigationContainer>
             </JogoProvider>

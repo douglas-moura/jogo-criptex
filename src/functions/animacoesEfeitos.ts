@@ -21,6 +21,6 @@ export const shake = (prop: any, intensidade: number, delay?: number) => {
             duration: 10,
             useNativeDriver: true,
         }),
-        Animated.delay(delay ? delay : 0)
+        Animated.delay(5000)
     ]).start()
 }

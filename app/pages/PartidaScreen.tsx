@@ -1,15 +1,16 @@
-import { View, Text, StyleSheet } from "react-native"
+import { View, Text, StyleSheet, Pressable } from "react-native"
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useJogo } from "../../src/context/JogoContext"
 import { useEffect } from "react"
-import { componente, temas } from "../../src/styles/StylesGlobal"
+import { componente, paletaCores, temas } from "../../src/styles/StylesGlobal"
 import { Ionicons } from "@expo/vector-icons"
 import BotaoPadrao from "../../src/components/BotaoPadrao"
 import TabuleiroPartida from "../../src/components/TabuleiroPartida"
 import numToTime from "../../src/functions/numToTime"
+import PausePelicula from "../../src/components/PausePelicula"
 
 export default function PartidaScreen() {
-    const { setStart, tempo, tentativas, resetarJogo, prefTema, prefLimiteErros } = useJogo()
+    const { setStart, pause, setPause, tempo, tentativas, resetarJogo, prefTema, prefLimiteErros } = useJogo()
     const temaAtivo = prefTema ? temas.dark : temas.light
 
     useEffect(() => { setTimeout(() => setStart(true), 500) }, [])
@@ -18,25 +19,38 @@ export default function PartidaScreen() {
 
     return (
         <SafeAreaView style={[ temaAtivo._bgPagina, componente._pagina ]}>
-            <View style={componente._container}>
-                <BotaoPadrao
-                    icone="arrow-back-outline"
-                    texto="Voltar"
-                    destino="Voltar"
-                    onClick={encerrarPartida}
-                />
-            </View>
-            <View style={[componente._container, styles.cabecalho]}>
-                <View style={{ flexDirection: 'row' }}>
-                    <Ionicons style={[temaAtivo._colorTexto, { marginRight: 8 }]} name={'time-outline'} size={24} />
-                    <Text style={[temaAtivo._colorTexto, componente._titulo_3]}>{numToTime(tempo)}</Text>
+            <View style={[componente._container, componente._linha, { justifyContent: 'space-between' } ]}>
+                <View>
+                    <BotaoPadrao
+                        icone="arrow-back-outline"
+                        texto="Voltar"
+                        destino="Voltar"
+                        onClick={encerrarPartida}
+                    />
                 </View>
-                { prefLimiteErros ? <Text style={[temaAtivo._colorTexto, componente._titulo_3]}>Erros: {3 - tentativas.length}</Text> : null }
-                {/* <Text>Pontos: {calcularPontos(tempo, acertos.qtd_acertos, tentativas.length)}</Text> */}
+                <Pressable style={componente._linha} onPress={() => setPause(!pause)}>
+                    <Text style={[temaAtivo._colorTexto, componente._titulo_4]}>{pause ? 'Pausado' : 'Pausar'}</Text>
+                    <Ionicons style={[temaAtivo._colorTexto, { marginLeft: 4 } ]} name={pause ? 'play-circle-outline' : 'pause-circle-outline'} size={32} />
+                </Pressable>
             </View>
-            <View style={[ temaAtivo._borderColor, { height: 12 * 50 + 30, padding: 12, alignItems: 'center', borderWidth: 1 } ]}>
+            <View style={[componente._container, componente._linha, styles.cabecalho, temaAtivo._borderColor]}>
+                <View style={componente._linha}>
+                    <Ionicons style={{ marginRight: 8, color: paletaCores._primario }} name={'time-outline'} size={24} />
+                    <Text style={[temaAtivo._colorTexto, componente._titulo_4, { width: 55 } ]}>{numToTime(tempo)}</Text>
+                </View>
+                {
+                    prefLimiteErros ?
+                        <View style={componente._linha}>
+                            <Text style={[componente._titulo_4, { color: paletaCores._primario, marginRight: 4 } ]}>Erros:</Text>
+                            <Text style={[temaAtivo._colorTexto, componente._titulo_4]}>{3 - tentativas.length}</Text>
+                        </View>
+                        : null
+                }
+            </View>
+            <View style={{ height: 10 * (56 + 8) + 8, alignItems: 'center' }}>
                 <TabuleiroPartida />
             </View>
+            { pause ? <PausePelicula /> : null }
         </SafeAreaView>
     )
 }
@@ -46,7 +60,8 @@ const styles = StyleSheet.create({
         gap: 32,
         flexDirection: 'row',
         justifyContent: 'center',
-        marginTop: 16,
-        marginBottom: 18
+        borderBottomWidth: 1,
+        marginBottom: 12,
+        padding: 8
     }
 })

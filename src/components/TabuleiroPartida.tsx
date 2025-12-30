@@ -89,23 +89,25 @@ export default function TabuleiroPartida() {
                 style={styles.tabuleiro}
                 contentContainerStyle={{
                     alignItems: 'center',
-                    paddingBottom: tecladoAltura - 40
+                    paddingBottom: tecladoAltura
                 }}
                 keyboardShouldPersistTaps="handled"
                 showsVerticalScrollIndicator={false}
             >
                 {partida?.getCharadas().map((item, index) => (
                     dividirPalavra(item.resposta).length == item.qtd_letras ?
-                        <View style={[styles.tabuleiroLinha]} key={index}>
-                            <Text style={[temaAtivo._colorTexto, componente._texto_3, styles.linhaDica]}>{item.dica}</Text>
-                            <View style={styles.linhaLetras}>
-                                {dividirPalavra(item.resposta).map((letra, index) => (
-                                    partida.getLetras().map((l, indexL) => {
-                                        if (l.letra === letra) {
-                                            return <BoxLetra key={indexL} id={index} letra={l.letra} simb={l.simbolo} />
-                                        }
-                                    })
-                                ))}
+                        <View style={[componente._sombraProjetada, temaAtivo._sombraColor, { marginVertical: 2 } ]} key={index}>
+                            <View style={[temaAtivo._bgElemento, styles.tabuleiroLinha]}>
+                                <Text style={[temaAtivo._colorTexto, componente._texto_3, styles.linhaDica]}>{item.dica}</Text>
+                                <View style={[styles.linhaLetras]}>
+                                    {dividirPalavra(item.resposta).map((letra, index) => (
+                                        partida.getLetras().map((l, indexL) => {
+                                            if (l.letra === letra) {
+                                                return <BoxLetra key={indexL} id={index} letra={l.letra} simb={l.simbolo} />
+                                            }
+                                        })
+                                    ))}
+                                </View>
                             </View>
                         </View>
                     : null
@@ -119,20 +121,22 @@ const styles = StyleSheet.create({
     tabuleiro: {
         flexGrow: 1,
         //backgroundColor: 'red',
-        paddingTop: 8,
+        paddingVertical: 4,
         width: '100%',
     },
     tabuleiroLinha: {
-        height: 50,
-        borderWidth: 0,
+        height: 56,
+        paddingHorizontal: 8,
+        borderRadius: 8,
         //backgroundColor: 'orange',
         borderColor: 'red',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'center',
+        alignItems: 'center'
     },
     linhaDica: {
         width: '30%',
+        paddingLeft: 4
     },
     linhaLetras: {
         gap: 2,

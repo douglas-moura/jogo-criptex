@@ -22,7 +22,7 @@ function Tabs() {
                 headerShown: false,
                 animation: 'shift',
                 tabBarActiveTintColor: paletaCores._primario,
-                tabBarInactiveTintColor: paletaCores._cinza_2,
+                tabBarInactiveTintColor: temaAtivo._colorTexto.color,
                 tabBarStyle: {
                     backgroundColor: temaAtivo._bgPagina.backgroundColor,
                     //paddingVertical: 12,

@@ -13,6 +13,9 @@ export type JogoContextType = {
     start: boolean
     setStart: (value: boolean) => void
 
+    pause: boolean
+    setPause: (value: boolean) => void
+
     pontos: number
     setPontos: (value: number) => void
 
@@ -54,6 +57,7 @@ export function JogoProvider({ children }: JogoProviderProps) {
     const [partida, setPartida] = useState<Partida | null>(null)
     const [dificuldadeSelecionada, setDificuldadeSelecionada] = useState<string>('')
     const [start, setStart] = useState<boolean>(false)
+    const [pause, setPause] = useState<boolean>(false)
     const [pontos, setPontos] = useState<number>(0)
     const [tempo, setTempo] = useState<number>(0)
     const [acertos, setAcertos] = useState<AcertosPartida>({ qtd_acertos: 0, letrasAcertadas: [] })
@@ -64,13 +68,15 @@ export function JogoProvider({ children }: JogoProviderProps) {
     const [prefExibirAcertos, setPrefExibirAcertos] = useState<boolean>(true)
 
     useEffect(() => {
-        setTimeout(() => {
-            start ? setTempo(tempo + 1) : setTempo(0)
-        }, 1000)
+        if (!pause) {
+            setTimeout(() => {
+                start ? setTempo(tempo + 1) : setTempo(0)
+            }, 1000)
+        }
         //console.log("acerto: ", acertos);
         //console.log("erro: ", tentativas, tentativas.length);
         
-    }, [start, tempo, acertos])
+    }, [start, pause, tempo, acertos])
 
     useEffect(() => {
         buscarUserPrefs('@criptex:usuario').then((data) => {
@@ -86,6 +92,7 @@ export function JogoProvider({ children }: JogoProviderProps) {
     const resetarJogo = () => {
         if (start) {
             setStart(false)
+            setPause(false)
             setPontos(0)
             setTempo(0)
             setAcertos({ qtd_acertos: 0, letrasAcertadas: [] })
@@ -96,6 +103,7 @@ export function JogoProvider({ children }: JogoProviderProps) {
     const encerrarPartida = () => {
         setTimeout(() => {
             setStart(false)
+            setPause(false)
             setPontos(0)
             setTempo(tempo)
             setAcertos({ qtd_acertos: 0, letrasAcertadas: [] })
@@ -107,6 +115,7 @@ export function JogoProvider({ children }: JogoProviderProps) {
         <JogoContext.Provider value={{
             partida, setPartida,
             start, setStart,
+            pause, setPause,
             pontos, setPontos,
             tempo, setTempo,
             acertos, setAcertos,
