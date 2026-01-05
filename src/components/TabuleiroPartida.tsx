@@ -80,7 +80,7 @@ export default function TabuleiroPartida() {
     }, [])
 
     return (
-        <KeyboardAvoidingView 
+        <KeyboardAvoidingView
             style={{ flex: 1, width: '100%' }} 
             behavior={Platform.OS === 'ios' ? 'padding' : undefined}
             keyboardVerticalOffset={Platform.OS === 'ios' ? 80 : 0}

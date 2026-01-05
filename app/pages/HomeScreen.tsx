@@ -82,7 +82,7 @@ export default function HomeScreen() {
                 </View>
                 <View style={[ styles.menuDificuldadeContainer, { display: diff && !start ? 'flex' : 'none' } ]}>
                     <Animated.View style={{ opacity: menuPeliculaOpacity }}>
-                        <Pressable onPress={() => fecharMenu()} style={styles.pelicula}>
+                        <Pressable onPress={() => fecharMenu()} style={[styles.pelicula, temaAtivo._bgPagina]}>
                             <Animated.View style={{ transform: [{ translateY: menuPosition }] }}>
                                 <MenuDificuldade />
                             </Animated.View>
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     pelicula: {
         height: '100%',
         width: '100%',
-        backgroundColor: '#161616cc',
+        opacity: .8,
         flexDirection: 'column',
         justifyContent: 'flex-end',
         alignItems: 'center',

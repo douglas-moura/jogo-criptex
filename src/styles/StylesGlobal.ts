@@ -7,12 +7,12 @@ export const paletaCores = {
     _alerta: '#f5a623',
     _erro: '#f1001cff',
     _erro_escuro: '#960011ff',
-    _cinza_1: '#F5F6F8',
+    _cinza_1: '#FBFCFF',
     _cinza_2: '#e6e8ee',
     _cinza_3: '#c7cdda',
     //_cinza_4: '#546391', Use a _secundario no lugar deste
-    _cinza_5: '#2c3343',
-    _cinza_6: '#181c24',
+    _cinza_5: '#31394C',
+    _cinza_6: '#161920',
     _preto: '#161515',
     _branco: '#fff'
 }
@@ -133,8 +133,8 @@ export const componente = StyleSheet.create({
         color: paletaCores._branco,
     },
     _botao_default: {
-        backgroundColor: paletaCores._cinza_5,
-        color: paletaCores._cinza_3
+        backgroundColor: paletaCores._preto,
+        color: paletaCores._branco
     },
     _sombraProjetada: {
         paddingBottom: 4,

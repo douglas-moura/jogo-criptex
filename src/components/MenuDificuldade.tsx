@@ -14,7 +14,7 @@ export default function MenuDificuldade() {
     }
     
     return (
-        <View style={[styles.listaContainer, temaAtivo._bgPagina]}>
+        <View style={[styles.listaContainer, temaAtivo._bgElemento]}>
             <FlatList
                 style={{ width: '100%' }}
                 data={dificuldades}

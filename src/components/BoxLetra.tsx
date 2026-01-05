@@ -116,7 +116,7 @@ export default function BoxLetra({id, letra, simb}: {id: number, letra: string, 
                     editable={!statusLetra || !prefExibirAcertos}
                 />
             </Animated.View>
-            <Text style={[temaAtivo._colorTexto, temaAtivo._bgPagina, componente._texto_4, styles.simbolo]}>{simb}</Text>
+            <Text style={[temaAtivo._colorTexto, componente._texto_4, styles.simbolo]}>{simb}</Text>
         </Animated.View>
     )
 }
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         alignContent: 'flex-end',
         alignItems: 'flex-end',
-        padding: 2,
+        //padding: 2,
         borderRadius: 500,
         aspectRatio: 1 / 1,
         textAlign: 'center'
