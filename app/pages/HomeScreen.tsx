@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Pressable, Animated, Button } from "react-native"
+import { View, Text, StyleSheet, Pressable, Animated, Image } from "react-native"
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useEffect, useState, useCallback, useRef } from "react"
 import { temas, componente } from "../../src/styles/StylesGlobal"
@@ -10,6 +10,7 @@ import MenuDificuldade from "../../src/components/MenuDificuldade"
 import BotaoPadrao from "../../src/components/BotaoPadrao"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import Rodape from "../../src/components/Rodape"
+import ImagemTextura from "../../src/components/ImagemTextura"
 
 export default function HomeScreen() {
     const { start, setStart, prefTema } = useJogo()
@@ -57,6 +58,7 @@ export default function HomeScreen() {
 
     return (
         <SafeAreaView style={[ temaAtivo._bgPagina, componente._pagina, { paddingHorizontal: 0 } ]}>
+            <ImagemTextura />
             <View style={componente._conteudoCentral}>
                 <View>
                     <Animated.View

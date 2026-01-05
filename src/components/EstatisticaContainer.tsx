@@ -10,7 +10,7 @@ export default function EstatisticaContainer({titulo, data}: {titulo: string, da
     const temaAtivo = prefTema ? temas.dark : temas.light
 
     return (
-        <View style={[styles.containerEstatisticas, temaAtivo._borderColor]}>
+        <View style={[styles.containerEstatisticas, temaAtivo._borderColor, temaAtivo._bgPagina]}>
             <Text style={[ temaAtivo._colorTexto, componente._titulo_3 ]}>{titulo}</Text>
             <View style={styles.linhaContainer}>
                 <View>

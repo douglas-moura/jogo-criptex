@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ScrollView } from "react-native"
+import { View, Text, StyleSheet, ScrollView, Image } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { useEffect, useState } from 'react'
 import { Estatistica } from "../../src/types/interfaces"
@@ -10,6 +10,7 @@ import { Switch } from 'react-native-paper'
 import { Ionicons } from "@expo/vector-icons"
 import BotaoPadrao from "../../src/components/BotaoPadrao"
 import EstatisticaContainer from "../../src/components/EstatisticaContainer"
+import ImagemTextura from "../../src/components/ImagemTextura"
 
 export default function ContaScreen() {    
     const { prefTema, setPrefTema, prefAutoPreen, setPrefAutoPreen, prefLimiteErros, setPrefLimiteErros, prefExibirAcertos, setPrefExibirAcertos } = useJogo()
@@ -48,6 +49,7 @@ export default function ContaScreen() {
 
     return (
         <SafeAreaView style={[ temaAtivo._bgPagina, componente._pagina ]}>
+            <ImagemTextura />
             <ScrollView style={{ height: '100%', paddingTop: 40, flexGrow: 1 }} showsVerticalScrollIndicator={false} >
                 <Text style={[temaAtivo._colorTexto, componente._container, componente._titulo_1]}>Minha Conta</Text>
                 <View style={[componente._container, styles.container, temaAtivo._borderColor ]}>
@@ -55,7 +57,7 @@ export default function ContaScreen() {
                         <Ionicons style={styles.tituloIcone} name={'options'} size={24} />
                         <Text style={[temaAtivo._colorTexto, componente._titulo_3]}>Preferências</Text>
                     </View>
-                    <View style={[temaAtivo._borderColor, {paddingHorizontal: 24, paddingVertical: 12, borderWidth: 1, borderRadius: 8 }]}>
+                    <View style={[temaAtivo._borderColor, temaAtivo._bgPagina, {paddingHorizontal: 24, paddingVertical: 12, borderWidth: 1, borderRadius: 8 }]}>
                         <View style={styles.linhaContainer}>
                             <Text style={[temaAtivo._colorTexto, componente._texto_1]}>Modo Escuro</Text>
                             <Switch value={prefTema}
