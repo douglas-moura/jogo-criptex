@@ -51,7 +51,7 @@ export default function ContaScreen() {
         <SafeAreaView style={[ temaAtivo._bgPagina, componente._pagina ]}>
             <ImagemTextura />
             <ScrollView style={{ height: '100%', paddingTop: 40, flexGrow: 1 }} showsVerticalScrollIndicator={false} >
-                <Text style={[temaAtivo._colorTexto, componente._container, componente._titulo_1]}>Minha Conta</Text>
+                <Text style={[temaAtivo._colorTexto, componente._container, componente._titulo_0]}>Minha Conta</Text>
                 <View style={[componente._container, styles.container, temaAtivo._borderColor ]}>
                     <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16 }}>
                         <Ionicons style={styles.tituloIcone} name={'settings-sharp'} size={28} />

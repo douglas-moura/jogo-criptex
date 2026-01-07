@@ -83,6 +83,10 @@ export const componente = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center'
     },
+    _titulo_0: {
+        fontSize: 40,
+        fontFamily: 'FredokaB'
+    },
     _titulo_1: {
         fontSize: 32,
         fontFamily: 'FredokaB'

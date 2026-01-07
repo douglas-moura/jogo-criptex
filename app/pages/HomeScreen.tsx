@@ -70,7 +70,7 @@ export default function HomeScreen() {
                                 translateY: logoPosition
                             }]
                         }}>
-                        <Text style={[temaAtivo._colorTexto, {fontSize: 62, fontFamily: 'Audiowide'} ]}>CRIPTEX</Text>
+                        <Text style={[temaAtivo._colorTexto, {fontSize: 72, fontFamily: 'Audiowide'} ]}>CRIPTO</Text>
                     </Animated.View>
                     <View style={{ width: 160, alignSelf: 'center' }}>
                         <BotaoPadrao
