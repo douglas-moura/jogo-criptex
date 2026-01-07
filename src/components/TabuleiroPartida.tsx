@@ -9,6 +9,7 @@ import { selecionarCharadas } from "../functions/selecionarCharadas"
 import { temas, componente } from "../styles/StylesGlobal"
 import { linear } from "../functions/animacoesEfeitos"
 import BoxLetra from "./BoxLetra"
+import Linhatabuleiro from "./LinhaTabuleiro"
 
 export default function TabuleiroPartida() {
     const { partida, setPartida, acertos, tentativas, setTentativas, encerrarPartida, dificuldadeSelecionada, prefTema, prefAutoPreen, prefLimiteErros } = useJogo()
@@ -52,12 +53,12 @@ export default function TabuleiroPartida() {
 
         if (venceuAuto || venceuManual || perdeu) {
             setFinalizada(true)
-            encerrarPartida()
 
             setTimeout(() => {
+                encerrarPartida()
                 setPartida(null)
                 navigation.navigate("Parabens")
-            }, 300)
+            }, 2000)
         }
     }, [acertos, tentativas, partida, prefAutoPreen, prefLimiteErros])
 
@@ -96,21 +97,14 @@ export default function TabuleiroPartida() {
             >
                 {partida?.getCharadas().map((item, index) => (
                     dividirPalavra(item.resposta).length == item.qtd_letras ?
-                        <View style={[componente._sombraProjetada, temaAtivo._sombraColor, { marginVertical: 2 } ]} key={index}>
-                            <View style={[temaAtivo._bgElemento, styles.tabuleiroLinha]}>
-                                <Text style={[temaAtivo._colorTexto, componente._texto_3, styles.linhaDica]}>{item.dica}</Text>
-                                <View style={[styles.linhaLetras]}>
-                                    {dividirPalavra(item.resposta).map((letra, index) => (
-                                        partida.getLetras().map((l, indexL) => {
-                                            if (l.letra === letra) {
-                                                return <BoxLetra key={indexL} id={index} letra={l.letra} simb={l.simbolo} />
-                                            }
-                                        })
-                                    ))}
-                                </View>
-                            </View>
-                        </View>
-                    : null
+                        <Linhatabuleiro
+                            key={index}
+                            id={index}
+                            charada={item}
+                            letras={partida.getLetras()}
+                            statusPartida={finalizada}
+                        />
+                        : null
                 ))}
             </ScrollView>
         </KeyboardAvoidingView>

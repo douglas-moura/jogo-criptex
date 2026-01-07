@@ -181,7 +181,7 @@ export const charadas: Charada[] = [
     { id: 178, resposta: "NEXO", qtd_letras: 4, dica: "Ligação lógica entre fatos, ideias ou argumentos." },
     { id: 179, resposta: "NITIDO", qtd_letras: 6, dica: "Claro, preciso e fácil de perceber." },
     { id: 180, resposta: "OMISSO", qtd_letras: 6, dica: "Que deixa de cumprir um dever ou obrigação." },
-    { id: 181, resposta: "ONCA", qtd_letras: 4, dica: "Grande felino selvagem de pelagem manchada." },
+    { id: 181, resposta: "ONÇA", qtd_letras: 4, dica: "Grande felino selvagem de pelagem manchada." },
     { id: 182, resposta: "ONUS", qtd_letras: 4, dica: "Encargo, peso ou responsabilidade assumida." },
     { id: 183, resposta: "OPRESSOR", qtd_letras: 8, dica: "Quem subjuga outros por força, abuso ou autoridade." },
     { id: 184, resposta: "OPUSCULO", qtd_letras: 8, dica: "Obra literária curta, geralmente crítica ou ensaística." },

@@ -36,8 +36,8 @@ export default function BoxLetra({id, letra, simb}: {id: number, letra: string, 
             // se a letra certa já esta nos acertos, não faz nada
             if (!acertos.letrasAcertadas.includes(letra)) {
                 if (prefExibirAcertos) {
-                    shake(boxPosition, -4, 1000)
-                    shake(boxEscala, 1.1, 5000)
+                    shake(boxPosition, -4)
+                    shake(boxEscala, 1.1)
                 }
                 // adiciona letra aos acertos no contexto
                 setAcertos(prev => {
@@ -98,7 +98,7 @@ export default function BoxLetra({id, letra, simb}: {id: number, letra: string, 
     }, [acertos, tentativas])
 
     useEffect(() => {
-        linear(boxEscala, 1, (id + 1) * 100)
+        setTimeout(() => linear(boxEscala, 1, (id + 1) * 50), 500)
     }, [])
 
     return (
