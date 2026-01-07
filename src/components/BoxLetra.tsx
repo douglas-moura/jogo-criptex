@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
         width: '100%',
         aspectRatio: 1 / 1,
         borderRadius: 4, 
-        borderWidth: 1,
+        borderWidth: 1.5,
         overflow: 'hidden',
     },
     letraInput: {

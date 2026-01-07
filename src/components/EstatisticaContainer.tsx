@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
         marginVertical: 6,
         borderWidth: 1,
         paddingHorizontal: 24,
-        paddingVertical: 18,
+        paddingVertical: 20,
         borderRadius: 8,
         flexDirection: 'row',
         justifyContent: 'space-between',

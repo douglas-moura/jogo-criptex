@@ -53,11 +53,11 @@ export default function ContaScreen() {
             <ScrollView style={{ height: '100%', paddingTop: 40, flexGrow: 1 }} showsVerticalScrollIndicator={false} >
                 <Text style={[temaAtivo._colorTexto, componente._container, componente._titulo_1]}>Minha Conta</Text>
                 <View style={[componente._container, styles.container, temaAtivo._borderColor ]}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12 }}>
-                        <Ionicons style={styles.tituloIcone} name={'options'} size={24} />
+                    <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16 }}>
+                        <Ionicons style={styles.tituloIcone} name={'settings-sharp'} size={28} />
                         <Text style={[temaAtivo._colorTexto, componente._titulo_3]}>Preferências</Text>
                     </View>
-                    <View style={[temaAtivo._borderColor, temaAtivo._bgPagina, {paddingHorizontal: 24, paddingVertical: 12, borderWidth: 1, borderRadius: 8 }]}>
+                    <View style={[temaAtivo._borderColor, temaAtivo._bgPagina, {paddingHorizontal: 24, paddingVertical: 12, borderWidth: 1, borderRadius: 8, gap: 12 }]}>
                         <View style={styles.linhaContainer}>
                             <Text style={[temaAtivo._colorTexto, componente._texto_1]}>Modo Escuro</Text>
                             <Switch value={prefTema}
@@ -94,8 +94,8 @@ export default function ContaScreen() {
                     </View>
                 </View>
                 <View style={[ componente._container, styles.container ]}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12 }}>
-                        <Ionicons style={styles.tituloIcone} name={'stats-chart'} size={24} />
+                    <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16 }}>
+                        <Ionicons style={styles.tituloIcone} name={'stats-chart-sharp'} size={28} />
                         <Text style={[temaAtivo._colorTexto, componente._titulo_3]}>Estatísticas</Text>
                     </View>
                     <EstatisticaContainer titulo='Fácil' data={desempFacil ?? null} />
