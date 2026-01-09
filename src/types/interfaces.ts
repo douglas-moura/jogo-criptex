@@ -32,6 +32,6 @@ export interface AcertosPartida {
 }
 
 export interface TentativaPartida {
-    letraErrada: string;
-    simbolo: number;
+    letraErrada: string | null;
+    simbolo: number | null;
 }

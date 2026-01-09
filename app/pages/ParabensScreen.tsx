@@ -11,9 +11,9 @@ import numToTime from "../../src/functions/numToTime"
 import ImagemTextura from "../../src/components/ImagemTextura"
 
 export default function ParabensScreen() {
-    const { tempo, dificuldadeSelecionada, tentativas, prefLimiteErros, prefTema } = useJogo()
-    const [ tempoFinal, setTempoFinal ] = useState(tempo)
-    const [ erros, setErros ] = useState(tentativas.length)
+    const { tempo, dificuldadeSelecionada, erros, prefLimiteErros, prefTema } = useJogo()
+    const [ tempoFinal, setTempoFinal ] = useState<number>(tempo)
+    const [ errosFinal, setErrosFinal ] = useState<number>(erros)
     const imgOpacity = useRef(new Animated.Value(0)).current
     const imgTamanho = useRef(new Animated.Value(.8)).current
     const temaAtivo = prefTema ? temas.dark : temas.light
@@ -25,8 +25,7 @@ export default function ParabensScreen() {
     }
 
     useEffect(() => {
-        //console.log(erros)
-        erros >= 3 && prefLimiteErros ? null : salvarDesempenho(dificuldadeSelecionada, desempenho)
+        errosFinal >= 3 && prefLimiteErros ? null : salvarDesempenho(dificuldadeSelecionada, desempenho)
 
         linear(imgOpacity, 1, 300)
         linear(imgTamanho, 1, 350)
@@ -37,7 +36,7 @@ export default function ParabensScreen() {
             <ImagemTextura />
             <View style={[componente._container, componente._conteudoCentral, { alignItems: 'center' }]}>
                 {
-                    erros >= 3 && prefLimiteErros ? 
+                    errosFinal >= 3 && prefLimiteErros ? 
                         <View style={[ styles.imgContainer]}>
                             <Animated.View style={{ opacity: imgOpacity, transform: [{ scale: imgTamanho }] }}>
                                 <Image source={require("../../assets/img/derrota.png")} style={{ width: 260, height: 260, marginHorizontal: 'auto' }} />
@@ -54,7 +53,7 @@ export default function ParabensScreen() {
                 }
                 {
                     // test
-                    erros >= 3 && prefLimiteErros ?
+                    errosFinal >= 3 && prefLimiteErros ?
                         null
                         : <Text style={[temaAtivo._colorTexto, componente._titulo_3]}>Tempo: {numToTime(tempoFinal)}</Text>
                 }

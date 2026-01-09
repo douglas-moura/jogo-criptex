@@ -12,11 +12,10 @@ import BoxLetra from "./BoxLetra"
 import Linhatabuleiro from "./LinhaTabuleiro"
 
 export default function TabuleiroPartida() {
-    const { partida, setPartida, acertos, tentativas, setTentativas, encerrarPartida, dificuldadeSelecionada, prefTema, prefAutoPreen, prefLimiteErros } = useJogo()
+    const { partida, setPartida, acertos, erros, tentativas, setTentativas, encerrarPartida, dificuldadeSelecionada, prefTema, prefAutoPreen, prefLimiteErros } = useJogo()
     const [ finalizada, setFinalizada ] = useState(false)
     const [ tecladoAltura, setTecladoAltura ] = useState(0)
     const linhaCharadaOpacity = useRef(new Animated.Value(0)).current
-    const temaAtivo = prefTema ? temas.dark : temas.light
     const navigation = useNavigation<any>()
 
     switch (dificuldadeSelecionada) {
@@ -49,7 +48,7 @@ export default function TabuleiroPartida() {
 
         const venceuManual = !prefAutoPreen && (partida.getCharadas().length * numLetraPalavras) === acertos.qtd_acertos
 
-        const perdeu = tentativas.length >= 3 && prefLimiteErros
+        const perdeu = erros >= 3 && prefLimiteErros
 
         if (venceuAuto || venceuManual || perdeu) {
             setFinalizada(true)

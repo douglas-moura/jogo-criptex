@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from "react"
 import { temas, componente } from "../styles/StylesGlobal"
 import { useJogo } from "../context/JogoContext"
 import { linear, shake } from "../functions/animacoesEfeitos"
+import { TentativaPartida } from "../types/interfaces"
 
 function checarLetra(letraPalpite: string, letraCerta: string): boolean {
     return letraPalpite.toLocaleUpperCase() == letraCerta.toLocaleUpperCase()
@@ -10,7 +11,7 @@ function checarLetra(letraPalpite: string, letraCerta: string): boolean {
 
 export default function BoxLetra({id, letra, simb}: {id: number, letra: string, simb: number}) {
     //const inputRef = useRef<TextInput>(null)
-    const { acertos, setAcertos, tentativas, setTentativas, prefTema, prefAutoPreen, prefExibirAcertos } = useJogo()
+    const { acertos, setAcertos, erros, setErros, tentativas, setTentativas, prefTema, prefAutoPreen, prefExibirAcertos } = useJogo()
     const [ value, setValue ] = useState('')
     const [ statusLetra, setStatusLetra ] = useState<boolean>(acertos.letrasAcertadas.includes(letra))
     const [ historicoLetras, setHistoricoLetras ] = useState<string[]>([])
@@ -26,7 +27,25 @@ export default function BoxLetra({id, letra, simb}: {id: number, letra: string, 
         setValue(palpite)
 
         // inclui letra no histórico de palpites
-        if (palpite != '') setHistoricoLetras(prev => [...prev, palpite])
+        if (palpite != '') {
+            setHistoricoLetras(prev => [...prev, palpite])
+        } else {
+            console.log('teste');
+
+            tentativas.forEach(t => {
+                if (t.simbolo == simb) {
+                    t.letraErrada = ''
+                }
+            })
+
+            setTentativas(prev => [
+                ...prev,
+                {
+                    letraErrada: null,
+                    simbolo: 99,
+                }
+            ])
+        }
 
         // define status da letra (certa ou errada)
         setStatusLetra(checarLetra(palpite, letra || ''))
@@ -57,6 +76,7 @@ export default function BoxLetra({id, letra, simb}: {id: number, letra: string, 
             }
         } else {
             if (palpite != '') { 
+                setErros(erros + 1)
                 setTentativas(prev => [
                     ...prev,
                     {
@@ -83,19 +103,26 @@ export default function BoxLetra({id, letra, simb}: {id: number, letra: string, 
     // AUTOPREENCHIMENTO DAS LETRAS
     useEffect(() => {
         if (prefAutoPreen) {
-            setStatusLetra(acertos.letrasAcertadas.includes(letra))
-            acertos.letrasAcertadas.includes(letra) ? setValue(letra) : null
-
-            if (tentativas.length > 0 && !acertos.letrasAcertadas.includes(letra)) {
-                tentativas.forEach(t => {
-                    if (t.simbolo == simb) {
-                        setValue(t.letraErrada)
-                        setStatusLetra(false)
-                    }
-                })
+            if (acertos.letrasAcertadas.includes(letra)) {
+                // preencher com letra certa
+                setStatusLetra(true)
+                setValue(letra)
+            } else {
+                // preencher com letra incorreta
+                if (tentativas.length > 0) {
+                    tentativas.forEach(t => {                        
+                        if (t.simbolo == simb) {
+                            setValue(t.letraErrada!)
+                        }
+                    })
+                }
             }
         }
     }, [acertos, tentativas])
+    
+    useEffect(() => {
+        console.log('mudou tentativas', tentativas)
+    }, [tentativas])
 
     useEffect(() => {
         setTimeout(() => linear(boxEscala, 1, (id + 1) * 50), 500)

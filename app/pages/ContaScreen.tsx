@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ScrollView, Image } from "react-native"
+import { View, Text, StyleSheet, ScrollView } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { useEffect, useState } from 'react'
 import { Estatistica } from "../../src/types/interfaces"

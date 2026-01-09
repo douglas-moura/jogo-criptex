@@ -25,6 +25,9 @@ export type JogoContextType = {
     acertos: AcertosPartida
     setAcertos: React.Dispatch<React.SetStateAction<AcertosPartida>>
 
+    erros: number
+    setErros: (value: number) => void
+
     tentativas: TentativaPartida[]
     setTentativas: React.Dispatch<React.SetStateAction<TentativaPartida[]>>
 
@@ -61,6 +64,7 @@ export function JogoProvider({ children }: JogoProviderProps) {
     const [pontos, setPontos] = useState<number>(0)
     const [tempo, setTempo] = useState<number>(0)
     const [acertos, setAcertos] = useState<AcertosPartida>({ qtd_acertos: 0, letrasAcertadas: [] })
+    const [erros, setErros] = useState(0)
     const [tentativas, setTentativas] = useState<TentativaPartida[]>([])
     const [prefTema, setPrefTema] = useState<boolean>(false)
     const [prefAutoPreen, setPrefAutoPreen] = useState<boolean>(true)
@@ -96,6 +100,7 @@ export function JogoProvider({ children }: JogoProviderProps) {
             setPontos(0)
             setTempo(0)
             setAcertos({ qtd_acertos: 0, letrasAcertadas: [] })
+            setErros(0)
             //setTentativas([])
         }
     }
@@ -107,6 +112,7 @@ export function JogoProvider({ children }: JogoProviderProps) {
             setPontos(0)
             setTempo(tempo)
             setAcertos({ qtd_acertos: 0, letrasAcertadas: [] })
+            setErros(0)
             //setTentativas([])
         }, 600)
     }
@@ -119,6 +125,7 @@ export function JogoProvider({ children }: JogoProviderProps) {
             pontos, setPontos,
             tempo, setTempo,
             acertos, setAcertos,
+            erros, setErros,
             tentativas, setTentativas,
             prefTema, setPrefTema,
             prefAutoPreen, setPrefAutoPreen,

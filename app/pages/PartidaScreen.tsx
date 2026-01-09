@@ -10,7 +10,7 @@ import numToTime from "../../src/functions/numToTime"
 import PausePelicula from "../../src/components/PausePelicula"
 
 export default function PartidaScreen() {
-    const { setStart, pause, setPause, tempo, tentativas, resetarJogo, prefTema, prefLimiteErros } = useJogo()
+    const { setStart, pause, setPause, tempo, erros, tentativas, resetarJogo, prefTema, prefLimiteErros } = useJogo()
     const temaAtivo = prefTema ? temas.dark : temas.light
 
     useEffect(() => { setTimeout(() => setStart(true), 500) }, [])
@@ -42,7 +42,7 @@ export default function PartidaScreen() {
                     prefLimiteErros ?
                         <View style={componente._linha}>
                             <Text style={[componente._titulo_4, { color: paletaCores._primario, marginRight: 4 } ]}>Erros:</Text>
-                            <Text style={[temaAtivo._colorTexto, componente._titulo_4]}>{3 - tentativas.length}</Text>
+                            <Text style={[temaAtivo._colorTexto, componente._titulo_4]}>{3 - erros}</Text>
                         </View>
                         : null
                 }
