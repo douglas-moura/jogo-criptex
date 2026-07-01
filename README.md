@@ -29,10 +29,14 @@ Além da mecânica principal, o jogo registra o desempenho do jogador, oferecend
 ## 📁 Estrutura do projeto
 
 ```
+├── app/
+│   ├── pages/
+│   ├── index.ts
 ├── assets/
+│   ├── expo/
 │   ├── fonts/
 │   ├── img/
-│   └── ...
+│   └── outros/
 ├── db/
 │   ├── charadas.ts
 │   └── desempenhos.ts
@@ -40,9 +44,9 @@ Além da mecânica principal, o jogo registra o desempenho do jogador, oferecend
 │   ├── components/
 │   ├── context/
 │   ├── functions/
-│   ├── screens/
+│   ├── navigation/
 │   ├── styles/
-│   └── utils/
+│   └── types/
 ├── App.tsx
 └── package.json
 ```
@@ -94,7 +98,6 @@ Depois basta abrir o aplicativo utilizando o **Expo Go** ou executar em um emula
 ## 📱 Plataformas
 
 - Android
-- iOS
 
 ---
 
