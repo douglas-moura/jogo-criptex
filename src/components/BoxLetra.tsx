@@ -30,8 +30,6 @@ export default function BoxLetra({id, letra, simb}: {id: number, letra: string, 
         if (palpite != '') {
             setHistoricoLetras(prev => [...prev, palpite])
         } else {
-            console.log('teste');
-
             tentativas.forEach(t => {
                 if (t.simbolo == simb) {
                     t.letraErrada = ''
@@ -119,10 +117,6 @@ export default function BoxLetra({id, letra, simb}: {id: number, letra: string, 
             }
         }
     }, [acertos, tentativas])
-    
-    useEffect(() => {
-        console.log('mudou tentativas', tentativas)
-    }, [tentativas])
 
     useEffect(() => {
         setTimeout(() => linear(boxEscala, 1, (id + 1) * 50), 500)

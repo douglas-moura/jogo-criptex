@@ -18,7 +18,6 @@ export const salvarDesempenho = async (chave: string, dados: Estatistica) => {
             await AsyncStorage.setItem('@criptex:desempenho-' + chave.toLocaleLowerCase(), JSON.stringify(novoDesemp))
         }
     } catch (e) {
-        //console.log("Nenhum dado encontrado:", e)
         return null
     }
 }

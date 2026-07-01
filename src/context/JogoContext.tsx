@@ -67,7 +67,7 @@ export function JogoProvider({ children }: JogoProviderProps) {
     const [erros, setErros] = useState(0)
     const [tentativas, setTentativas] = useState<TentativaPartida[]>([])
     const [prefTema, setPrefTema] = useState<boolean>(false)
-    const [prefAutoPreen, setPrefAutoPreen] = useState<boolean>(true)
+    const [prefAutoPreen, setPrefAutoPreen] = useState<boolean>(false)
     const [prefLimiteErros, setPrefLimiteErros] = useState<boolean>(true)
     const [prefExibirAcertos, setPrefExibirAcertos] = useState<boolean>(true)
 
@@ -77,8 +77,6 @@ export function JogoProvider({ children }: JogoProviderProps) {
                 start ? setTempo(tempo + 1) : setTempo(0)
             }, 1000)
         }
-        //console.log("acerto: ", acertos);
-        //console.log("erro: ", tentativas, tentativas.length);
         
     }, [start, pause, tempo, acertos])
 

@@ -163,7 +163,7 @@ export const charadas: Charada[] = [
     { id: 160, resposta: "JUBILOSO", qtd_letras: 8, dica: "Tomado por alegria intensa e entusiasmo." },
     { id: 161, resposta: "LACO", qtd_letras: 4, dica: "Vínculo afetivo ou relação de união." },
     { id: 162, resposta: "LANTERNA", qtd_letras: 8, dica: "Objeto portátil usado para iluminar ambientes escuros." },
-    { id: 163, resposta: "LIMÕES", qtd_letras: 6, dica: "Frutos cítricos de sabor ácido." },
+    { id: 163, resposta: "LIMÕES", qtd_letras: 6, dica: "Frutos cítricos de sabor ácido. (pl)" },
     { id: 164, resposta: "LUCIDO", qtd_letras: 6, dica: "Que possui clareza mental e raciocínio consciente." },
     { id: 165, resposta: "LUDIBRIO", qtd_letras: 8, dica: "Engano intencional ou zombaria disfarçada." },
     { id: 166, resposta: "MACARRÃO", qtd_letras: 8, dica: "Alimento feito de massa, comum na culinária italiana." },

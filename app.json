@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "criptex",
-    "slug": "criptex",
+    "name": "Cripto",
+    "slug": "cripto",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -10,21 +10,28 @@
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#ED5761"
     },
     "ios": {
+      "bundleIdentifier": "com.dougmoura.cripto",
       "supportsTablet": true
     },
     "android": {
+      "package": "com.dougmoura.cripto",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#ED5761"
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "313d9bee-9302-40d3-a135-2a427abf159e"
+      }
     }
   }
 }

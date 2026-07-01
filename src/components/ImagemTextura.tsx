@@ -7,12 +7,12 @@ export default function ImagemTextura() {
     if (prefTema) {
         return <Image
             source={require("../../assets/img/bg_textura-dark.png")}
-            style={[styles.imgStyle, { opacity: .4 }]}
+            style={[styles.imgStyle, { opacity: .2 }]}
         />
     } else {
         return <Image
-            source={require("../../assets/img/bg_textura-dark.png")}
-            style={[styles.imgStyle, { opacity: 1 }]}
+            source={require("../../assets/img/bg_textura-light.png")}
+            style={[styles.imgStyle, { opacity: .3 }]}
         />
     }
 }
